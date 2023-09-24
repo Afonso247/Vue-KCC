@@ -1,0 +1,12 @@
+#111 - Pretao
+#222 - Pretinho
+#333 - Pretitinho
+#485696 - Blue (Texto)
+#5EB1BF - Blue (Link)
+#F08CAE - Kokomi Color (Gay)
+
+----- Message color -----
+
+#485696 - Text color (Blue)
+#CCE5FF - Light blue
+#B8DAFF - Border blue

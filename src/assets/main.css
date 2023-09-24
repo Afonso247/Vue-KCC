@@ -1,0 +1,50 @@
+/* @import './base.css'; */
+
+* {
+  /* max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem; */
+
+  background-color: #111;
+  font-family: Helvetica;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.main-container {
+  margin: 50px;
+  min-height: 250px;
+}
+h1 {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 30px;
+  color: #485696;
+}
+
+/* footer */
+.footer {
+  height: 200px;
+  background-color: #222;
+  border-top: 4px solid #111;
+  color: #485696;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.footer p,
+.footer span {
+  margin: 5px auto;
+  background-color: #222;
+}
+.footer a {
+  background-color: #222;
+  color: #5eb1bf;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.footer a:hover {
+  color: #fff;
+}
