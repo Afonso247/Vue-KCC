@@ -1,7 +1,9 @@
 <template>
-  <Message :msg="msg" v-show="msg" />
+  <transition name="fade" mode="out-in">
+    <Message :msg="msg" v-show="msg" />
+  </transition>
   <div class="form-container">
-    <form @submit="criarPersonagem">
+    <form @submit.prevent="criarPersonagem">
       <div class="input-container">
         <label for="nome">Nome do Personagem</label>
         <input
@@ -55,74 +57,73 @@
 import Message from './Message.vue'
 
 export default {
-    name: 'CharacterForm',
-    data() {
-        return {
-            armadata: null,
-            elementodata: null,
-            localdata: null,
-            ascensaodata: null,
-            nome: null,
-            arma: null,
-            elemento: null,
-            local: null,
-            ascensao: null,
-            inputerror: false,
-            msg: null
-        };
-    },
-    methods: {
-        async getItems() {
-            const req = await fetch('http://localhost:3000/tipos');
-            const data = await req.json();
-            this.armadata = data.arma;
-            this.elementodata = data.elemento;
-            this.localdata = data.local;
-            this.ascensaodata = data.ascensao;
-        },
-        async criarPersonagem(e) {
-            e.preventDefault();
-            const data = {
-                nome: this.nome,
-                arma: this.arma,
-                elemento: this.elemento,
-                local: this.local,
-                ascensao: this.ascensao,
-                status: 'Solicitado'
-            };
-            if (!data.nome || !data.arma || !data.elemento || !data.local || !data.ascensao) {
-                return (this.inputerror = true);
-            }
-            const dataJSON = JSON.stringify(data);
-            const req = await fetch('http://localhost:3000/personagens', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: dataJSON
-            });
-            const res = await req.json();
-            console.log(res);
-
-            // aplicar uma mensagem de sistema
-            this.msg = `Seu Personagem ${res.nome} foi criado com sucesso! ^-^`
-
-            // limpar msg
-            setTimeout(() => this.msg = "", 3000);
-
-            // limpar os campos
-            this.nome = '';
-            this.arma = '';
-            this.elemento = '';
-            this.local = '';
-            this.ascensao = '';
-            this.inputerror = false;
-        }
-    },
-    mounted() {
-        this.getItems();
-    },
-    components: {
-        Message 
+  name: 'CharacterForm',
+  data() {
+    return {
+      armadata: null,
+      elementodata: null,
+      localdata: null,
+      ascensaodata: null,
+      nome: null,
+      arma: null,
+      elemento: null,
+      local: null,
+      ascensao: null,
+      inputerror: false,
+      msg: null
     }
+  },
+  methods: {
+    async getItems() {
+      const req = await fetch('http://localhost:3000/tipos')
+      const data = await req.json()
+      this.armadata = data.arma
+      this.elementodata = data.elemento
+      this.localdata = data.local
+      this.ascensaodata = data.ascensao
+    },
+    async criarPersonagem() {
+      const data = {
+        nome: this.nome,
+        arma: this.arma,
+        elemento: this.elemento,
+        local: this.local,
+        ascensao: this.ascensao,
+        role: 'A selecionar'
+      }
+      if (!data.nome || !data.arma || !data.elemento || !data.local || !data.ascensao) {
+        return (this.inputerror = true)
+      }
+      const dataJSON = JSON.stringify(data)
+      const req = await fetch('http://localhost:3000/personagens', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: dataJSON
+      })
+      const res = await req.json()
+      console.log(res)
+
+      // aplicar uma mensagem de sistema
+      this.msg = `Seu Personagem ${res.nome} foi criado com sucesso! ^-^`
+
+      // limpar msg
+      setTimeout(() => (this.msg = ''), 3000)
+
+      // limpar os campos
+      this.nome = ''
+      this.arma = ''
+      this.elemento = ''
+      this.local = ''
+      this.ascensao = ''
+      this.inputerror = false
+    }
+  },
+  mounted() {
+    this.getItems()
+  },
+  components: {
+    Message
+  }
 }
 </script>
 

@@ -109,18 +109,30 @@
       }
     ]
   },
-  "status": [
+  "role": [
     {
       "id": 1,
-      "tipo": "Solicitado"
+      "tipo": "A selecionar"
     },
     {
       "id": 2,
-      "tipo": "Em produção"
+      "tipo": "Main DPS"
     },
     {
       "id": 3,
-      "tipo": "Finalizado"
+      "tipo": "Sub DPS"
+    },
+    {
+      "id": 4,
+      "tipo": "Suporte"
+    },
+    {
+      "id": 5,
+      "tipo": "Healer"
+    },
+    {
+      "id": 6,
+      "tipo": "Tank"
     }
   ],
   "personagens": [
@@ -130,7 +142,7 @@
       "elemento": "Electro",
       "local": "Inazuma",
       "ascensao": "Recarga de Energia",
-      "status": "Solicitado",
+      "role": "A selecionar",
       "id": 1
     }
   ]

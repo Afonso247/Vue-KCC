@@ -7,14 +7,14 @@
 </template>
 
 <script>
-  import Banner from '../components/Banner.vue'
-  import CharacterForm from '../components/CharacterForm.vue'
+import Banner from '../components/Banner.vue'
+import CharacterForm from '../components/CharacterForm.vue'
 
-  export default {
-    name: 'HomeView',
-    components: {
-      Banner,
-      CharacterForm
-    }
+export default {
+  name: 'HomeView',
+  components: {
+    Banner,
+    CharacterForm
   }
+}
 </script>
