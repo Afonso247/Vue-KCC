@@ -6,17 +6,14 @@
 </template>
 
 <script>
-  import Dashboard from '../components/Dashboard.vue';
+import Dashboard from '../components/Dashboard.vue'
 
-  export default {
-    name: "PersonagensView",
-    components: {
-      Dashboard
-    }
+export default {
+  name: 'PersonagensView',
+  components: {
+    Dashboard
   }
-
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

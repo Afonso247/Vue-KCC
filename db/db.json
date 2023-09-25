@@ -112,26 +112,22 @@
   "role": [
     {
       "id": 1,
-      "tipo": "Selecionar"
-    },
-    {
-      "id": 2,
       "tipo": "Main DPS"
     },
     {
-      "id": 3,
+      "id": 2,
       "tipo": "Sub DPS"
     },
     {
-      "id": 4,
+      "id": 3,
       "tipo": "Suporte"
     },
     {
-      "id": 5,
+      "id": 4,
       "tipo": "Healer"
     },
     {
-      "id": 6,
+      "id": 5,
       "tipo": "Tank"
     }
   ],
@@ -144,6 +140,15 @@
       "ascensao": "Recarga de Energia",
       "role": "Selecionar",
       "id": 1
+    },
+    {
+      "nome": "Xiangling",
+      "arma": "Lança",
+      "elemento": "Pyro",
+      "local": "Liyue",
+      "ascensao": "Proficiência Elemental",
+      "role": "Selecionar",
+      "id": 2
     }
   ]
 }
