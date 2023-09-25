@@ -112,7 +112,7 @@
   "role": [
     {
       "id": 1,
-      "tipo": "A selecionar"
+      "tipo": "Selecionar"
     },
     {
       "id": 2,
@@ -142,7 +142,7 @@
       "elemento": "Electro",
       "local": "Inazuma",
       "ascensao": "Recarga de Energia",
-      "role": "A selecionar",
+      "role": "Selecionar",
       "id": 1
     }
   ]

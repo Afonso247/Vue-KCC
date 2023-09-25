@@ -89,7 +89,7 @@ export default {
         elemento: this.elemento,
         local: this.local,
         ascensao: this.ascensao,
-        role: 'A selecionar'
+        role: 'Selecionar'
       }
       if (!data.nome || !data.arma || !data.elemento || !data.local || !data.ascensao) {
         return (this.inputerror = true)
