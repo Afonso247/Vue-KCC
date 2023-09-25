@@ -133,22 +133,13 @@
   ],
   "personagens": [
     {
-      "nome": "Ryuki",
-      "arma": "Espadão",
-      "elemento": "Electro",
-      "local": "Inazuma",
-      "ascensao": "Recarga de Energia",
+      "nome": "Childe",
+      "arma": "Arco",
+      "elemento": "Hydro",
+      "local": "Liyue",
+      "ascensao": "Bônus de Dano%",
       "role": "Selecionar",
       "id": 1
-    },
-    {
-      "nome": "Xiangling",
-      "arma": "Lança",
-      "elemento": "Pyro",
-      "local": "Liyue",
-      "ascensao": "Proficiência Elemental",
-      "role": "Selecionar",
-      "id": 2
     }
   ]
 }

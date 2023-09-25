@@ -1,5 +1,8 @@
 <template>
   <div class="char-table">
+    <transition name="fade" mode="out-in">
+      <Message :msg="msg" tipo="delete" v-show="msg" />
+    </transition>
     <div>
       <div class="char-table-heading">
         <div>Personagem:</div>
@@ -18,13 +21,18 @@
         <div>{{ char.local }}</div>
         <div>{{ char.ascensao }}</div>
         <div>
-          <select name="role" class="role">
+          <select name="role" class="role" @change="updatePersonagem($event, char.id)">
             <option value="">Selecionar</option>
-            <option v-for="role in roles" :key="role.id" value="role.tipo">
+            <option
+              v-for="role in roles"
+              :key="role.id"
+              :value="role.tipo"
+              :selected="char.role == role.tipo"
+            >
               {{ role.tipo }}
             </option>
           </select>
-          <button class="delete-btn">Remover</button>
+          <button class="delete-btn" @click="deletePersonagem(char.id)">Remover</button>
         </div>
       </div>
     </div>
@@ -32,13 +40,16 @@
 </template>
 
 <script>
+import Message from './Message.vue'
+
 export default {
   name: 'Dashboard',
   data() {
     return {
       chars: null,
       char_id: null,
-      roles: []
+      roles: [],
+      msg: null
     }
   },
   methods: {
@@ -50,6 +61,7 @@ export default {
       this.chars = data
 
       // resgatar os dados
+
       this.getRole()
     },
     async getRole() {
@@ -58,11 +70,48 @@ export default {
       const data = await req.json()
 
       this.roles = data
+    },
+    async deletePersonagem(id) {
+      const req = await fetch(`http://localhost:3000/personagens/${id}`)
+
+      const res = await req.json()
+
+      const name = res.nome
+
+      const del = await fetch(`http://localhost:3000/personagens/${id}`, {
+        method: 'DELETE'
+      })
+
+      // msg de delete
+
+      this.msg = `O personagem ${name} foi removido com sucesso`
+
+      // limpar msg
+
+      setTimeout(() => (this.msg = ''), 3000)
+
+      this.getPersonagens()
+    },
+    async updatePersonagem(e, id) {
+      const option = e.target.value
+
+      const dataJSON = JSON.stringify({ role: option })
+
+      const req = await fetch(`http://localhost:3000/personagens/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: dataJSON
+      })
+
+      const res = await req.json()
+
+      console.log(res)
     }
   },
   mounted() {
     this.getPersonagens()
-  }
+  },
+  components: { Message }
 }
 </script>
 

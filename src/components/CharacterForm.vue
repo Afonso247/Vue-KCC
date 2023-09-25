@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
-    <Message :msg="msg" v-show="msg" />
+    <Message :msg="msg" tipo="confirmation" v-show="msg" />
   </transition>
   <div class="form-container">
     <form @submit.prevent="criarPersonagem">

@@ -7,6 +7,11 @@
 
 ----- Message color -----
 
+- Confirmation
 #485696 - Text color (Blue)
 #CCE5FF - Light blue
 #B8DAFF - Border blue
+- Delete
+#485696 - Text color (Blue)
+#F8D7DA - Light red
+#F5C6CB - Border red
