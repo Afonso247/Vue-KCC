@@ -21,17 +21,6 @@
         <div>{{ char.local }}</div>
         <div>{{ char.ascensao }}</div>
         <div>
-          <!-- <select name="role" class="role" @change="updatePersonagem($event, char.id)">
-            <option value="">Selecionar</option>
-            <option
-              v-for="role in roles"
-              :key="role.id"
-              :value="role.tipo"
-              :selected="char.role == role.tipo"
-            >
-              {{ role.tipo }}
-            </option>
-          </select> -->
           <button class="confirm-btn" @click="abrirModal(char.id)">Editar</button>
           <button class="cancel-btn" @click="deletePersonagem(char.id)">Remover</button>
         </div>
@@ -114,8 +103,6 @@ export default {
       this.charEdit = res
       this.char_id = res.id
 
-      // console.log(res)
-
       this.mostrarModal = true;
     },
     fecharModal() {
@@ -133,9 +120,9 @@ export default {
       // aplicar uma mensagem de sistema
       this.msgtipo = tipo
       if(res.nome) {
-        this.msg = `Seu Personagem ${res.nome} foi editado com sucesso! ^-^`
+        this.msg = `Seu Personagem ${res.nome} foi editado com sucesso!`
       } else {
-        this.msg = "Seu Personagem foi editado com sucesso! ^-^"
+        this.msg = "Seu Personagem foi editado com sucesso!"
       }
 
       // limpar msg
