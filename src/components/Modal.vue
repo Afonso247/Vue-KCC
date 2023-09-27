@@ -2,8 +2,8 @@
   <div class="modal">
     <div class="modal-content">
       <div class="form-container">
-        <h3 class="editTitle">Editar "{{ nome }}"</h3>
-        <form @submit.prevent="criarPersonagem">
+        <h3 class="editTitle">Editar "{{ charEdit.nome }}"</h3>
+        <form @submit.prevent="editarPersonagem">
           <div class="input-container">
             <label for="nome">Nome do Personagem</label>
             <input
@@ -85,6 +85,35 @@ export default {
       this.elementodata = data.elemento
       this.localdata = data.local
       this.ascensaodata = data.ascensao
+    },
+    async editarPersonagem() {
+      const id = this.charEdit.id
+
+      const data = {
+        nome: this.nome,
+        arma: this.arma,
+        elemento: this.elemento,
+        local: this.local,
+        ascensao: this.ascensao,
+        role: 'Selecionar'
+      }
+      if (!data.nome || !data.arma || !data.elemento || !data.local || !data.ascensao) {
+        return (this.inputerror = true)
+      }
+      const dataJSON = JSON.stringify(data)
+      const req = await fetch(`http://localhost:3000/personagens/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: dataJSON
+      })
+      const res = await req.json()
+      console.log(res)
+
+      // aplicar uma mensagem de sistema
+      this.msg = `Seu Personagem ${res.nome} foi criado com sucesso! ^-^`
+
+      // limpar msg
+      setTimeout(() => (this.msg = ''), 3000)
     }
   },
   mounted() {

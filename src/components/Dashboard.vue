@@ -64,17 +64,6 @@ export default {
       const data = await req.json()
 
       this.chars = data
-
-      // resgatar os dados
-
-      this.getRole()
-    },
-    async getRole() {
-      const req = await fetch('http://localhost:3000/role')
-
-      const data = await req.json()
-
-      this.roles = data
     },
     async deletePersonagem(id) {
       const req = await fetch(`http://localhost:3000/personagens/${id}`)
@@ -96,15 +85,6 @@ export default {
       setTimeout(() => (this.msg = ''), 3000)
 
       this.getPersonagens()
-    },
-    async editPersonagem(id) {
-      const req = await fetch(`http://localhost:3000/personagens/${id}`)
-
-      const res = await req.json()
-
-      this.charEdit = res
-
-      console.log(res)
     },
     async updatePersonagem(e, id) {
       const option = e.target.value

@@ -88,8 +88,7 @@ export default {
         arma: this.arma,
         elemento: this.elemento,
         local: this.local,
-        ascensao: this.ascensao,
-        role: 'Selecionar'
+        ascensao: this.ascensao
       }
       if (!data.nome || !data.arma || !data.elemento || !data.local || !data.ascensao) {
         return (this.inputerror = true)
