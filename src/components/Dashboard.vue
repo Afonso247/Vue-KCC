@@ -1,7 +1,7 @@
 <template>
   <div class="char-table">
     <transition name="fade" mode="out-in">
-      <Message :msg="msg" tipo="delete" v-show="msg" />
+      <Message :msg="msg" :tipo="msgtipo" v-show="msg" />
     </transition>
     <div>
       <div class="char-table-heading">
@@ -38,7 +38,7 @@
       </div>
     </div>
   </div>
-  <Modal :charEdit="charEdit" v-if="mostrarModal" @close="fecharModal"></Modal>
+  <Modal @madeEdit="getPersonagens(), editShowMsg(msgconfirm, char_id), fecharModal()" :charEdit="charEdit" v-if="mostrarModal" @close="fecharModal"></Modal>
 </template>
 
 <script>
@@ -54,7 +54,10 @@ export default {
       roles: [],
       charEdit: null,
       mostrarModal: false,
-      msg: null
+      msg: null,
+      msgtipo: "",
+      msgconfirm: "confirmation",
+      msgdelete: "delete",
     }
   },
   methods: {
@@ -78,11 +81,13 @@ export default {
 
       // msg de delete
 
-      this.msg = `O personagem ${name} foi removido com sucesso`
+      this.msgtipo = this.msgdelete
+      this.msg = `Seu personagem ${name} foi removido com sucesso`
 
       // limpar msg
 
       setTimeout(() => (this.msg = ''), 3000)
+      setTimeout(() => (this.msgtipo = ''), 3600)
 
       this.getPersonagens()
     },
@@ -107,13 +112,35 @@ export default {
       const res = await req.json()
 
       this.charEdit = res
+      this.char_id = res.id
 
       // console.log(res)
 
       this.mostrarModal = true;
     },
     fecharModal() {
+      this.char_name = null;
+
       this.mostrarModal = false;
+    },
+    async editShowMsg(tipo, id) {
+      const req = await fetch(`http://localhost:3000/personagens/${id}`)
+
+      const res = await req.json()
+
+      console.log(res)
+
+      // aplicar uma mensagem de sistema
+      this.msgtipo = tipo
+      if(res.nome) {
+        this.msg = `Seu Personagem ${res.nome} foi editado com sucesso! ^-^`
+      } else {
+        this.msg = "Seu Personagem foi editado com sucesso! ^-^"
+      }
+
+      // limpar msg
+      setTimeout(() => (this.msg = ''), 3000)
+      setTimeout(() => (this.msgtipo = ''), 3600)
     }
   },
   mounted() {

@@ -109,11 +109,7 @@ export default {
       const res = await req.json()
       console.log(res)
 
-      // aplicar uma mensagem de sistema
-      this.msg = `Seu Personagem ${res.nome} foi criado com sucesso! ^-^`
-
-      // limpar msg
-      setTimeout(() => (this.msg = ''), 3000)
+      this.$emit('madeEdit', data)
     }
   },
   mounted() {
@@ -163,25 +159,3 @@ export default {
   width: 100%;
 }
 </style>
-  
-
-<!-- <template>
-    <div>
-    <modal>
-     <div>Isso é um modal</div>
-    </modal>
-  </div>
-</template>
-  
-<script>
-    export default {
-        name: "EditModal",
-        props: {
-            charEdit: Object
-        }
-    }
-</script> 
-
-<style scoped>
-
-</style> -->
