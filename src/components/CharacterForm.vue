@@ -44,7 +44,7 @@
         </select>
       </div>
       <div class="input-container">
-        <input type="submit" class="submit-btn" value="Criar Personagem" />
+        <input type="submit" class="confirm-btn" value="Criar Personagem" />
       </div>
     </form>
     <div class="err-msg" :class="{ 'show-err': inputerror }">
@@ -170,7 +170,7 @@ select {
 select {
   cursor: pointer;
 }
-.submit-btn {
+.confirm-btn {
   background-color: #485696;
   font-weight: bold;
   color: #f08cae;
@@ -188,7 +188,7 @@ select {
 .show-err {
   color: red; /* Define a cor desejada quando a mensagem é exibida */
 }
-.submit-btn:hover {
+.confirm-btn:hover {
   background-color: #f08cae;
   color: #485696;
 }

@@ -1,0 +1,158 @@
+<template>
+  <div class="modal">
+    <div class="modal-content">
+      <div class="form-container">
+        <h3 class="editTitle">Editar "{{ nome }}"</h3>
+        <form @submit.prevent="criarPersonagem">
+          <div class="input-container">
+            <label for="nome">Nome do Personagem</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              v-model="nome"
+              autocomplete="off"
+              placeholder="Digite o nome do personagem"
+            />
+          </div>
+          <div class="input-container">
+            <label for="arma">Selecione a sua arma:</label>
+            <select name="arma" id="arma" v-model="arma">
+              <option value="">Selecione a sua arma</option>
+              <option v-for="arma in armadata" :key="arma.id">{{ arma.tipo }}</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <label for="elemento">Selecione o seu elemento:</label>
+            <select name="elemento" id="elemento" v-model="elemento">
+              <option value="">Selecione o seu elemento</option>
+              <option v-for="elemento in elementodata" :key="elemento.id">{{ elemento.tipo }}</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <label for="local">Escolha a sua localização:</label>
+            <select name="local" id="local" v-model="local">
+              <option value="">Escolha a sua localização</option>
+              <option v-for="local in localdata" :key="local.id">{{ local.tipo }}</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <label for="ascensao">Escolha a sua ascensão:</label>
+            <select name="ascensao" id="ascensao" v-model="ascensao">
+              <option value="">Escolha a sua ascensão</option>
+              <option v-for="ascensao in ascensaodata" :key="ascensao.id">{{ ascensao.tipo }}</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <input type="submit" class="confirm-btn" value="Editar Personagem" />
+          </div>
+        </form>
+        <div class="err-msg" :class="{ 'show-err': inputerror }">
+          Preencha todos os campos obrigatórios!
+        </div>
+        <button class="cancel-btn" @click="$emit('close')">Fechar</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Modal',
+  props: {
+    charEdit: Object
+  },
+  data() {
+    return {
+      armadata: null,
+      elementodata: null,
+      localdata: null,
+      ascensaodata: null,
+      nome: null,
+      arma: null,
+      elemento: null,
+      local: null,
+      ascensao: null,
+      inputerror: false,
+      msg: null
+    }
+  },
+  methods: {
+    async getItems() {
+      const req = await fetch('http://localhost:3000/tipos')
+      const data = await req.json()
+      this.armadata = data.arma
+      this.elementodata = data.elemento
+      this.localdata = data.local
+      this.ascensaodata = data.ascensao
+    }
+  },
+  mounted() {
+    if (this.charEdit) {
+      this.getItems()
+
+      this.nome = this.charEdit.nome
+      this.arma = this.charEdit.arma
+      this.elemento = this.charEdit.elemento
+      this.local = this.charEdit.local
+      this.ascensao = this.charEdit.ascensao
+    }
+  }
+};
+</script>
+
+<style scoped>
+/* Estilos para o modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  border: 2px solid #222;
+  border-radius: 10px;
+  background-color: #111;
+  color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.editTitle {
+  color: #485696;
+  border-bottom: 2px solid #F08CAE;
+}
+.cancel-btn {
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+}
+</style>
+  
+
+<!-- <template>
+    <div>
+    <modal>
+     <div>Isso é um modal</div>
+    </modal>
+  </div>
+</template>
+  
+<script>
+    export default {
+        name: "EditModal",
+        props: {
+            charEdit: Object
+        }
+    }
+</script> 
+
+<style scoped>
+
+</style> -->

@@ -21,7 +21,7 @@
         <div>{{ char.local }}</div>
         <div>{{ char.ascensao }}</div>
         <div>
-          <select name="role" class="role" @change="updatePersonagem($event, char.id)">
+          <!-- <select name="role" class="role" @change="updatePersonagem($event, char.id)">
             <option value="">Selecionar</option>
             <option
               v-for="role in roles"
@@ -31,16 +31,19 @@
             >
               {{ role.tipo }}
             </option>
-          </select>
-          <button class="delete-btn" @click="deletePersonagem(char.id)">Remover</button>
+          </select> -->
+          <button class="confirm-btn" @click="abrirModal(char.id)">Editar</button>
+          <button class="cancel-btn" @click="deletePersonagem(char.id)">Remover</button>
         </div>
       </div>
     </div>
   </div>
+  <Modal :charEdit="charEdit" v-if="mostrarModal" @close="fecharModal"></Modal>
 </template>
 
 <script>
 import Message from './Message.vue'
+import Modal from './Modal.vue'
 
 export default {
   name: 'Dashboard',
@@ -49,6 +52,8 @@ export default {
       chars: null,
       char_id: null,
       roles: [],
+      charEdit: null,
+      mostrarModal: false,
       msg: null
     }
   },
@@ -92,6 +97,15 @@ export default {
 
       this.getPersonagens()
     },
+    async editPersonagem(id) {
+      const req = await fetch(`http://localhost:3000/personagens/${id}`)
+
+      const res = await req.json()
+
+      this.charEdit = res
+
+      console.log(res)
+    },
     async updatePersonagem(e, id) {
       const option = e.target.value
 
@@ -106,12 +120,26 @@ export default {
       const res = await req.json()
 
       console.log(res)
+    },
+    async abrirModal(id) {
+      const req = await fetch(`http://localhost:3000/personagens/${id}`)
+
+      const res = await req.json()
+
+      this.charEdit = res
+
+      // console.log(res)
+
+      this.mostrarModal = true;
+    },
+    fecharModal() {
+      this.mostrarModal = false;
     }
   },
   mounted() {
     this.getPersonagens()
   },
-  components: { Message }
+  components: { Message, Modal }
 }
 </script>
 
@@ -167,19 +195,9 @@ select {
   background-color: #333;
   color: #fff;
 }
-
-.delete-btn {
-  background-color: #485696;
-  color: #f08cae;
-  font-weight: bold;
+.confirm-btn {
   padding: 6px;
   font-size: 14px;
-  margin: 0 auto;
-  cursor: pointer;
-  transition: 0.4s;
-}
-.delete-btn:hover {
-  background-color: #f08cae;
-  color: #485696;
+  margin-right: 10px;
 }
 </style>
