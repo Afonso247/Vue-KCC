@@ -1,55 +1,25 @@
 {
-  "tipos": {
-    "arma": [
+  "tipagem": {
+    "cor": [
       {
         "id": 1,
-        "tipo": "Espada"
+        "tipo": "Vermelho"
       },
       {
         "id": 2,
-        "tipo": "Espadão"
+        "tipo": "Azul"
       },
       {
         "id": 3,
-        "tipo": "Lança"
+        "tipo": "Verde"
       },
       {
         "id": 4,
-        "tipo": "Arco"
+        "tipo": "Roxo"
       },
       {
         "id": 5,
-        "tipo": "Catalisador"
-      }
-    ],
-    "elemento": [
-      {
-        "id": 1,
-        "tipo": "Anemo"
-      },
-      {
-        "id": 2,
-        "tipo": "Geo"
-      },
-      {
-        "id": 3,
-        "tipo": "Pyro"
-      },
-      {
-        "id": 4,
-        "tipo": "Cryo"
-      },
-      {
-        "id": 5,
-        "tipo": "Hydro"
-      },
-      {
-        "id": 6,
-        "tipo": "Electro"
-      },
-      {
-        "id": 7,
-        "tipo": "Dendro"
+        "tipo": "Amarelo"
       }
     ],
     "local": [
@@ -73,49 +43,13 @@
         "id": 5,
         "tipo": "Fontaine"
       }
-    ],
-    "ascensao": [
-      {
-        "id": 1,
-        "tipo": "ATK%"
-      },
-      {
-        "id": 2,
-        "tipo": "HP%"
-      },
-      {
-        "id": 3,
-        "tipo": "DEF%"
-      },
-      {
-        "id": 4,
-        "tipo": "Recarga de Energia"
-      },
-      {
-        "id": 5,
-        "tipo": "Proficiência Elemental"
-      },
-      {
-        "id": 6,
-        "tipo": "Bônus de Dano%"
-      },
-      {
-        "id": 7,
-        "tipo": "Taxa CRIT%"
-      },
-      {
-        "id": 8,
-        "tipo": "Dano CRIT%"
-      }
     ]
   },
-  "personagens": [
+  "grupos": [
     {
-      "nome": "Childe",
-      "arma": "Espada",
-      "elemento": "Hydro",
+      "nome": "Teste",
+      "cor": "Verde",
       "local": "Liyue",
-      "ascensao": "Bônus de Dano%",
       "id": 1
     }
   ]

@@ -3,48 +3,34 @@
     <Message :msg="msg" tipo="confirmation" v-show="msg" />
   </transition>
   <div class="form-container">
-    <form @submit.prevent="criarPersonagem">
+    <form @submit.prevent="criarGrupo">
       <div class="input-container">
-        <label for="nome">Nome do Personagem</label>
+        <label for="nome">Nome do Grupo</label>
         <input
           type="text"
           id="nome"
           name="nome"
           v-model="nome"
           autocomplete="off"
-          placeholder="Digite o nome do personagem"
+          placeholder="Digite o nome do grupo"
         />
       </div>
       <div class="input-container">
-        <label for="arma">Selecione a sua arma:</label>
-        <select name="arma" id="arma" v-model="arma">
-          <option value="">Selecione a sua arma</option>
-          <option v-for="arma in armadata" :key="arma.id">{{ arma.tipo }}</option>
+        <label for="cor">Selecione a sua cor:</label>
+        <select name="cor" id="cor" v-model="cor">
+          <option value="">Selecione a sua cor</option>
+          <option v-for="cor in cordata" :key="cor.id">{{ cor.tipo }}</option>
         </select>
       </div>
       <div class="input-container">
-        <label for="elemento">Selecione o seu elemento:</label>
-        <select name="elemento" id="elemento" v-model="elemento">
-          <option value="">Selecione o seu elemento</option>
-          <option v-for="elemento in elementodata" :key="elemento.id">{{ elemento.tipo }}</option>
-        </select>
-      </div>
-      <div class="input-container">
-        <label for="local">Escolha a sua localização:</label>
+        <label for="local">Escolha a localização:</label>
         <select name="local" id="local" v-model="local">
           <option value="">Escolha a sua localização</option>
           <option v-for="local in localdata" :key="local.id">{{ local.tipo }}</option>
         </select>
       </div>
       <div class="input-container">
-        <label for="ascensao">Escolha a sua ascensão:</label>
-        <select name="ascensao" id="ascensao" v-model="ascensao">
-          <option value="">Escolha a sua ascensão</option>
-          <option v-for="ascensao in ascensaodata" :key="ascensao.id">{{ ascensao.tipo }}</option>
-        </select>
-      </div>
-      <div class="input-container">
-        <input type="submit" class="confirm-btn" value="Criar Personagem" />
+        <input type="submit" class="confirm-btn" value="Criar Grupo" />
       </div>
     </form>
     <div class="err-msg" :class="{ 'show-err': inputerror }">
@@ -60,41 +46,33 @@ export default {
   name: 'CharacterForm',
   data() {
     return {
-      armadata: null,
-      elementodata: null,
+      cordata: null,
       localdata: null,
-      ascensaodata: null,
       nome: null,
-      arma: null,
-      elemento: null,
+      cor: null,
       local: null,
-      ascensao: null,
       inputerror: false,
       msg: null
     }
   },
   methods: {
     async getItems() {
-      const req = await fetch('http://localhost:3000/tipos')
+      const req = await fetch('http://localhost:3000/tipagem')
       const data = await req.json()
-      this.armadata = data.arma
-      this.elementodata = data.elemento
+      this.cordata = data.cor
       this.localdata = data.local
-      this.ascensaodata = data.ascensao
     },
-    async criarPersonagem() {
+    async criarGrupo() {
       const data = {
         nome: this.nome,
-        arma: this.arma,
-        elemento: this.elemento,
+        cor: this.cor,
         local: this.local,
-        ascensao: this.ascensao
       }
-      if (!data.nome || !data.arma || !data.elemento || !data.local || !data.ascensao) {
+      if (!data.nome || !data.cor || !data.local) {
         return (this.inputerror = true)
       }
       const dataJSON = JSON.stringify(data)
-      const req = await fetch('http://localhost:3000/personagens', {
+      const req = await fetch('http://localhost:3000/grupos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: dataJSON
@@ -103,17 +81,14 @@ export default {
       console.log(res)
 
       // aplicar uma mensagem de sistema
-      this.msg = `Seu Personagem ${res.nome} foi criado com sucesso! ^-^`
+      this.msg = `Seu Grupo ${res.nome} foi criado com sucesso!`
 
       // limpar msg
       setTimeout(() => (this.msg = ''), 3000)
 
       // limpar os campos
       this.nome = ''
-      this.arma = ''
-      this.elemento = ''
       this.local = ''
-      this.ascensao = ''
       this.inputerror = false
     }
   },

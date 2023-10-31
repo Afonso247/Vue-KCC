@@ -1,7 +1,7 @@
 <template>
   <Banner />
   <div class="main-container">
-    <h1>Crie seu Personagem</h1>
+    <h1>Crie um Grupo de Personagens</h1>
     <CharacterForm />
   </div>
 </template>

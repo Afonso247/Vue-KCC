@@ -1,33 +1,30 @@
 <template>
-  <div class="char-table">
+  <div class="group-table">
     <transition name="fade" mode="out-in">
       <Message :msg="msg" :tipo="msgtipo" v-show="msg" />
     </transition>
     <div>
-      <div class="char-table-heading">
-        <div>Personagem:</div>
-        <div>Arma:</div>
-        <div>Elemento:</div>
+      <div class="group-table-heading">
+        <div>Nome do Grupo:</div>
+        <div>Cor:</div>
         <div>Local:</div>
-        <div>Ascensão:</div>
-        <div>Papel:</div>
       </div>
     </div>
-    <div class="char-table-rows">
-      <div class="char-table-row" v-for="char in chars" :key="char.id">
-        <div>{{ char.nome }}</div>
-        <div>{{ char.arma }}</div>
-        <div>{{ char.elemento }}</div>
-        <div>{{ char.local }}</div>
-        <div>{{ char.ascensao }}</div>
+    <div class="group-table-rows">
+      <div class="group-table-row" v-for="group in groups" :key="group.id">
+        <div>{{ group.nome }}</div>
+        <div>{{ group.arma }}</div>
+        <div>{{ group.elemento }}</div>
+        <div>{{ group.local }}</div>
+        <div>{{ group.ascensao }}</div>
         <div>
-          <button class="confirm-btn" @click="abrirModal(char.id)">Editar</button>
-          <button class="cancel-btn" @click="deletePersonagem(char.id)">Remover</button>
+          <button class="confirm-btn" @click="teste()">Editar</button>
+          <button class="cancel-btn" @click="deleteGrupo(group.id)">Remover</button>
         </div>
       </div>
     </div>
   </div>
-  <Modal @madeEdit="getPersonagens(), editShowMsg(msgconfirm, char_id), fecharModal()" :charEdit="charEdit" v-if="mostrarModal" @close="fecharModal"></Modal>
+  <Modal @madeEdit="getPersonagens(), editShowMsg(msgconfirm, group_id), fecharModal()" :charEdit="charEdit" v-if="mostrarModal" @close="fecharModal"></Modal>
 </template>
 
 <script>
@@ -38,8 +35,8 @@ export default {
   name: 'Dashboard',
   data() {
     return {
-      chars: null,
-      char_id: null,
+      groups: null,
+      group_id: null,
       roles: [],
       charEdit: null,
       mostrarModal: false,
@@ -50,65 +47,68 @@ export default {
     }
   },
   methods: {
-    async getPersonagens() {
-      const req = await fetch('http://localhost:3000/personagens')
+    async getGrupos() {
+      const req = await fetch('http://localhost:3000/grupos')
 
       const data = await req.json()
 
-      this.chars = data
+      this.groups = data
     },
-    async deletePersonagem(id) {
-      const req = await fetch(`http://localhost:3000/personagens/${id}`)
+    async deleteGrupo(id) {
+      const req = await fetch(`http://localhost:3000/grupos/${id}`)
 
       const res = await req.json()
 
       const name = res.nome
 
-      const del = await fetch(`http://localhost:3000/personagens/${id}`, {
+      const del = await fetch(`http://localhost:3000/grupos/${id}`, {
         method: 'DELETE'
       })
 
       // msg de delete
 
       this.msgtipo = this.msgdelete
-      this.msg = `Seu personagem ${name} foi removido com sucesso`
+      this.msg = `O grupo ${name} foi removido com sucesso`
 
       // limpar msg
 
       setTimeout(() => (this.msg = ''), 3000)
       setTimeout(() => (this.msgtipo = ''), 3600)
 
-      this.getPersonagens()
+      this.getGrupos()
     },
-    async updatePersonagem(e, id) {
-      const option = e.target.value
+    // async updatePersonagem(e, id) {
+    //   const option = e.target.value
 
-      const dataJSON = JSON.stringify({ role: option })
+    //   const dataJSON = JSON.stringify({ role: option })
 
-      const req = await fetch(`http://localhost:3000/personagens/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: dataJSON
-      })
+    //   const req = await fetch(`http://localhost:3000/personagens/${id}`, {
+    //     method: 'PATCH',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: dataJSON
+    //   })
 
-      const res = await req.json()
+    //   const res = await req.json()
 
-      console.log(res)
-    },
-    async abrirModal(id) {
-      const req = await fetch(`http://localhost:3000/personagens/${id}`)
+    //   console.log(res)
+    // },
+    // async abrirModal(id) {
+    //   const req = await fetch(`http://localhost:3000/personagens/${id}`)
 
-      const res = await req.json()
+    //   const res = await req.json()
 
-      this.charEdit = res
-      this.char_id = res.id
+    //   this.charEdit = res
+    //   this.char_id = res.id
 
-      this.mostrarModal = true;
-    },
-    fecharModal() {
-      this.char_name = null;
+    //   this.mostrarModal = true;
+    // },
+    // fecharModal() {
+    //   this.char_name = null;
 
-      this.mostrarModal = false;
+    //   this.mostrarModal = false;
+    // },
+    async teste() {
+      console.log("Testando...")
     },
     async editShowMsg(tipo, id) {
       const req = await fetch(`http://localhost:3000/personagens/${id}`)
@@ -131,53 +131,53 @@ export default {
     }
   },
   mounted() {
-    this.getPersonagens()
+    this.getGrupos()
   },
   components: { Message, Modal }
 }
 </script>
 
 <style scoped>
-.char-table {
+.group-table {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.char-table-heading,
-.char-table-rows,
-.char-table-row {
+.group-table-heading,
+.group-table-rows,
+.group-table-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.char-table-heading {
+.group-table-heading {
   font-weight: bold;
   padding: 12px;
   border-bottom: 3px solid #f08cae;
 }
 
-.char-table-heading div {
+.group-table-heading div {
   color: #f08cae;
 }
 
-.char-table-row div {
+.group-table-row div {
   color: #485696;
 }
 
-.char-table-heading div,
-.char-table-row div {
+.group-table-heading div,
+.group-table-row div {
   width: 16%;
   /* width: 13%; */
 }
 
-.char-table-rows,
-.char-table-row,
-.char-table-row div {
+.group-table-rows,
+.group-table-row,
+.group-table-row div {
   background-color: #222;
 }
 
-.char-table-row {
+.group-table-row {
   width: 100%;
   padding: 12px;
   border-bottom: 1px solid #ccc;
