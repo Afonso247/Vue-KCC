@@ -13,10 +13,8 @@
     <div class="group-table-rows">
       <div class="group-table-row" v-for="group in groups" :key="group.id">
         <div>{{ group.nome }}</div>
-        <div>{{ group.arma }}</div>
-        <div>{{ group.elemento }}</div>
+        <div>{{ group.cor }}</div>
         <div>{{ group.local }}</div>
-        <div>{{ group.ascensao }}</div>
         <div>
           <button class="confirm-btn" @click="teste()">Editar</button>
           <button class="cancel-btn" @click="deleteGrupo(group.id)">Remover</button>
@@ -77,36 +75,6 @@ export default {
 
       this.getGrupos()
     },
-    // async updatePersonagem(e, id) {
-    //   const option = e.target.value
-
-    //   const dataJSON = JSON.stringify({ role: option })
-
-    //   const req = await fetch(`http://localhost:3000/personagens/${id}`, {
-    //     method: 'PATCH',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: dataJSON
-    //   })
-
-    //   const res = await req.json()
-
-    //   console.log(res)
-    // },
-    // async abrirModal(id) {
-    //   const req = await fetch(`http://localhost:3000/personagens/${id}`)
-
-    //   const res = await req.json()
-
-    //   this.charEdit = res
-    //   this.char_id = res.id
-
-    //   this.mostrarModal = true;
-    // },
-    // fecharModal() {
-    //   this.char_name = null;
-
-    //   this.mostrarModal = false;
-    // },
     async teste() {
       console.log("Testando...")
     },
@@ -167,7 +135,7 @@ export default {
 
 .group-table-heading div,
 .group-table-row div {
-  width: 16%;
+  width: 25%;
   /* width: 13%; */
 }
 
