@@ -20,6 +20,7 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  
 }
 .main-banner h1 {
   color: #f08cae;

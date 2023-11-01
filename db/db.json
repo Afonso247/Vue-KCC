@@ -45,12 +45,156 @@
       }
     ]
   },
+  "tipos": {
+    "arma": [
+      {
+        "id": 1,
+        "tipo": "Espada"
+      },
+      {
+        "id": 2,
+        "tipo": "Espadão"
+      },
+      {
+        "id": 3,
+        "tipo": "Lança"
+      },
+      {
+        "id": 4,
+        "tipo": "Arco"
+      },
+      {
+        "id": 5,
+        "tipo": "Catalisador"
+      }
+    ],
+    "elemento": [
+      {
+        "id": 1,
+        "tipo": "Anemo"
+      },
+      {
+        "id": 2,
+        "tipo": "Geo"
+      },
+      {
+        "id": 3,
+        "tipo": "Pyro"
+      },
+      {
+        "id": 4,
+        "tipo": "Cryo"
+      },
+      {
+        "id": 5,
+        "tipo": "Hydro"
+      },
+      {
+        "id": 6,
+        "tipo": "Electro"
+      },
+      {
+        "id": 7,
+        "tipo": "Dendro"
+      }
+    ],
+    "local": [
+      {
+        "id": 1,
+        "tipo": "Mondstadt"
+      },
+      {
+        "id": 2,
+        "tipo": "Liyue"
+      },
+      {
+        "id": 3,
+        "tipo": "Inazuma"
+      },
+      {
+        "id": 4,
+        "tipo": "Sumeru"
+      },
+      {
+        "id": 5,
+        "tipo": "Fontaine"
+      }
+    ],
+    "ascensao": [
+      {
+        "id": 1,
+        "tipo": "ATK%"
+      },
+      {
+        "id": 2,
+        "tipo": "HP%"
+      },
+      {
+        "id": 3,
+        "tipo": "DEF%"
+      },
+      {
+        "id": 4,
+        "tipo": "Recarga de Energia"
+      },
+      {
+        "id": 5,
+        "tipo": "Proficiência Elemental"
+      },
+      {
+        "id": 6,
+        "tipo": "Bônus de Dano%"
+      },
+      {
+        "id": 7,
+        "tipo": "Taxa CRIT%"
+      },
+      {
+        "id": 8,
+        "tipo": "Dano CRIT%"
+      }
+    ]
+  },
   "grupos": [
     {
       "nome": "Teste",
       "cor": "Verde",
       "local": "Liyue",
+      "personagens": [
+        {
+          "nome": "Personagem1",
+          "tipo": "tipo1",
+          "uuid": 1
+        },
+        {
+          "nome": "Personagem2",
+          "tipo": "tipo2",
+          "uuid": 2
+        },
+        {
+          "nome": "autismo",
+          "arma": "Lança",
+          "elemento": "Pyro",
+          "local": "Liyue",
+          "ascensao": "Bônus de Dano%",
+          "id": "8d1a3c7e-fced-434c-901a-777907769b0b"
+        },
+        {
+          "nome": "auti",
+          "arma": "Espadão",
+          "elemento": "Electro",
+          "local": "Liyue",
+          "ascensao": "DEF%",
+          "uuid": "b55986e8-454f-4895-9a69-4d975bf9e8ca"
+        }
+      ],
       "id": 1
+    },
+    {
+      "nome": "this",
+      "cor": "Vermelho",
+      "local": "Sumeru",
+      "id": 2
     }
   ]
 }
