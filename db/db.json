@@ -173,27 +173,45 @@
         },
         {
           "nome": "autismo",
-          "arma": "Lança",
+          "arma": "Espada",
           "elemento": "Pyro",
           "local": "Liyue",
           "ascensao": "Bônus de Dano%",
-          "id": "8d1a3c7e-fced-434c-901a-777907769b0b"
+          "uuid": "8d1a3c7e-fced-434c-901a-777907769b0b"
         },
         {
-          "nome": "auti",
+          "nome": "that",
           "arma": "Espadão",
           "elemento": "Electro",
           "local": "Liyue",
-          "ascensao": "DEF%",
-          "uuid": "b55986e8-454f-4895-9a69-4d975bf9e8ca"
+          "ascensao": "Dano CRIT%",
+          "uuid": "11057267-9240-4a21-a6fd-4eeec64d02e1"
         }
       ],
       "id": 1
     },
     {
-      "nome": "this",
-      "cor": "Vermelho",
-      "local": "Sumeru",
+      "nome": "gsug",
+      "cor": "Azul",
+      "local": "Inazuma",
+      "personagens": [
+        {
+          "nome": "novinho",
+          "arma": "Espada",
+          "elemento": "Geo",
+          "local": "Inazuma",
+          "ascensao": "ATK%",
+          "uuid": "efdbd77d-ef9a-4200-9c3c-52efa9925de1"
+        },
+        {
+          "nome": "Ganyu",
+          "arma": "Arco",
+          "elemento": "Cryo",
+          "local": "Inazuma",
+          "ascensao": "Dano CRIT%",
+          "uuid": "5d05d4d7-d224-4cf6-b6b8-4b178e1ac4d6"
+        }
+      ],
       "id": 2
     }
   ]

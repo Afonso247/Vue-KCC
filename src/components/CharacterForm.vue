@@ -67,6 +67,7 @@ export default {
         nome: this.nome,
         cor: this.cor,
         local: this.local,
+        personagens: []
       }
       if (!data.nome || !data.cor || !data.local) {
         return (this.inputerror = true)
