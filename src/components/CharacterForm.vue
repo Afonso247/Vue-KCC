@@ -17,14 +17,14 @@
       </div>
       <div class="input-container">
         <label for="cor">Selecione a sua cor:</label>
-        <select name="cor" id="cor" v-model="cor">
+        <select class = "hover"  name="cor" id="cor" v-model="cor">
           <option value="">Selecione a sua cor</option>
           <option v-for="cor in cordata" :key="cor.id">{{ cor.tipo }}</option>
         </select>
       </div>
       <div class="input-container">
         <label for="local">Escolha a localização:</label>
-        <select name="local" id="local" v-model="local">
+        <select class = "hover" name="local" id="local" v-model="local">
           <option value="">Escolha a sua localização</option>
           <option v-for="local in localdata" :key="local.id">{{ local.tipo }}</option>
         </select>
@@ -67,6 +67,7 @@ export default {
         nome: this.nome,
         cor: this.cor,
         local: this.local,
+        personagens: []
       }
       if (!data.nome || !data.cor || !data.local) {
         return (this.inputerror = true)
@@ -139,7 +140,8 @@ select {
   background-color: #333;
   padding: 5px 10px;
   width: 400px;
-  color: #fff;
+  color: #f08cae;
+  
 }
 select {
   cursor: pointer;
@@ -184,5 +186,8 @@ select {
   select {
     width: 220px;
   }
+}
+.hover{
+color: #f08cae;
 }
 </style>

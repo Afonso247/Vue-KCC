@@ -4,6 +4,7 @@
       <Message :msg="msg" :tipo="msgtipo" v-show="msg" />
     </transition>
     <div>
+      <div class="backG"></div>
       <div class="group-table-heading">
         <div>Nome do Grupo:</div>
         <div>Cor:</div>
@@ -16,8 +17,10 @@
         <div>{{ group.cor }}</div>
         <div>{{ group.local }}</div>
         <div>
-          <button class="confirm-btn" @click="teste()">Editar</button>
-          <button class="cancel-btn" @click="deleteGrupo(group.id)">Remover</button>
+          <RouterLink :to="'/grupos/' + group.id">
+            <button class="confirm-btn">Editar</button>
+          </RouterLink>
+          <button class="cancel-btn" @click="deleteGrupo(group.id)">Apagar</button>
         </div>
       </div>
     </div>
@@ -75,9 +78,6 @@ export default {
 
       this.getGrupos()
     },
-    async teste() {
-      console.log("Testando...")
-    },
     async editShowMsg(tipo, id) {
       const req = await fetch(`http://localhost:3000/personagens/${id}`)
 
@@ -108,7 +108,7 @@ export default {
 <style scoped>
 .group-table {
   max-width: 1200px;
-  margin: 0 auto;
+  margin:  auto;
 }
 
 .group-table-heading,
@@ -123,12 +123,11 @@ export default {
   font-weight: bold;
   padding: 12px;
   border-bottom: 3px solid #f08cae;
+  border-radius: 20px;
 }
-
 .group-table-heading div {
   color: #f08cae;
 }
-
 .group-table-row div {
   color: #485696;
 }
@@ -136,30 +135,33 @@ export default {
 .group-table-heading div,
 .group-table-row div {
   width: 25%;
-  /* width: 13%; */
 }
-
 .group-table-rows,
 .group-table-row,
 .group-table-row div {
-  background-color: #222;
+  background-color: #111;
 }
 
 .group-table-row {
   width: 100%;
   padding: 12px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #485696;
+  border-radius: 20px;
 }
 
 select {
   padding: 7px 4px;
   margin-right: 12px;
-  background-color: #333;
+  background-color: #222;
   color: #fff;
 }
 .confirm-btn {
   padding: 6px;
   font-size: 14px;
   margin-right: 10px;
+}
+.cancel-btn{
+  color:#f08cae ;
+  background-color:#485696 ;
 }
 </style>
