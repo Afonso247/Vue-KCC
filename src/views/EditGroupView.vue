@@ -44,11 +44,19 @@
     <transition name="fade" mode="out-in">
       <Message :msg="msg" :tipo="msgtipo" v-show="msg" />
     </transition>
+
+    <div class="texto1"> <center>
+        <h2>Adicionar Novo Personagem </h2>
+          </center>
+    </div><br>
+  </div>
+
+
+
     <div class="form-group-container">
-      <div class="texto1">
-        <h2>Adicionar Novo Personagem Para o Grupo</h2>
-      </div>
+
       <form @submit.prevent="addPersonagem">
+        
         <div class="input-group-container">
           <label for="nome">Nome do Personagem</label>
           <input
@@ -81,17 +89,17 @@
             <option v-for="ascensao in ascensaodata" :key="ascensao.id">{{ ascensao.tipo }}</option>
           </select>
         </div>
-        <br>
+        
         <div class="input-group-container">
           <input type="submit" class="confirm-btn" value="Criar Personagem" />
         </div>
       </form>
-      <br><br><br>
+      
       <div class="err-msg" :class="{ 'show-err': inputerror }">
         Preencha todos os campos obrigatórios!
       </div>
-    </div>
-  </div>
+    </div><br><br>
+  
   <Modal @madeEdit="getItems(), editShowMsg(msgconfirm, groupId), fecharModal()" :groupCharEdit="groupCharEdit" v-if="mostrarModal" @close="fecharModal"></Modal>
 </template>
 
@@ -300,7 +308,7 @@ export default {
 hr {
     border: 0;
     height: 3px;
-    background-color: #f08cae;
+    background-color: #111;
     margin-top: 20px;
     margin-bottom: 30px;
 }
@@ -317,32 +325,39 @@ hr {
 }
 
 .form-group-container {
+  border: 2px solid #333333;
+  
+  border-radius: 10px;
   max-width: 500px;
-  margin: 25px auto;
+  margin: 0 auto;
   padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-
 }
 
 .input-group-container {
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
 }
 
 label {
+  font-weight: bold;
+  margin-bottom: 15px;
   color: #485696;
-  display: flex;
-  align-items: center;
+  padding: 5px 10px;
+  border-left: 4px solid #f08cae;
+  
 }
 
 select,
 input[type="text"] {
-  padding: 7px 4px;
-  margin-right: 12px;
-  background-color: #222;
+  
+  padding: 5px 10px;
+  width: 400px;
   color: #f08cae;
 }
 

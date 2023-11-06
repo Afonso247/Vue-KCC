@@ -158,13 +158,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #F08CAE;
 }
 
 .modal-content {
   border: 2px solid #222;
   border-radius: 10px;
   background-color: #111;
-  color: #fff;
+  color: #F08CAE;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -177,5 +178,18 @@ export default {
   padding: 8px;
   font-size: 16px;
   width: 100%;
+  color:#f08cae ;
+  background-color:#485696 ;
+}
+.input-container{
+  color: #f08cae;
+}
+
+select,
+input[type="text"] {
+  
+  padding: 5px 10px;
+  width: 400px;
+  color: #f08cae;
 }
 </style>

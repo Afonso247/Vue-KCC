@@ -2,8 +2,10 @@
   <transition name="fade" mode="out-in">
     <Message :msg="msg" tipo="confirmation" v-show="msg" />
   </transition>
+  
   <div class="form-container">
     <form @submit.prevent="criarGrupo">
+      
       <div class="input-container">
         <label for="nome">Nome do Grupo</label>
         <input
@@ -104,7 +106,7 @@ export default {
 
 <style scoped>
 * {
-  background-color: #222222;
+  background-color: #111;
 }
 .form-container {
   border: 2px solid #333333;
