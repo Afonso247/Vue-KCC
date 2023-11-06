@@ -7,14 +7,14 @@
       <div class="backG"></div>
       <div class="group-table-heading">
         <div>Nome do Grupo:</div>
-        <div>Cor:</div>
+        <div>Papel:</div>
         <div>Local:</div>
       </div>
     </div>
     <div class="group-table-rows">
       <div class="group-table-row" v-for="group in groups" :key="group.id">
         <div>{{ group.nome }}</div>
-        <div>{{ group.cor }}</div>
+        <div>{{ group.role }}</div>
         <div>{{ group.local }}</div>
         <div>
           <RouterLink :to="'/grupos/' + group.id">

@@ -1,25 +1,21 @@
 {
   "tipagem": {
-    "cor": [
+    "role": [
       {
         "id": 1,
-        "tipo": "Vermelho"
+        "tipo": "Main DPS"
       },
       {
         "id": 2,
-        "tipo": "Azul"
+        "tipo": "Sub DPS"
       },
       {
         "id": 3,
-        "tipo": "Verde"
+        "tipo": "Suporte"
       },
       {
         "id": 4,
-        "tipo": "Roxo"
-      },
-      {
-        "id": 5,
-        "tipo": "Amarelo"
+        "tipo": "Tank"
       }
     ],
     "local": [
@@ -157,16 +153,16 @@
   },
   "grupos": [
     {
-      "nome": "gsug",
-      "cor": "Azul",
+      "nome": "Teste",
+      "role": "Sub DPS",
       "local": "Inazuma",
       "personagens": [
         {
-          "nome": "das",
+          "nome": "Testando",
           "arma": "Espadão",
           "elemento": "Anemo",
           "local": "Inazuma",
-          "ascensao": "HP%",
+          "ascensao": "Recarga de Energia",
           "uuid": "e504601a-5fd8-44cc-866b-39b33322e090"
         }
       ],

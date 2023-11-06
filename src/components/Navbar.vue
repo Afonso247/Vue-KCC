@@ -3,8 +3,8 @@
     <RouterLink to="/" class="logo_url">
       <img :src="logo" :alt="alt" class="logo" />
     </RouterLink>
-    <RouterLink to="/">Criar Personagem</RouterLink>
-    <RouterLink to="/personagens">Meus Personagens</RouterLink>
+    <RouterLink to="/">Crie um Grupo</RouterLink>
+    <RouterLink to="/personagens">Meus Grupos</RouterLink>
   </div>
 </template>
 

@@ -2,11 +2,13 @@
   <div class="main-group-container">
     <!-- Exiba os detalhes do grupo -->
     <br><br>
-    <h2 class="tittle1">Detalhes do Grupo {{ group.nome }}</h2><br>
-    <p>Cor: {{ group.cor }}</p>
-    <p>Local: {{ group.local }}</p>
-    <div class="group-char-name">
-      <h2 class="tittle1">Personagens do Grupo {{ group.nome }}</h2><br>
+    <div class="main-group-details">
+      <h2 class="group-title">Detalhes do Grupo {{ group.nome }}</h2><br>
+      <p>Papel: {{ group.role }}</p>
+      <p>Local: {{ group.local }}</p>
+    </div>
+    <div>
+      <h2 class="group-title">Personagens do Grupo {{ group.nome }}</h2><br>
     </div>
     <table class="group-char-table">
         
@@ -36,7 +38,9 @@
           </tbody>
         
     </table>
-    <br><br>
+
+    <hr>
+
     <transition name="fade" mode="out-in">
       <Message :msg="msg" :tipo="msgtipo" v-show="msg" />
     </transition>
@@ -123,18 +127,23 @@ export default {
   },
   methods: {
   async getItems() {
+    fetch(`http://localhost:3000/grupos/${this.groupId}`)
+      .then(response => response.json())
+      .then(data => {
+        this.group = data
+        console.log(this.group)
+      })
+
     const req = await fetch('http://localhost:3000/tipos')
     const data = await req.json()
     this.armadata = data.arma
     this.elementodata = data.elemento
     this.localdata = data.local
-    this.ascensaodata = data.ascensao
-
-    fetch(`http://localhost:3000/grupos/${this.groupId}`)
-      .then(response => response.json())
-      .then(data => {
-        this.group = data
-      })
+    if(this.group.role != 'Main DPS' && this.group.role != 'Sub DPS') {
+      this.ascensaodata = data.ascensao.slice(0, -3)
+    } else {
+      this.ascensaodata = data.ascensao
+    }
   },
   
   // Método para adicionar um novo item ao grupo
@@ -163,10 +172,12 @@ export default {
     console.log(res);
 
     // aplicar uma mensagem de sistema
-    this.msg = `Seu Personagem ${res.nome} foi criado com sucesso! ^-^`
+    this.msg = `Seu Personagem ${data.nome} foi criado com sucesso! ^-^`
+    this.msgtipo = this.msgconfirm
 
     // limpar msg
     setTimeout(() => (this.msg = ''), 3000)
+    setTimeout(() => (this.msgtipo = ''), 3600)
 
     // limpar os campos
     this.formData.nome = ''
@@ -258,11 +269,7 @@ export default {
   created() {
     this.groupId = this.$route.params.id
     
-    fetch(`http://localhost:3000/grupos/${this.groupId}`)
-      .then(response => response.json())
-      .then(data => {
-        this.group = data
-      })
+    this.getItems()
   },
   components: {
     Message,
@@ -277,7 +284,12 @@ export default {
   margin:auto;
 }
 
-.tittle1 {
+.main-group-details {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.group-title {
   color: #485696;
   display: flex;
   justify-items: center;
@@ -285,7 +297,13 @@ export default {
   align-items: center;
 }
 
-
+hr {
+    border: 0;
+    height: 3px;
+    background-color: #f08cae;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
 
 .confirm-btn {
   padding: 6px;
@@ -299,10 +317,8 @@ export default {
 }
 
 .form-group-container {
-  
-  margin-top: 12px;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 25px auto;
   padding: 5px;
   display: flex;
   flex-direction: column;

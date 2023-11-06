@@ -77,7 +77,11 @@ export default {
       const data = await req.json()
       this.armadata = data.arma
       this.elementodata = data.elemento
-      this.ascensaodata = data.ascensao
+      if(this.groupChar.role != 'Main DPS' && this.groupChar.role != 'Sub DPS') {
+        this.ascensaodata = data.ascensao.slice(0, -3)
+      } else {
+        this.ascensaodata = data.ascensao
+      }
     },
     async editarPersonagem() {
       const data = {

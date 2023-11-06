@@ -16,10 +16,10 @@
         />
       </div>
       <div class="input-container">
-        <label for="cor">Selecione a sua cor:</label>
-        <select class = "hover"  name="cor" id="cor" v-model="cor">
-          <option value="">Selecione a sua cor</option>
-          <option v-for="cor in cordata" :key="cor.id">{{ cor.tipo }}</option>
+        <label for="role">Selecione o papel:</label>
+        <select class = "hover"  name="role" id="role" v-model="role">
+          <option value="">Selecione o papel</option>
+          <option v-for="role in roledata" :key="role.id">{{ role.tipo }}</option>
         </select>
       </div>
       <div class="input-container">
@@ -46,10 +46,10 @@ export default {
   name: 'CharacterForm',
   data() {
     return {
-      cordata: null,
+      roledata: null,
       localdata: null,
       nome: null,
-      cor: null,
+      role: null,
       local: null,
       inputerror: false,
       msg: null
@@ -59,17 +59,17 @@ export default {
     async getItems() {
       const req = await fetch('http://localhost:3000/tipagem')
       const data = await req.json()
-      this.cordata = data.cor
+      this.roledata = data.role
       this.localdata = data.local
     },
     async criarGrupo() {
       const data = {
         nome: this.nome,
-        cor: this.cor,
+        role: this.role,
         local: this.local,
         personagens: []
       }
-      if (!data.nome || !data.cor || !data.local) {
+      if (!data.nome || !data.role || !data.local) {
         return (this.inputerror = true)
       }
       const dataJSON = JSON.stringify(data)
