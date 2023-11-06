@@ -123,13 +123,14 @@ export default {
   font-weight: bold;
   padding: 12px;
   border-bottom: 3px solid #f08cae;
-  border-radius: 20px;
+
 }
 .group-table-heading div {
   color: #f08cae;
 }
 .group-table-row div {
   color: #485696;
+  width: 25%;
 }
 
 .group-table-heading div,
@@ -146,7 +147,7 @@ export default {
   width: 100%;
   padding: 12px;
   border-bottom: 2px solid #485696;
-  border-radius: 20px;
+
 }
 
 select {

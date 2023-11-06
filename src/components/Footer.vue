@@ -7,4 +7,9 @@
 
 <script setup></script>
 
-<style scoped></style>
+<style scoped>
+
+a{
+  color: #F08CAE;
+}
+</style>
