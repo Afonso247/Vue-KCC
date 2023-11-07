@@ -10,6 +10,11 @@
     <div>
       <h2 class="group-title">Personagens do Grupo {{ group.nome }}</h2><br>
     </div>
+    <input 
+    type="text" 
+    v-model="searchQuery" 
+    placeholder="Pesquisar por nome..." 
+    >
     <table class="group-char-table">
         
           <thead>
@@ -22,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="groupChar in group.personagens" :key="groupChar.uuid">
+            <tr v-for="groupChar in searchByName()" :key="groupChar.uuid">
 
               <td>{{ groupChar.nome }}</td>
               <td>{{ groupChar.arma }}</td>
@@ -117,6 +122,7 @@ export default {
       elementodata: null,
       localdata: null,
       ascensaodata: null,
+      searchQuery: '',
       formData: {
         nome: '',
         arma: '',
@@ -139,7 +145,7 @@ export default {
       .then(response => response.json())
       .then(data => {
         this.group = data
-        console.log(this.group)
+        // console.log(this.group)
       })
 
     const req = await fetch('http://localhost:3000/tipos')
@@ -153,7 +159,15 @@ export default {
       this.ascensaodata = data.ascensao
     }
   },
-  
+  searchByName() {
+    if (!this.searchQuery) {
+      return this.group.personagens;
+    }
+    const searchTerm = this.searchQuery.toLowerCase();
+    return this.group.personagens.filter((groupChar) => {
+      return groupChar.nome.toLowerCase().includes(searchTerm);
+    });
+  },
   // Método para adicionar um novo item ao grupo
   async addPersonagem() {
     const data = {
@@ -292,6 +306,11 @@ export default {
   margin:auto;
 }
 
+.main-group-container input {
+  margin: 10px auto;
+  display: flex;
+}
+
 .main-group-details {
   text-align: center;
   margin-bottom: 30px;
@@ -325,8 +344,7 @@ hr {
 }
 
 .form-group-container {
-  border: 2px solid #333333;
-  
+  border: 3px solid #333333;
   border-radius: 10px;
   max-width: 500px;
   margin: 0 auto;

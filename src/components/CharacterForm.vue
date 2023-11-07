@@ -109,7 +109,7 @@ export default {
   background-color: #111;
 }
 .form-container {
-  border: 2px solid #333333;
+  border: 3px solid #333333;
   border-radius: 10px;
   max-width: 500px;
   margin: 0 auto;
