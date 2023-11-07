@@ -27,19 +27,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="groupChar in searchByName()" :key="groupChar.uuid">
+            <template v-if="searchByName().length">
+              <tr v-for="groupChar in searchByName()" :key="groupChar.uuid">
 
-              <td>{{ groupChar.nome }}</td>
-              <td>{{ groupChar.arma }}</td>
-              <td>{{ groupChar.elemento }}</td>
-              <td>{{ groupChar.ascensao }}</td>
-              <td class="botoes">
-                <button class="confirm-btn" @click="abrirModal(groupChar.uuid)">Editar</button>
-                <button class="cancel-btn" @click="deletePersonagem(groupChar.uuid)">Apagar</button>
-              </td>
+                <td>{{ groupChar.nome }}</td>
+                <td>{{ groupChar.arma }}</td>
+                <td>{{ groupChar.elemento }}</td>
+                <td>{{ groupChar.ascensao }}</td>
+                <td class="botoes">
+                  <button class="confirm-btn" @click="abrirModal(groupChar.uuid)">Editar</button>
+                  <button class="cancel-btn" @click="deletePersonagem(groupChar.uuid)">Apagar</button>
+                </td>
 
-                
-            </tr>
+              </tr>
+            </template>
+            <template v-else>
+              <tr>
+                <td colspan="5" style="text-align: center;">Nenhum personagem encontrado.</td>
+              </tr>
+            </template>
           </tbody>
         
     </table>
