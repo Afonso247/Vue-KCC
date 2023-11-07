@@ -1,6 +1,6 @@
 <template>
   <div class="main-banner">
-    <h1>Kokomi's Character Creator</h1>
+    <h1>Kokomi's Character Group Creator</h1>
   </div>
 </template>
 

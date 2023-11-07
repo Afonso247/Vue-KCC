@@ -3,9 +3,8 @@
     <RouterLink to="/" class="logo_url">
       <img :src="logo" :alt="alt" class="logo" />
     </RouterLink>
-
-    <RouterLink to="/">Criar Personagem</RouterLink>
-    <RouterLink to="/personagens">Meus Personagens</RouterLink>
+    <RouterLink to="/">Crie um Grupo</RouterLink>
+    <RouterLink to="/personagens">Meus Grupos</RouterLink>
   </div>
 </template>
 
@@ -38,7 +37,7 @@ export default {
 }
 .nav a {
   background-color: #222;
-  color: #5eb1bf;
+  color: #f08cae;
   text-decoration: none;
   margin: 12px;
   transition: 0.4s;
