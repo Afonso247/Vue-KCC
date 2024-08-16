@@ -13,8 +13,9 @@
 import { RouterLink } from 'vue-router'
 
 export default {
-  name: 'Navbar',
-  props: ['logo', 'alt']
+  name: 'NavBar',
+  props: ['logo', 'alt'],
+  components: { RouterLink }
 }
 </script>
 

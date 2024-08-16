@@ -1,12 +1,14 @@
 <script>
 import { RouterView } from 'vue-router'
-import Navbar from './components/Navbar.vue'
+import NavBar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    Navbar,
+    NavBar,
+    RouterView,
+    // eslint-disable-next-line vue/no-reserved-component-names
     Footer
   },
   data() {
@@ -19,7 +21,7 @@ export default {
 </script>
 
 <template>
-  <Navbar :logo="logo_src" :alt="app_name" />
+  <NavBar :logo="logo_src" :alt="app_name" />
   <RouterView />
   <Footer />
 </template>
