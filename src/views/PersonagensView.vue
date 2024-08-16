@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <h1>Gerenciar Personagens:</h1>
+    <h1>Gerenciar Grupos de Personagens:</h1>
     <Dashboard />
   </div>
 </template>

@@ -1,4 +1,46 @@
 {
+  "tipagem": {
+    "role": [
+      {
+        "id": 1,
+        "tipo": "Main DPS"
+      },
+      {
+        "id": 2,
+        "tipo": "Sub DPS"
+      },
+      {
+        "id": 3,
+        "tipo": "Suporte"
+      },
+      {
+        "id": 4,
+        "tipo": "Tank"
+      }
+    ],
+    "local": [
+      {
+        "id": 1,
+        "tipo": "Mondstadt"
+      },
+      {
+        "id": 2,
+        "tipo": "Liyue"
+      },
+      {
+        "id": 3,
+        "tipo": "Inazuma"
+      },
+      {
+        "id": 4,
+        "tipo": "Sumeru"
+      },
+      {
+        "id": 5,
+        "tipo": "Fontaine"
+      }
+    ]
+  },
   "tipos": {
     "arma": [
       {
@@ -109,13 +151,21 @@
       }
     ]
   },
-  "personagens": [
+  "grupos": [
     {
-      "nome": "Childe",
-      "arma": "Espada",
-      "elemento": "Hydro",
-      "local": "Liyue",
-      "ascensao": "Bônus de Dano%",
+      "nome": "Teste",
+      "role": "Sub DPS",
+      "local": "Inazuma",
+      "personagens": [
+        {
+          "nome": "Testando",
+          "arma": "Espadão",
+          "elemento": "Anemo",
+          "local": "Inazuma",
+          "ascensao": "Recarga de Energia",
+          "uuid": "e504601a-5fd8-44cc-866b-39b33322e090"
+        }
+      ],
       "id": 1
     }
   ]
