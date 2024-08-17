@@ -59,11 +59,22 @@ export default {
   },
   methods: {
     async getItems() {
-      const req = await fetch('http://localhost:3000/tipagem')
-      const data = await req.json()
-      this.roledata = data.role
-      this.localdata = data.local
+      try {
+        const req = await fetch('http://localhost:3000/api/tipagem');
+        const data = await req.json();
+
+        this.roledata = data.tipagem.role;
+        this.localdata = data.tipagem.local;
+      } catch (error) {
+        console.error('Falha ao obter os dados:', error);
+      }
     },
+    // async getItems() {
+    //   const req = await fetch('http://localhost:3000/tipagem')
+    //   const data = await req.json()
+    //   this.roledata = data.role
+    //   this.localdata = data.local
+    // },
     async criarGrupo() {
       const data = {
         nome: this.nome,

@@ -3,6 +3,8 @@
     <RouterLink to="/" class="logo_url">
       <img :src="logo" :alt="alt" class="logo" />
     </RouterLink>
+    <RouterLink to="/login">Log In</RouterLink>
+    <RouterLink to="/register">Registrar-se</RouterLink>
     <RouterLink to="/">Crie um Grupo</RouterLink>
     <RouterLink to="/personagens">Meus Grupos</RouterLink>
   </div>
