@@ -28,6 +28,8 @@ export default {
         const res = await axios.post('http://localhost:3000/api/login', {
           username: this.username,
           password: this.password
+        }, {
+          withCredentials: true
         })
 
         if (res.status === 200) {
@@ -35,7 +37,7 @@ export default {
         }
 
       } catch (error) {
-        alert(error.response.data.message || 'Erro ao logar o usuário')
+        console.log(error.response)
       }
     }
   }

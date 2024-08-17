@@ -3,20 +3,50 @@
     <RouterLink to="/" class="logo_url">
       <img :src="logo" :alt="alt" class="logo" />
     </RouterLink>
-    <RouterLink to="/login">Log In</RouterLink>
-    <RouterLink to="/register">Registrar-se</RouterLink>
-    <RouterLink to="/">Crie um Grupo</RouterLink>
-    <RouterLink to="/personagens">Meus Grupos</RouterLink>
+    <div class="nav-content">
+      <RouterLink
+        v-for="(link, index) in authContent"
+        :key="index"
+        :to="link.to"
+      >
+        {{ link.text }}
+      </RouterLink>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { RouterLink } from 'vue-router'
 
 export default {
   name: 'NavBar',
   props: ['logo', 'alt'],
-  components: { RouterLink }
+  components: { RouterLink },
+  data() {
+    return {
+      authInterval: null,
+      authenticatedLinks: [
+        { to: "/", text: "Logout" },
+        { to: "/", text: "Crie um Grupo" },
+        { to: "/personagens", text: "Meus Grupos" }
+      ],
+      unauthenticatedLinks: [
+        { to: "/login", text: "Log In" },
+        { to: "/register", text: "Registrar-se" },
+        { to: "/", text: "Crie um Grupo" }
+      ],
+    }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated', 'user']),
+    authContent() {
+      return this.isAuthenticated ? this.authenticatedLinks : this.unauthenticatedLinks;
+    }
+  },
+  methods: {
+    ...mapActions('auth', ['checkAuth', 'logout'])
+  }
 }
 </script>
 
@@ -28,6 +58,9 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.nav-content {
+  background-color: #222;
 }
 .nav .logo_url {
   margin: auto;
