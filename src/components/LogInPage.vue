@@ -3,7 +3,10 @@
       <form class="login-form" @submit.prevent="login">
         <input type="text" placeholder="Nome de usuário" v-model="username">
         <input type="password" placeholder="Senha" autocomplete="off" v-model="password">
-        <button type="submit" class="confirm-btn">Registrar</button>
+        <button type="submit" class="confirm-btn">Log In</button>
+        <div class="register-req">
+          <span>Ainda não possui uma conta?<router-link class="register-link" :to="{ name: 'register' }">Registrar-se</router-link></span>
+        </div>
       </form>
     </div>
   </template>
@@ -28,12 +31,11 @@ export default {
         })
 
         if (res.status === 200) {
-          console.log(localStorage.getItem('token'))
           this.$router.push({ name: 'personagens' })
         }
 
       } catch (error) {
-        console.log(error.response.data.message || 'Erro ao logar o usuário')
+        alert(error.response.data.message || 'Erro ao logar o usuário')
       }
     }
   }
@@ -57,6 +59,19 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .register-req, .register-link {
+    font-size: 16px;
+    text-align: center;
+    margin: 6px 8px;
+  }
+  .register-link {
+    color: #5eb1bf;
+    text-decoration: none;
+    transition: 0.4s;
+  }
+  .register-link:hover {
+    color: #fff;
   }
   input, button {
     width: 450px;

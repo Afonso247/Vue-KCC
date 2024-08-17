@@ -5,6 +5,9 @@
         <input type="password" placeholder="Senha" autocomplete="off" v-model="password">
         <input type="password" placeholder="Confirmar senha" autocomplete="off" v-model="confirmPassword">
         <button type="submit" class="confirm-btn">Registrar</button>
+        <div class="login-req">
+          <span>Ja possui uma conta?<router-link class="login-link" :to="{ name: 'login' }">Log In</router-link></span>
+        </div>
       </form>
     </div>
   </template>
@@ -70,6 +73,19 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .login-req, .login-link {
+    font-size: 16px;
+    text-align: center;
+    margin: 6px 8px;
+  }
+  .login-link {
+    color: #5eb1bf;
+    text-decoration: none;
+    transition: 0.4s;
+  }
+  .login-link:hover {
+    color: #fff;
   }
   input, button {
     width: 450px;
