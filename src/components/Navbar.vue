@@ -8,6 +8,7 @@
         v-for="(link, index) in authContent"
         :key="index"
         :to="link.to"
+        @click="handleClick(link)"
       >
         {{ link.text }}
       </RouterLink>
@@ -45,7 +46,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['checkAuth', 'logout'])
+    ...mapActions('auth', ['checkAuth', 'logout']),
+    handleClick(link) {
+      if (link.text === "Logout") {
+        this.logout();
+        this.$router.push({ name: "home" });
+      }
+    }
   }
 }
 </script>
