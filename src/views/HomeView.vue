@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Banner from '../components/Banner.vue'
+import Banner from '../components/BannerComponent.vue'
 import Home from '../components/HomePage.vue'
 
 export default {
@@ -17,4 +17,4 @@ export default {
     Home
   }
 }
-</script>
+</script>../components/BannerComponent.vue

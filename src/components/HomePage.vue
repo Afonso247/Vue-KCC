@@ -63,6 +63,7 @@ h1 span {
 .container h2 {
   color: #485696;
   text-align: center;
+  margin: 6px auto;
 }
 .links {
   color: #5eb1bf;
