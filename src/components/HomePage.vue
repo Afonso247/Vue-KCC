@@ -4,14 +4,14 @@
   </transition>
   
   <div v-if="isAuthenticated">
-    <h1><span>---</span> Seja bem-vindo(a), {{ getUsername }} <span>---</span></h1>
+    <h1><span>---</span> Olá, {{ getUsername }} ! <span>---</span></h1>
 
     <div class="container">
       <h2>Meu nome é Kokomi, e ficarei mais do que feliz para lhe ajudar!</h2>
     </div>
   </div>
   <div v-else>
-    <h1><span>---</span> Estou aqui para lhe ajudar! <span>---</span></h1>
+    <h1><span>---</span> Seja bem-vindo a Kokomi's Mindspace <span>---</span></h1>
 
     <div class="container">
       <h2><router-link class="links" :to="{ name: 'login' }">Faça login</router-link> e começe agora mesmo!</h2>
