@@ -33,7 +33,7 @@ export default {
         })
 
         if (res.status === 200) {
-          this.$router.push({ name: 'personagens' })
+          this.$router.push({ name: 'home' })
         }
 
       } catch (error) {

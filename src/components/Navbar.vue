@@ -29,13 +29,13 @@ export default {
       authInterval: null,
       authenticatedLinks: [
         { to: "/", text: "Logout" },
-        { to: "/", text: "Crie um Grupo" },
-        { to: "/personagens", text: "Meus Grupos" }
+        // { to: "/", text: "Crie um Grupo" },
+        // { to: "/personagens", text: "Meus Grupos" }
       ],
       unauthenticatedLinks: [
         { to: "/login", text: "Log In" },
         { to: "/register", text: "Registrar-se" },
-        { to: "/", text: "Crie um Grupo" }
+        // { to: "/", text: "Crie um Grupo" }
       ],
     }
   },

@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       logo_src: '/img/kokomi.png',
-      app_name: "Kokomi's Character Creator"
+      app_name: "Kokomi's Mindspace"
     }
   }
 }
