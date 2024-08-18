@@ -1,5 +1,5 @@
 <template>
-  <div :class="['main-banner', typeLayout]">
+  <div class="main-banner" :style="{ backgroundImage: bannerLayout }">
     <h1>Kokomi's Mindspace</h1>
   </div>
 </template>
@@ -25,9 +25,9 @@ export default {
     }
   },
   computed: {
-    // headerText() {
-    //   return this.typeLayout === 'Desktop' ? 'Kokomi\'s Mindspace' : 'Bem-vindo!'
-    // }
+    bannerLayout() {
+      return this.typeLayout === 'Desktop' ? `url('/img/sangoDesktop.jpg')` : `url('/img/sangoMobile.jpg')`
+    }
   }
 }
 </script>
@@ -48,11 +48,5 @@ export default {
   font-size: 60px;
   background-color: transparent;
   padding: 20px 40px;
-}
-.main-banner.Desktop {
-  background-image: url('/img/sangoDesktop.jpg');
-}
-.main-banner.Mobile {
-  background-image: url('/img/sangoMobile.jpg');
 }
 </style>
