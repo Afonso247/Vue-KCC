@@ -19,7 +19,7 @@ h1 {
   text-align: center;
   font-size: 42px;
   margin-bottom: 30px;
-  color: #485696;
+  color: #f08cae;
 }
 
 /* footer */
@@ -43,7 +43,7 @@ h1 {
   background-color: #222;
   color: #5eb1bf;
   text-decoration: none;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 .footer a:hover {
   color: #fff;
@@ -111,7 +111,7 @@ select {
   font-size: 16px;
   margin: 0 auto;
   cursor: pointer;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 .confirm-btn:hover {
   background-color: #f08cae;
@@ -125,7 +125,7 @@ select {
   font-size: 14px;
   margin: 0 auto;
   cursor: pointer;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 .cancel-btn:hover {
   background-color: #fff;

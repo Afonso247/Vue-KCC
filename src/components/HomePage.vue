@@ -4,14 +4,14 @@
   </transition>
   
   <div v-if="isAuthenticated">
-    <h1><span>---</span> Olá, {{ getUsername }} ! <span>---</span></h1>
+    <h1>Olá, {{ getUsername }} !</h1>
 
     <div class="container">
       <h2>Meu nome é Kokomi, e ficarei mais do que feliz para lhe ajudar!</h2>
     </div>
   </div>
   <div v-else>
-    <h1><span>---</span> Seja bem-vindo a Kokomi's Mindspace <span>---</span></h1>
+    <h1>Seja bem-vindo(a) a Kokomi's Mindspace</h1>
 
     <div class="container">
       <h2><router-link class="links" :to="{ name: 'login' }">Faça login</router-link> e começe agora mesmo!</h2>
@@ -48,11 +48,8 @@ export default {
 * {
   background-color: #111;
 }
-h1 span {
-  color: #f08cae;
-}
 .container {
-  max-width: 500px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 5px;
   display: flex;
@@ -68,7 +65,7 @@ h1 span {
 .links {
   color: #5eb1bf;
   text-decoration: none;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 .links:hover {
   color: #fff;

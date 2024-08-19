@@ -70,7 +70,7 @@ export default {
   .register-link {
     color: #5eb1bf;
     text-decoration: none;
-    transition: 0.4s;
+    transition: 0.2s;
   }
   .register-link:hover {
     color: #fff;
