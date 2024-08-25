@@ -58,7 +58,8 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import { mapGetters } from 'vuex'
+import axios from 'axios'
 
 export default {
   name: 'UserConfigPage',
@@ -70,34 +71,34 @@ export default {
       confirmNewPassword: ''
     }
   },
+  computed: {
+    ...mapGetters('auth', ['user'])
+  },
   methods: {
-    // async updateUsername() {
-    //   if (this.newUsername === '') {
-    //     alert('Por favor, insira o novo nome de usuário.')
-    //     return
-    //   } else if (this.newUsername.length < 3) {
-    //     alert('O nome de usuário deve ter pelo menos 3 caracteres.')
-    //     return
-    //   }
-    //   try {
-    //     const res = await axios.put('http://localhost:3000/api/user', {
-    //       username: this.newUsername
-    //     })
+    async updateUsername() {
+      if (this.newUsername === '') {
+        alert('Por favor, insira o novo nome de usuário.')
+        return
+      } else if (this.newUsername.length < 3) {
+        alert('O nome de usuário deve ter pelo menos 3 caracteres.')
+        return
+      }
+      try {
+        const res = await axios.put('http://localhost:3000/user/change-username', {
+            username: this.user.username, 
+            newUsername: this.newUsername 
+        }, {
+          withCredentials: true
+        })
 
-    //     if (res.status === 200) {
-    //       console.log('Nome de usuário atualizado para:', this.newUsername)
-    //     }
-    //   } catch (error) {
-    //     if (error.response.status === 400) {
-    //       alert(error.response.data.message)
-    //     } else {
-    //       alert('Erro ao atualizar o nome de usuário')
-    //       console.log(error)
-    //     }
-    //   }
-
-    //   // console.log('Nome de usuário atualizado para:', this.newUsername)
-    // },
+        if (res.status === 200) {
+          console.log('Nome de usuário atualizado para:', this.newUsername)
+        }
+      } catch (error) {
+          alert('Erro ao atualizar o nome de usuário')
+          console.log(error)
+      }
+    },
     updatePassword() {
       if (this.newPassword !== this.confirmNewPassword) {
         alert('As senhas inseridas não correspondem. Por favor, tente novamente.')
