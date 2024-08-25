@@ -13,6 +13,7 @@
           />
         </div>
         <button type="submit" class="confirm-btn" style="text-align: center;">Salvar Nome de Usuário</button>
+        <p v-show="usernameMessage" :class="usernameMessageClass">{{ usernameMessage }}</p>
       </form>
     </section>
 
@@ -66,6 +67,8 @@ export default {
   data() {
     return {
       newUsername: '',
+      usernameMessage: '',
+      usernameMessageClass: '',
       currentPassword: '',
       newPassword: '',
       confirmNewPassword: ''
@@ -76,13 +79,29 @@ export default {
   },
   methods: {
     async updateUsername() {
-      if (this.newUsername === '') {
-        alert('Por favor, insira o novo nome de usuário.')
-        return
-      } else if (this.newUsername.length < 3) {
-        alert('O nome de usuário deve ter pelo menos 3 caracteres.')
-        return
-      }
+        const errors = {
+            empty: 'Insira um nome de usuário.',
+            minLength: 'O nome de usuário deve ter pelo menos 3 caracteres.',
+            sameUsername: 'O novo nome de usuário deve ser diferente do atual.',
+            err: 'Erro ao atualizar o nome de usuário.'
+        };
+
+        if (this.newUsername === '') {
+            this.usernameMessageClass = 'error-message'
+            this.usernameMessage = errors.empty
+            return
+        }
+        if (this.newUsername.length < 3) {
+            this.usernameMessageClass = 'error-message'
+            this.usernameMessage = errors.minLength
+            return
+        }
+        if (this.newUsername === this.user.username) {
+            this.usernameMessageClass = 'error-message'
+            this.usernameMessage = errors.sameUsername
+            return
+        }
+
       try {
         const res = await axios.put('http://localhost:3000/user/change-username', {
             username: this.user.username, 
@@ -93,13 +112,21 @@ export default {
 
         if (res.status === 200) {
           console.log('Nome de usuário atualizado para:', this.newUsername)
+          this.usernameMessageClass = 'success-message'
+          this.usernameMessage = 'Nome de usuário atualizado com sucesso.'
+        } else {
+            this.usernameMessageClass = 'error-message'
+            this.usernameMessage = errors.err
+            return
         }
       } catch (error) {
-          alert('Erro ao atualizar o nome de usuário')
+          this.usernameMessageClass = 'error-message'
+          this.usernameMessage = errors.err
           console.log(error)
       }
     },
     updatePassword() {
+
       if (this.newPassword !== this.confirmNewPassword) {
         alert('As senhas inseridas não correspondem. Por favor, tente novamente.')
         return
@@ -108,6 +135,7 @@ export default {
       console.log('Senha atualizada para:', this.newPassword)
     },
     confirmDeleteAccount() {
+
       if (confirm('Tem certeza de que deseja remover sua conta? Essa ação não pode ser desfeita.')) {
         // Lógica para remover a conta
         console.log('Conta removida')
@@ -133,11 +161,23 @@ export default {
   color: #485696;
   margin: 20px auto;
 }
-
 .settings-section .danger-title {
   text-align: center;
   color: #fff;
   margin: 20px auto;
+}
+.settings-section p {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: #ff4d4d;
+}
+.success-message {
+  color: #B8daff;
 }
 
 .form-group {
