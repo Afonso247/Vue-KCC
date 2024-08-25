@@ -26,14 +26,18 @@
             <label for="elemento">Selecione o seu elemento:</label>
             <select name="elemento" id="elemento" v-model="elemento">
               <option value="">Selecione o seu elemento</option>
-              <option v-for="elemento in elementodata" :key="elemento.id">{{ elemento.tipo }}</option>
+              <option v-for="elemento in elementodata" :key="elemento.id">
+                {{ elemento.tipo }}
+              </option>
             </select>
           </div>
           <div class="input-container">
             <label for="ascensao">Escolha a sua ascensão:</label>
             <select name="ascensao" id="ascensao" v-model="ascensao">
               <option value="">Escolha a sua ascensão</option>
-              <option v-for="ascensao in ascensaodata" :key="ascensao.id">{{ ascensao.tipo }}</option>
+              <option v-for="ascensao in ascensaodata" :key="ascensao.id">
+                {{ ascensao.tipo }}
+              </option>
             </select>
           </div>
           <div class="input-container">
@@ -77,7 +81,7 @@ export default {
       const data = await req.json()
       this.armadata = data.arma
       this.elementodata = data.elemento
-      if(this.groupChar.role != 'Main DPS' && this.groupChar.role != 'Sub DPS') {
+      if (this.groupChar.role != 'Main DPS' && this.groupChar.role != 'Sub DPS') {
         this.ascensaodata = data.ascensao.slice(0, -3)
       } else {
         this.ascensaodata = data.ascensao
@@ -97,26 +101,28 @@ export default {
       }
 
       // Procurando um objeto no array this.group com o mesmo uuid que o de data
-      const index = this.groupChar.personagens.findIndex(personagem => personagem.uuid === data.uuid);
+      const index = this.groupChar.personagens.findIndex(
+        (personagem) => personagem.uuid === data.uuid
+      )
 
       // Se o objeto for encontrado, atualize os valores para serem iguais aos de data
       if (index !== -1) {
-          this.groupChar.personagens[index].nome = data.nome;
-          this.groupChar.personagens[index].arma = data.arma;
-          this.groupChar.personagens[index].elemento = data.elemento;
-          this.groupChar.personagens[index].local = data.local;
-          this.groupChar.personagens[index].ascensao = data.ascensao;
+        this.groupChar.personagens[index].nome = data.nome
+        this.groupChar.personagens[index].arma = data.arma
+        this.groupChar.personagens[index].elemento = data.elemento
+        this.groupChar.personagens[index].local = data.local
+        this.groupChar.personagens[index].ascensao = data.ascensao
       }
 
-      const dataJSON = JSON.stringify(this.groupChar);
+      const dataJSON = JSON.stringify(this.groupChar)
       const req = await fetch(`http://localhost:3000/grupos/${this.groupChar.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: dataJSON
-      });
+      })
 
-      const res = await req.json();
-      console.log(res);
+      const res = await req.json()
+      console.log(res)
 
       // console.log(data)
       this.$emit('madeEdit', data)
@@ -130,20 +136,19 @@ export default {
       this.arma = this.groupCharEdit.arma
       this.elemento = this.groupCharEdit.elemento
       this.local = this.groupCharEdit.local
-      this.ascensao = this.groupCharEdit.ascensao,
-      this.uuid = this.groupCharEdit.uuid
+      ;(this.ascensao = this.groupCharEdit.ascensao), (this.uuid = this.groupCharEdit.uuid)
     }
   },
   created() {
     const groupId = this.$route.params.id
-    
+
     fetch(`http://localhost:3000/grupos/${groupId}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.groupChar = data
       })
   }
-};
+}
 </script>
 
 <style scoped>
@@ -158,36 +163,35 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #F08CAE;
+  color: #f08cae;
 }
 
 .modal-content {
   border: 2px solid #222;
   border-radius: 10px;
   background-color: #111;
-  color: #F08CAE;
+  color: #f08cae;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 .editTitle {
   color: #485696;
-  border-bottom: 2px solid #F08CAE;
+  border-bottom: 2px solid #f08cae;
 }
 .cancel-btn {
   padding: 8px;
   font-size: 16px;
   width: 100%;
-  color:#f08cae ;
-  background-color:#485696 ;
+  color: #f08cae;
+  background-color: #485696;
 }
-.input-container{
+.input-container {
   color: #f08cae;
 }
 
 select,
-input[type="text"] {
-  
+input[type='text'] {
   padding: 5px 10px;
   width: 400px;
   color: #f08cae;

@@ -7,9 +7,9 @@ import { createStore } from 'vuex'
 import auth from './store/auth'
 
 const store = createStore({
-    modules: {
-        auth, // Registra o módulo de autenticação
-    }
+  modules: {
+    auth // Registra o módulo de autenticação
+  }
 })
 
 // Verifica a autenticação ao carregar a aplicação
@@ -26,7 +26,6 @@ router.beforeEach(async (to, from, next) => {
     next()
   }
 })
-
 
 const app = createApp(App)
 

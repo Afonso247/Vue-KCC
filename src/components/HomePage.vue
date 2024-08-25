@@ -2,7 +2,7 @@
   <transition name="fade" mode="out-in">
     <Message :msg="msg" tipo="confirmation" v-show="msg" />
   </transition>
-  
+
   <div v-if="isAuthenticated">
     <h1>Olá, {{ getUsername }} !</h1>
 
@@ -14,8 +14,14 @@
     <h1>Seja bem-vindo(a) a Kokomi's Mindspace</h1>
 
     <div class="container">
-      <h2><router-link class="links" :to="{ name: 'login' }">Faça login</router-link> e começe agora mesmo!</h2>
-      <h2>Ainda não possui uma conta? <router-link class="links" :to="{ name: 'register' }">Registre-se!</router-link></h2>
+      <h2>
+        <router-link class="links" :to="{ name: 'login' }">Faça login</router-link> e começe agora
+        mesmo!
+      </h2>
+      <h2>
+        Ainda não possui uma conta?
+        <router-link class="links" :to="{ name: 'register' }">Registre-se!</router-link>
+      </h2>
     </div>
   </div>
 </template>
@@ -35,7 +41,7 @@ export default {
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
     getUsername() {
-      return this.isAuthenticated ? this.user.username : '';
+      return this.isAuthenticated ? this.user.username : ''
     }
   },
   components: {

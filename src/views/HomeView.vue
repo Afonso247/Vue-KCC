@@ -17,4 +17,4 @@ export default {
     Home
   }
 }
-</script>../components/BannerComponent.vue
+</script>

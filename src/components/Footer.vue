@@ -8,8 +8,7 @@
 <script setup></script>
 
 <style scoped>
-
-a{
-  color: #F08CAE;
+a {
+  color: #f08cae;
 }
 </style>

@@ -9,7 +9,7 @@
 import Register from '../components/RegisterPage.vue'
 
 export default {
-  name: 'PersonagensView',
+  name: 'RegisterView',
   components: {
     Register
   }

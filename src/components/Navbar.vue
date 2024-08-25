@@ -21,39 +21,50 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { RouterLink } from 'vue-router'
-import { HomeIcon, Cog6ToothIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon, UserPlusIcon } from '@heroicons/vue/24/solid'
+import {
+  HomeIcon,
+  Cog6ToothIcon,
+  ArrowRightOnRectangleIcon,
+  ArrowLeftOnRectangleIcon,
+  UserPlusIcon
+} from '@heroicons/vue/24/solid'
 
 export default {
   name: 'NavBar',
   props: ['logo', 'alt'],
-  components: { RouterLink, HomeIcon, Cog6ToothIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon, UserPlusIcon },
+  components: {
+    RouterLink,
+    HomeIcon,
+    Cog6ToothIcon,
+    ArrowRightOnRectangleIcon,
+    ArrowLeftOnRectangleIcon,
+    UserPlusIcon
+  },
   data() {
     return {
       authInterval: null,
       authenticatedLinks: [
-        { to: "/", text: "Configurações", icon: 'Cog6ToothIcon' },
-        { to: "/", text: "Logout", icon: 'ArrowRightOnRectangleIcon' },
-        // { to: "/personagens", text: "Meus Grupos", icon: 'UsersIcon' }
+        { to: '/userconfig', text: 'Configurações', icon: 'Cog6ToothIcon' },
+        { to: '/', text: 'Logout', icon: 'ArrowRightOnRectangleIcon' }
       ],
       unauthenticatedLinks: [
-        { to: "/login", text: "Log In", icon: 'ArrowLeftOnRectangleIcon' },
-        { to: "/register", text: "Registrar-se", icon: 'UserPlusIcon' },
-        // { to: "/", text: "Crie um Grupo", icon: 'UsersIcon' }
-      ],
+        { to: '/login', text: 'Log In', icon: 'ArrowLeftOnRectangleIcon' },
+        { to: '/register', text: 'Registrar-se', icon: 'UserPlusIcon' }
+      ]
     }
   },
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
     authContent() {
-      return this.isAuthenticated ? this.authenticatedLinks : this.unauthenticatedLinks;
+      return this.isAuthenticated ? this.authenticatedLinks : this.unauthenticatedLinks
     }
   },
   methods: {
     ...mapActions('auth', ['checkAuth', 'logout']),
     handleClick(link) {
-      if (link.text === "Logout") {
-        this.logout();
-        this.$router.push({ name: "home" });
+      if (link.text === 'Logout') {
+        this.logout()
+        this.$router.push({ name: 'home' })
       }
     }
   }
@@ -97,7 +108,7 @@ export default {
   color: #f08cae;
   text-decoration: none;
   margin: 12px;
-  transition: .2s;
+  transition: 0.2s;
 }
 .nav a:hover {
   color: #fff;

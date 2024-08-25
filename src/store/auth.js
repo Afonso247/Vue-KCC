@@ -4,7 +4,7 @@ export default {
   namespaced: true,
   state: {
     isAuth: false,
-    user: null,
+    user: null
   },
   mutations: {
     SET_AUTH(state, status) {
@@ -21,7 +21,9 @@ export default {
   actions: {
     async checkAuth({ commit }) {
       try {
-        const response = await axios.get('http://localhost:3000/api/auth/check', { withCredentials: true })
+        const response = await axios.get('http://localhost:3000/api/auth/check', {
+          withCredentials: true
+        })
         if (response.status === 200 && response.data.authenticated) {
           commit('SET_AUTH', true)
           commit('SET_USER', response.data.user) // Supondo que os dados do usuário estejam disponíveis na resposta
@@ -36,21 +38,25 @@ export default {
     },
     async logout({ commit }) {
       try {
-        const response = await axios.post('http://localhost:3000/api/auth/logout', {}, { withCredentials: true });
+        const response = await axios.post(
+          'http://localhost:3000/api/auth/logout',
+          {},
+          { withCredentials: true }
+        )
         if (response.status === 200) {
-        console.log('Logout realizado com sucesso:', response.data);
+          console.log('Logout realizado com sucesso:', response.data)
         } else {
-        console.error('Logout falhou:', response.data);
+          console.error('Logout falhou:', response.data)
         }
       } catch (error) {
-        console.error('Logout falhou:', error);
+        console.error('Logout falhou:', error)
       } finally {
-        commit('LOGOUT');
+        commit('LOGOUT')
       }
     }
   },
   getters: {
     isAuthenticated: (state) => state.isAuth,
-    user: (state) => state.user,
+    user: (state) => state.user
   }
 }

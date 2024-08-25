@@ -28,7 +28,9 @@ export default {
   },
   computed: {
     bannerLayout() {
-      return this.typeLayout === 'Desktop' ? `url('/img/sangoDesktop.jpg')` : `url('/img/sangoMobile.jpg')`
+      return this.typeLayout === 'Desktop'
+        ? `url('/img/sangoDesktop.jpg')`
+        : `url('/img/sangoMobile.jpg')`
     }
   }
 }
