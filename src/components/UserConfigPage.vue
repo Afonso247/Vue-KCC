@@ -104,7 +104,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth', ['user'])
+    ...mapGetters('auth', ['isAuthenticated', 'user'])
   },
   methods: {
     async updateUsername() {
@@ -235,7 +235,7 @@ export default {
             console.log('Conta excluída com sucesso')
             this.dangerConfirmation = false
             this.deleteInput = ''
-            this.$router.push({ path: '/' })
+            this.$router.push({ name: 'home' })
           } else {
             this.deleteMessage = 'Erro ao remover a conta.'
             return
@@ -261,6 +261,11 @@ export default {
     cancelDelete() {
       this.dangerConfirmation = false
       this.deleteInput = ''
+    }
+  },
+  mounted() {
+    if (!this.isAuthenticated) {
+      this.$router.push({ name: 'home' })
     }
   }
 }

@@ -11,11 +11,13 @@
           ></span
         >
       </div>
+      <p v-show="loginMessage" class="error-message">{{ loginMessage }}</p>
     </form>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -23,11 +25,19 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      loginMessage: ''
     }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated','user'])
   },
   methods: {
     async login() {
+      if (this.username === '' || this.password === '') {
+        this.loginMessage = 'Preencha todos os campos.'
+        return
+      }
       try {
         const res = await axios.post(
           'http://localhost:3000/api/login',
@@ -44,8 +54,19 @@ export default {
           this.$router.push({ name: 'home' })
         }
       } catch (error) {
-        console.log(error.response)
+        if (error.response.status === 400) {
+          this.loginMessage = error.response.data.message
+          return
+        } else {
+          this.loginMessage = 'Erro ao fazer login.'
+          console.error(error)
+        }
       }
+    }
+  },
+  mounted() {
+    if (this.isAuthenticated) {
+      this.$router.push({ name: 'home' })
     }
   }
 }
@@ -87,6 +108,11 @@ input,
 button {
   width: 450px;
   margin: 10px auto;
+}
+.error-message {
+  color: #ff4d4d;
+  font-size: 16px;
+  margin-top: 6px;
 }
 @media (max-width: 600px) {
   .login-form {

@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -32,6 +33,9 @@ export default {
       password: '',
       confirmPassword: ''
     }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated', 'user'])
   },
   methods: {
     async registerUser() {
@@ -59,6 +63,11 @@ export default {
           console.log(error)
         }
       }
+    }
+  },
+  mounted() {
+    if (this.isAuthenticated) {
+      this.$router.push({ name: 'home' })
     }
   }
 }
