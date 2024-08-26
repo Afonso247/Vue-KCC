@@ -121,8 +121,8 @@ select {
   background-color: #e74c3c;
   color: #fff;
   font-weight: bold;
-  padding: 6px;
-  font-size: 14px;
+  padding: 10px;
+  font-size: 16px;
   margin: 0 auto;
   cursor: pointer;
   transition: 0.2s;

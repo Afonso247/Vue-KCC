@@ -12,7 +12,9 @@
             placeholder="Insira o novo nome de usuário"
           />
         </div>
-        <button type="submit" class="confirm-btn" style="text-align: center;">Salvar Nome de Usuário</button>
+        <button type="submit" class="confirm-btn" style="text-align: center">
+          Salvar Nome de Usuário
+        </button>
         <p v-show="usernameMessage" :class="usernameMessageClass">{{ usernameMessage }}</p>
       </form>
     </section>
@@ -48,12 +50,33 @@
           />
         </div>
         <button type="submit" class="confirm-btn">Salvar Nova Senha</button>
+        <p v-show="passwordMessage" :class="passwordMessageClass">{{ passwordMessage }}</p>
       </form>
     </section>
 
     <section class="settings-section danger-zone">
       <h2 class="danger-title">Zona de Perigo</h2>
-      <button @click="confirmDeleteAccount" class="cancel-btn">Remover Conta</button>
+      <div v-if="!dangerConfirmation">
+        <button @click="confirmDelete" class="cancel-btn">Remover Conta</button>
+      </div>
+      <div v-else>
+        <p class="danger-text">
+          Para confirmar a remoção de sua conta, digite:
+          <strong style="color: #ff4d4d">{{ confirmationText }}</strong>
+        </p>
+        <input type="text" v-model="deleteInput" placeholder="Digite a mensagem de confirmação" />
+        <div class="delete-btns">
+          <button @click="cancelDelete" class="confirm-btn">Cancelar Ação</button>
+          <button
+            v-if="deleteInput === confirmationText"
+            @click="handleDeleteAccount"
+            class="cancel-btn"
+          >
+            Confirmar Ação
+          </button>
+        </div>
+        <p v-if="deleteInput === confirmationText" class="error-message">{{ deleteMessage }}</p>
+      </div>
     </section>
   </div>
 </template>
@@ -71,7 +94,13 @@ export default {
       usernameMessageClass: '',
       currentPassword: '',
       newPassword: '',
-      confirmNewPassword: ''
+      confirmNewPassword: '',
+      passwordMessage: '',
+      passwordMessageClass: '',
+      deleteInput: '',
+      deleteMessage: 'Ao clicar em "Confirmar Ação", sua conta será permanentemente excluída.',
+      confirmationText: 'REMOVER-MINHA-CONTA',
+      dangerConfirmation: false
     }
   },
   computed: {
@@ -79,67 +108,159 @@ export default {
   },
   methods: {
     async updateUsername() {
-        const errors = {
-            empty: 'Insira um nome de usuário.',
-            minLength: 'O nome de usuário deve ter pelo menos 3 caracteres.',
-            sameUsername: 'O novo nome de usuário deve ser diferente do atual.',
-            err: 'Erro ao atualizar o nome de usuário.'
-        };
+      const errors = {
+        empty: 'Insira um nome de usuário.',
+        minLength: 'O nome de usuário deve ter pelo menos 3 caracteres.',
+        sameUsername: 'O novo nome de usuário deve ser diferente do atual.',
+        err: 'Erro ao atualizar o nome de usuário.'
+      }
 
-        if (this.newUsername === '') {
-            this.usernameMessageClass = 'error-message'
-            this.usernameMessage = errors.empty
-            return
-        }
-        if (this.newUsername.length < 3) {
-            this.usernameMessageClass = 'error-message'
-            this.usernameMessage = errors.minLength
-            return
-        }
-        if (this.newUsername === this.user.username) {
-            this.usernameMessageClass = 'error-message'
-            this.usernameMessage = errors.sameUsername
-            return
-        }
+      if (this.newUsername === '') {
+        this.usernameMessageClass = 'error-message'
+        this.usernameMessage = errors.empty
+        return
+      }
+      if (this.newUsername.length < 3) {
+        this.usernameMessageClass = 'error-message'
+        this.usernameMessage = errors.minLength
+        return
+      }
+      if (this.newUsername === this.user.username) {
+        this.usernameMessageClass = 'error-message'
+        this.usernameMessage = errors.sameUsername
+        return
+      }
 
       try {
-        const res = await axios.put('http://localhost:3000/user/change-username', {
-            username: this.user.username, 
-            newUsername: this.newUsername 
-        }, {
-          withCredentials: true
-        })
+        const res = await axios.put(
+          'http://localhost:3000/user/change-username',
+          {
+            username: this.user.username,
+            newUsername: this.newUsername
+          },
+          {
+            withCredentials: true
+          }
+        )
 
         if (res.status === 200) {
           console.log('Nome de usuário atualizado para:', this.newUsername)
           this.usernameMessageClass = 'success-message'
-          this.usernameMessage = 'Nome de usuário atualizado com sucesso.'
+          this.usernameMessage = res.data.message
         } else {
-            this.usernameMessageClass = 'error-message'
-            this.usernameMessage = errors.err
-            return
+          this.usernameMessageClass = 'error-message'
+          this.usernameMessage = errors.err
+          return
         }
       } catch (error) {
+        if (error.response.status === 400) {
+          this.usernameMessageClass = 'error-message'
+          this.usernameMessage = error.response.data.message
+        } else {
           this.usernameMessageClass = 'error-message'
           this.usernameMessage = errors.err
           console.log(error)
+        }
       }
     },
-    updatePassword() {
+    async updatePassword() {
+      const errors = {
+        emptyInputs: 'Preencha todos os campos.',
+        notMatch: 'As novas senhas inseridas não correspondem.',
+        insufficientLength: 'A nova senha deve ter pelo menos 8 caracteres.',
+        err: 'Erro ao atualizar a senha.'
+      }
 
-      if (this.newPassword !== this.confirmNewPassword) {
-        alert('As senhas inseridas não correspondem. Por favor, tente novamente.')
+      if (
+        this.currentPassword === '' ||
+        this.newPassword === '' ||
+        this.confirmNewPassword === ''
+      ) {
+        this.passwordMessageClass = 'error-message'
+        this.passwordMessage = errors.emptyInputs
         return
       }
-      // Lógica para atualizar a senha
-      console.log('Senha atualizada para:', this.newPassword)
-    },
-    confirmDeleteAccount() {
-
-      if (confirm('Tem certeza de que deseja remover sua conta? Essa ação não pode ser desfeita.')) {
-        // Lógica para remover a conta
-        console.log('Conta removida')
+      if (this.newPassword.length < 8) {
+        this.passwordMessageClass = 'error-message'
+        this.passwordMessage = errors.insufficientLength
+        return
       }
+      if (this.newPassword !== this.confirmNewPassword) {
+        this.passwordMessageClass = 'error-message'
+        this.passwordMessage = errors.notMatch
+        return
+      }
+
+      try {
+        const res = await axios.put(
+          'http://localhost:3000/user/change-password',
+          {
+            currentPassword: this.currentPassword,
+            newPassword: this.newPassword
+          },
+          {
+            withCredentials: true
+          }
+        )
+
+        if (res.status === 200) {
+          console.log('Senha atualizada para:', this.newPassword)
+          this.passwordMessageClass = 'success-message'
+          this.passwordMessage = res.data.message
+        } else {
+          this.passwordMessageClass = 'error-message'
+          this.passwordMessage = errors.err
+          return
+        }
+      } catch (error) {
+        if (error.response.status === 400) {
+          this.passwordMessageClass = 'error-message'
+          this.passwordMessage = error.response.data.message
+        } else {
+          this.passwordMessageClass = 'error-message'
+          this.passwordMessage = errors.err
+          console.log(error)
+        }
+      }
+    },
+    async handleDeleteAccount() {
+      // Lógica para remover a conta
+      if (this.deleteInput === this.confirmationText) {
+        try {
+          const res = await axios.delete('http://localhost:3000/user/delete-account', {
+            withCredentials: true
+          })
+
+          if (res.status === 200) {
+            console.log('Conta excluída com sucesso')
+            this.dangerConfirmation = false
+            this.deleteInput = ''
+            this.$router.push({ path: '/' })
+          } else {
+            this.deleteMessage = 'Erro ao remover a conta.'
+            return
+          }
+        } catch (error) {
+          if (error.response.status === 400) {
+            this.deleteMessage = error.response.data.message
+            return
+          } else {
+            this.deleteMessage = 'Erro ao remover a conta.'
+            console.log(error)
+            return
+          }
+        }
+      }
+
+      this.deleteInput = ''
+      return
+    },
+    confirmDelete() {
+      this.dangerConfirmation = true
+    },
+    cancelDelete() {
+      this.dangerConfirmation = false
+      this.deleteInput = ''
     }
   }
 }
@@ -166,6 +287,11 @@ export default {
   color: #fff;
   margin: 20px auto;
 }
+.settings-section .danger-text {
+  text-align: center;
+  color: #485696;
+  margin: 10px auto;
+}
 .settings-section p {
   text-align: center;
   margin-top: 20px;
@@ -177,7 +303,7 @@ export default {
   color: #ff4d4d;
 }
 .success-message {
-  color: #B8daff;
+  color: #b8daff;
 }
 
 .form-group {
@@ -207,7 +333,6 @@ input {
 .cancel-btn {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
 }
 
 .config-zone {
@@ -218,5 +343,16 @@ input {
 .danger-zone {
   border-top: 2px solid #ff4d4d;
   padding-top: 20px;
+}
+.danger-zone .delete-btns {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    > .cancel-btn {
+      margin-top: 20px;
+    }
+  }
 }
 </style>
