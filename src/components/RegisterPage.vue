@@ -105,6 +105,11 @@ export default {
 .login-link:hover {
   color: #fff;
 }
+input {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 input,
 button {
   width: 450px;
@@ -126,6 +131,24 @@ button {
   input,
   button {
     width: 250px;
+  }
+}
+@media (max-width: 400px) {
+  .register-form {
+    width: 250px;
+  }
+  input,
+  button {
+    width: 200px;
+  }
+}
+@media (max-width: 359px) {
+  .register-form {
+    width: 200px;
+  }
+  input,
+  button {
+    width: 150px;
   }
 }
 </style>

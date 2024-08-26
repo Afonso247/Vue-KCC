@@ -30,7 +30,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth', ['isAuthenticated','user'])
+    ...mapGetters('auth', ['isAuthenticated', 'user'])
   },
   methods: {
     async login() {
@@ -104,6 +104,11 @@ export default {
 .register-link:hover {
   color: #fff;
 }
+input {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 input,
 button {
   width: 450px;
@@ -130,6 +135,24 @@ button {
   input,
   button {
     width: 250px;
+  }
+}
+@media (max-width: 400px) {
+  .login-form {
+    width: 250px;
+  }
+  input,
+  button {
+    width: 200px;
+  }
+}
+@media (max-width: 359px) {
+  .login-form {
+    width: 200px;
+  }
+  input,
+  button {
+    width: 150px;
   }
 }
 </style>

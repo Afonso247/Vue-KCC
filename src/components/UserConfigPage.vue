@@ -327,6 +327,9 @@ input {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   margin: 8px auto;
 }
 
