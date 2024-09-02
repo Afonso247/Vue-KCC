@@ -2,9 +2,10 @@
   <div v-if="isAuthenticated">
     <h1>Olá, {{ getUsername }} !</h1>
 
-    <div class="container">
+    <!-- <div class="container">
       <h2>Meu nome é Kokomi, e ficarei mais do que feliz para lhe ajudar!</h2>
-    </div>
+    </div> -->
+    <Chat />
   </div>
   <div v-else>
     <h1>Seja bem-vindo(a) a Kokomi's Mindspace</h1>
@@ -23,10 +24,14 @@
 </template>
 
 <script>
+import Chat from './chat/ChatComponent.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'HomePage',
+  components: {
+    Chat
+  },
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
     getUsername() {
