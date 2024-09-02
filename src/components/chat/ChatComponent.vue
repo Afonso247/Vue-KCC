@@ -1,10 +1,15 @@
 <template>
   <div class="chat-container">
+    <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }" v-if="isMobile">
+      ☰
+    </button>
     <Sidebar
       :chats="chats"
       :activeChatId="activeChatId"
+      :showSidebar="isSidebarOpen"
       @create-chat="createNewChat"
       @select-chat="selectChat"
+      @toggle-sidebar="toggleSidebar"
     />
     <ChatWindow
       v-if="activeChat"
@@ -30,6 +35,8 @@ export default {
         { id: 2, name: "Chat 2", messages: [] },
       ],
       activeChatId: null,
+      isSidebarOpen: true,
+      isMobile: window.innerWidth <= 768,
     };
   },
   computed: {
@@ -41,6 +48,10 @@ export default {
     if (this.chats.length > 0) {
       this.activeChatId = this.chats[0].id;
     }
+    window.addEventListener("resize", this.handleResize);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     createNewChat() {
@@ -68,7 +79,18 @@ export default {
                 });
             }
         }, 1000);
-    }
+    },
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen;
+    },
+    handleResize() {
+      this.isMobile = window.innerWidth <= 768;
+      if (this.isMobile) {
+        this.isSidebarOpen = false;
+      } else {
+        this.isSidebarOpen = true;
+      }
+    },
   },
 };
 </script>
@@ -80,5 +102,30 @@ export default {
   border: 3px solid #333333;
   border-radius: 10px;
   padding: 10px;
+  position: relative;
+}
+.menu-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none;
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+  }
+
+  .menu-button {
+    display: block;
+  }
+  .hidden {
+    display: none;
+}
 }
 </style>

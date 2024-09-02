@@ -1,10 +1,7 @@
 <template>
   <div v-if="isAuthenticated">
     <h1>Olá, {{ getUsername }} !</h1>
-
-    <!-- <div class="container">
-      <h2>Meu nome é Kokomi, e ficarei mais do que feliz para lhe ajudar!</h2>
-    </div> -->
+    
     <Chat />
   </div>
   <div v-else>

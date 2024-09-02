@@ -49,31 +49,43 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 10px;
+  background-color: #222;
+  border: none;
+  border: 1px solid #444;
+  border-radius: 5px;
 }
 .messages {
   flex: 1;
   overflow-y: auto;
   margin-bottom: 10px;
+  background-color: #222;
 }
 .message {
   padding: 5px 10px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   border-radius: 5px;
 }
 .message.user {
-  background-color: #e1ffc7;
+  background-color: #b8daff;
   align-self: flex-end;
 }
 .message.bot {
-  background-color: #f1f1f1;
+  background-color: #e07b99;
+  color: #fff;
   align-self: flex-start;
 }
 .input-container {
   display: flex;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 10px;
+  background-color: #222;
 }
 .input-container input {
-  flex: 1;
+  width: 100%;
   padding: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .input-container button {
   width: 100%;

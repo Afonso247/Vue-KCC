@@ -4,6 +4,7 @@
 #485696 - Blue (Texto)
 #5eb1bf - Blue (Link)
 #f08cae - Kokomi Color (Gay)
+#e07b99 - Kokomi Text
 
 ----- Message color -----
 
