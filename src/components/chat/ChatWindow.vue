@@ -14,31 +14,44 @@
                 type="text"
                 v-model="newMessage"
                 @keyup.enter="sendMessage"
+                :disabled="isSending"
                 placeholder="Digite sua mensagem..."
             />
-            <button class="confirm-btn" @click="sendMessage">Enviar</button>
+            <button 
+                class="confirm-btn" 
+                @click="sendMessage" 
+                :disabled="isSending"
+            >
+                Enviar
+            </button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    name: "ChatWindow",
     props: {
         messages: Array
     },
     data() {
         return {
             newMessage: "",
+            isSending: false
         };
     },
     methods: {
         sendMessage() {
-            if (!this.newMessage) {
+            if (!this.newMessage || this.isSending) {
                 return;
             }
-            this.$emit("send-message", this.newMessage);
-            this.newMessage = "";
+            this.isSending = true
+            this.$emit("send-message", this.newMessage)
+            this.newMessage = ""
         },
+        enableInput() {
+            this.isSending = false
+        }
     },
 }
 </script>
@@ -91,5 +104,9 @@ export default {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
+}
+.input-container button:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
 }
 </style>

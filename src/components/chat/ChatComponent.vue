@@ -13,6 +13,7 @@
     />
     <ChatWindow
       v-if="activeChat"
+      ref="chatWindow"
       :messages="activeChat.messages"
       @send-message="sendMessage"
     />
@@ -24,6 +25,7 @@ import Sidebar from "./ChatSidebar.vue";
 import ChatWindow from "./ChatWindow.vue";
 
 export default {
+  name: "ChatComponent",
   components: {
     Sidebar,
     ChatWindow,
@@ -77,6 +79,7 @@ export default {
                     text: `lorem ipsum dolor sit amet: ${message}`, 
                     sender: "bot" 
                 });
+                this.$refs.chatWindow.enableInput();
             }
         }, 1000);
     },
