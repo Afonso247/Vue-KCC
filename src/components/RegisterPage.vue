@@ -17,6 +17,7 @@
           ></span
         >
       </div>
+      <p v-show="registerMessage" class="error-message">{{ registerMessage }}</p>
     </form>
   </div>
 </template>
@@ -31,7 +32,8 @@ export default {
     return {
       username: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      registerMessage: ''
     }
   },
   computed: {
@@ -39,13 +41,18 @@ export default {
   },
   methods: {
     async registerUser() {
-      if (this.password !== this.confirmPassword) {
-        alert('As senhas devem ser iguais')
-        return
-      } else if (this.password.length < 8) {
-        alert('A senha deve ter pelo menos 8 caracteres')
+      if (!this.username || !this.password || !this.confirmPassword) {
+        this.registerMessage = 'Preencha todos os campos.'
         return
       }
+      if (this.password.length < 8) {
+        this.registerMessage = 'A senha deve ter pelo menos 8 caracteres.'
+        return
+      }
+      if (this.password !== this.confirmPassword) {
+        this.registerMessage = 'As senhas devem ser iguais.'
+        return
+      } 
       try {
         const res = await axios.post('http://localhost:3000/api/register', {
           username: this.username,
@@ -59,7 +66,7 @@ export default {
         if (error.response.status === 400) {
           alert(error.response.data.message)
         } else {
-          alert('Erro ao registrar o usuário')
+          this.registerMessage = 'Erro ao registrar o usuário.'
           console.log(error)
         }
       }
@@ -104,6 +111,11 @@ export default {
 }
 .login-link:hover {
   color: #fff;
+}
+.error-message {
+  color: #ff4d4d;
+  font-size: 16px;
+  margin-top: 6px;
 }
 input {
   text-overflow: ellipsis;

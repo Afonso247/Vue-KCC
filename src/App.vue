@@ -1,7 +1,7 @@
 <script>
 import { RouterView } from 'vue-router'
-import NavBar from './components/Navbar.vue'
-import Footer from './components/Footer.vue'
+import NavBar from './components/assets/Navbar.vue'
+import Footer from './components/assets/Footer.vue'
 
 export default {
   name: 'App',

@@ -1,8 +1,4 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <Message :msg="msg" tipo="confirmation" v-show="msg" />
-  </transition>
-
   <div v-if="isAuthenticated">
     <h1>Olá, {{ getUsername }} !</h1>
 
@@ -28,24 +24,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Message from './Message.vue'
 
 export default {
   name: 'HomePage',
-  data() {
-    return {
-      inputerror: false,
-      msg: null
-    }
-  },
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
     getUsername() {
       return this.isAuthenticated ? this.user.username : ''
     }
-  },
-  components: {
-    Message
   }
 }
 </script>
