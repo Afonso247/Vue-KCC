@@ -9,17 +9,17 @@
             <li 
                 v-for="chat in chats" 
                 :key="chat.id"
-                :class="{ active: chat.id === activeChatId }"
-                @click="selectChat(chat.id)"
+                :class="{ active: chat._id === activeChatId }"
+                @click="selectChat(chat._id)"
             >
                 {{ chat.name }}
                 <div class="options-container" @click.stop>
-                    <button class="options-btn" @click="toggleOptions(chat.id)">
+                    <button class="options-btn" @click="toggleOptions(chat._id)">
                         <EllipsisHorizontalIcon class="icon" />
                     </button>
-                    <div v-if="showOptionsId === chat.id" class="dropdown-menu">
-                        <button @click="renameChat(chat.id)">Renomear</button>
-                        <button @click="deleteChat(chat.id)">Excluir</button>
+                    <div v-if="showOptionsId === chat._id" class="dropdown-menu">
+                        <button @click="renameChat(chat._id)">Renomear</button>
+                        <button @click="deleteChat(chat._id)">Excluir</button>
                     </div>
                 </div>
             </li>
@@ -38,7 +38,7 @@ export default {
     },
     props: {
         chats: Array,
-        activeChatId: Number,
+        activeChatId: String,
         showSidebar: Boolean
     },
     data() {
@@ -66,7 +66,7 @@ export default {
         renameChat(chatId) {
             const newName = prompt('Digite o novo nome do chat:');
             if (newName) {
-                this.$emit('rename-chat', { chatId, newName });
+                this.$emit('rename-chat', chatId, newName);
             }
             this.showOptionsId = null;
         },

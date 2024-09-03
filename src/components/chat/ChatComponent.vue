@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 import Sidebar from "./ChatSidebar.vue";
 import ChatWindow from "./ChatWindow.vue";
 
@@ -34,23 +36,27 @@ export default {
   },
   data() {
     return {
-      chats: [
-        { id: 1, name: "Chat 1", messages: [] },
-        { id: 2, name: "Chat 2", messages: [] },
-      ],
+      chats: [],
       activeChatId: null,
       isSidebarOpen: true,
       isMobile: window.innerWidth <= 768,
     };
   },
   computed: {
+    ...mapGetters('chat', ['getChats']),
+    // ...mapGetters({
+    //   gatherChats: 'chat/gatherChats',
+    //   getValue: 'chat/getValue',
+    // }),
     activeChat() {
-      return this.chats.find((chat) => chat.id === this.activeChatId);
+      return this.chats.find((chat) => chat._id === this.activeChatId);
     },
   },
-  created() {
+  async created() {
+    await this.getAllChats();
+    this.chats.push(...this.getChats);
     if (this.chats.length > 0) {
-      this.activeChatId = this.chats[0].id;
+      this.activeChatId = this.chats[0]._id;
     }
     window.addEventListener("resize", this.handleResize);
   },
@@ -58,46 +64,86 @@ export default {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
-    createNewChat() {
-      const newChatId = this.chats.length + 1;
-      this.chats.push({ id: newChatId, name: `Chat ${newChatId}`, messages: [] });
-      this.activeChatId = newChatId;
+    ...mapActions('chat', ['getAllChats']),
+    async updateChats() {
+      await this.getAllChats();
+      this.chats = this.getChats;
+    },
+    async createNewChat() {
+      try {
+        const newChatId = this.chats.length + 1;
+        const name = `Chat ${newChatId}`;
+        await axios.post(
+          'http://localhost:3000/chat/create-chat', 
+          { name }, 
+          { withCredentials: true }
+        )
+        this.updateChats();
+      } catch (error) {
+        console.error('Erro ao criar chat:', error);
+      }
+      // this.chats.push({ id: newChatId, name: `Chat ${newChatId}`, messages: [] });
+      // this.activeChatId = newChatId;
     },
     selectChat(chatId) {
       this.activeChatId = chatId;
     },
-    sendMessage(message) {
+    async sendMessage(message) {
+      console.log('message', message)
       if (!this.activeChat) {
         return;
       }
 
-      this.activeChat.messages.push({ text: message, sender: "user" });
-      this.botReply(message, this.activeChat);
+      try {
+        await axios.post(
+          `http://localhost:3000/chat/send-message/${this.activeChat._id}`, 
+          { content: message, sender: 'user' }, 
+          { withCredentials: true }
+        )
+        this.updateChats();
+        this.botReply(message, this.activeChat);
+      } catch (error) {
+        console.error('Erro ao enviar mensagem:', error);
+      }
     },
-    botReply(message, currentChat) {
-        setTimeout(() => {
-            if (currentChat) {
-                currentChat.messages.push({ 
-                    text: `lorem ipsum dolor sit amet: ${message}`, 
-                    sender: "bot" 
-                });
-                this.$refs.chatWindow.enableInput();
-            }
-        }, 1000);
+    async botReply(message, currentChat) {
+      try{
+        await axios.post(
+          `http://localhost:3000/chat/send-message/${currentChat._id}`, 
+          { content: `Mensagem de resposta: ${message}`, sender: 'bot' }, 
+          { withCredentials: true }
+        )
+        this.updateChats();
+        this.$refs.chatWindow.enableInput();
+      } catch (error) {
+        console.error('Erro ao enviar mensagem:', error);
+      }
     },
     toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
     },
-    renameChat({ chatId, newName }) {
-      const chat = this.chats.find((chat) => chat.id === chatId);
-      if (chat) {
-        chat.name = newName;
+    async renameChat(chatId, name) {
+      console.log(chatId)
+      try {
+        await axios.put(
+          `http://localhost:3000/chat/rename-chat/${chatId}`, 
+          { name }, 
+          { withCredentials: true }
+        )
+        this.updateChats();
+      } catch (error) {
+        console.error('Erro ao renomear chat:', error);
       }
     },
-    deleteChat(chatId) {
-      this.chats = this.chats.filter((chat) => chat.id !== chatId);
-      if (this.activeChatId === chatId) {
-        this.activeChatId = this.chats.length > 0 ? this.chats[0].id : null
+    async deleteChat(chatId) {
+      try {
+        await axios.delete(
+          `http://localhost:3000/chat/delete-chat/${chatId}`, 
+          { withCredentials: true }
+        )
+        this.updateChats();
+      } catch (error) {
+        console.error('Erro ao excluir chat:', error);
       }
     },
     handleResize() {

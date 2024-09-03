@@ -6,7 +6,7 @@
                 :key="index"
                 :class="['message', message.sender]"
             >
-                {{ message.text }}
+                {{ message.content }}
             </div>
         </div>
         <div class="input-container">
