@@ -5,10 +5,13 @@ import App from './App.vue'
 import router from './router'
 import { createStore } from 'vuex'
 import auth from './store/auth'
+import chat from './store/chat'
 
 const store = createStore({
+  // Registro de módulos
   modules: {
-    auth // Registra o módulo de autenticação
+    auth,
+    chat
   }
 })
 
