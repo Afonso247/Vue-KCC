@@ -6,7 +6,7 @@
   padding: 2rem; */
 
   background-color: #111;
-  font-family: Helvetica;
+  font-family: 'Poppins', sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -19,7 +19,7 @@ h1 {
   text-align: center;
   font-size: 42px;
   margin-bottom: 30px;
-  color: #485696;
+  color: #f08cae;
 }
 
 /* footer */
@@ -43,7 +43,7 @@ h1 {
   background-color: #222;
   color: #5eb1bf;
   text-decoration: none;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 .footer a:hover {
   color: #fff;
@@ -111,7 +111,7 @@ select {
   font-size: 16px;
   margin: 0 auto;
   cursor: pointer;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 .confirm-btn:hover {
   background-color: #f08cae;
@@ -121,11 +121,11 @@ select {
   background-color: #e74c3c;
   color: #fff;
   font-weight: bold;
-  padding: 6px;
-  font-size: 14px;
+  padding: 10px;
+  font-size: 16px;
   margin: 0 auto;
   cursor: pointer;
-  transition: 0.4s;
+  transition: 0.2s;
 }
 .cancel-btn:hover {
   background-color: #fff;
@@ -133,6 +133,9 @@ select {
 }
 
 @media screen and (max-width: 768px) {
+  h1 {
+    font-size: 30px;
+  }
   .form-container {
     max-width: 400px;
   }
@@ -142,6 +145,9 @@ select {
   }
 }
 @media screen and (max-width: 480px) {
+  h1 {
+    font-size: 24px;
+  }
   .form-container {
     max-width: 300px;
   }

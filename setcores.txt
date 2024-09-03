@@ -2,16 +2,18 @@
 #222 - Pretinho
 #333 - Pretitinho
 #485696 - Blue (Texto)
-#5EB1BF - Blue (Link)
-#F08CAE - Kokomi Color (Gay)
+#5eb1bf - Blue (Link)
+#f08cae - Kokomi Color (Gay)
+#e07b99 - Kokomi Text
 
 ----- Message color -----
 
 - Confirmation
 #485696 - Text color (Blue)
-#CCE5FF - Light blue
-#B8DAFF - Border blue
+#cce5ff - Light blue
+#b8daff - Border blue
 - Delete
 #485696 - Text color (Blue)
-#F8D7DA - Light red
-#F5C6CB - Border red
+#f8d7da - Light red
+#f5c6cb - Border red
+#ff4d4d - Bright red
