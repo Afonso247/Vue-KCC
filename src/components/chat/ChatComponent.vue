@@ -9,6 +9,8 @@
       :showSidebar="isSidebarOpen"
       @create-chat="createNewChat"
       @select-chat="selectChat"
+      @rename-chat="renameChat"
+      @delete-chat="deleteChat"
       @toggle-sidebar="toggleSidebar"
     />
     <ChatWindow
@@ -85,6 +87,18 @@ export default {
     },
     toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
+    },
+    renameChat({ chatId, newName }) {
+      const chat = this.chats.find((chat) => chat.id === chatId);
+      if (chat) {
+        chat.name = newName;
+      }
+    },
+    deleteChat(chatId) {
+      this.chats = this.chats.filter((chat) => chat.id !== chatId);
+      if (this.activeChatId === chatId) {
+        this.activeChatId = this.chats.length > 0 ? this.chats[0].id : null
+      }
     },
     handleResize() {
       this.isMobile = window.innerWidth <= 768;

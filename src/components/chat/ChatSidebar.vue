@@ -1,5 +1,5 @@
 <template>
-    <div class="chat-sidebar" :class="{ hidden: !showSidebar }">
+    <div class="chat-sidebar" :class="{ hidden: !showSidebar }" @click.self="closeOptions">
         <button class="close-button" @click="$emit('toggle-sidebar')" v-if="isMobile">
             <XMarkIcon class="icon" />
         </button>
@@ -13,18 +13,28 @@
                 @click="selectChat(chat.id)"
             >
                 {{ chat.name }}
+                <div class="options-container" @click.stop>
+                    <button class="options-btn" @click="toggleOptions(chat.id)">
+                        <EllipsisHorizontalIcon class="icon" />
+                    </button>
+                    <div v-if="showOptionsId === chat.id" class="dropdown-menu">
+                        <button @click="renameChat(chat.id)">Renomear</button>
+                        <button @click="deleteChat(chat.id)">Excluir</button>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-import { XMarkIcon } from '@heroicons/vue/24/solid'
+import { XMarkIcon, EllipsisHorizontalIcon } from '@heroicons/vue/24/solid'
 
 export default {
     name: 'ChatSidebar',
     components: {
-        XMarkIcon
+        XMarkIcon,
+        EllipsisHorizontalIcon
     },
     props: {
         chats: Array,
@@ -33,7 +43,8 @@ export default {
     },
     data() {
         return {
-            isMobile: window.innerWidth <= 768
+            isMobile: window.innerWidth <= 768,
+            showOptionsId: null
         };
     },
     methods: {
@@ -45,6 +56,25 @@ export default {
         },
         handleResize() {
             this.isMobile = window.innerWidth <= 768;
+        },
+        toggleOptions(chatId) {
+            this.showOptionsId = this.showOptionsId === chatId ? null : chatId;
+        },
+        closeOptions() {
+            this.showOptionsId = null;
+        },
+        renameChat(chatId) {
+            const newName = prompt('Digite o novo nome do chat:');
+            if (newName) {
+                this.$emit('rename-chat', { chatId, newName });
+            }
+            this.showOptionsId = null;
+        },
+        deleteChat(chatId) {
+            if (confirm('Tem certeza que deseja excluir este chat?')) {
+                this.$emit('delete-chat', chatId);
+            }
+            this.showOptionsId = null;
         }
     },
     created() {
@@ -79,6 +109,9 @@ export default {
 }
 
 .chat-sidebar li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -113,7 +146,50 @@ export default {
 .icon {
   width: 20px;
   height: 20px;
-  background-color: #333;
+  background-color: transparent;
+}
+
+.options-container {
+  position: relative;
+  background-color: transparent;
+}
+
+.options-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #111;
+  font-size: 18px;
+}
+
+.options-btn:hover {
+  color: #fff;
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: #444;
+  border: 1px solid #666;
+  border-radius: 5px;
+  padding: 5px;
+  z-index: 1000;
+}
+
+.dropdown-menu button {
+  display: block;
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-menu button:hover {
+  background-color: #555;
 }
 
 @media (max-width: 768px) {
