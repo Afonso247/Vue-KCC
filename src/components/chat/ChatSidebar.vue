@@ -43,7 +43,7 @@ export default {
     },
     data() {
         return {
-            isMobile: window.innerWidth <= 768,
+            isMobile: window.innerWidth <= 900,
             showOptionsId: null
         };
     },
@@ -55,7 +55,7 @@ export default {
             this.$emit('select-chat', chatId);
         },
         handleResize() {
-            this.isMobile = window.innerWidth <= 768;
+            this.isMobile = window.innerWidth <= 900;
         },
         toggleOptions(chatId) {
             this.showOptionsId = this.showOptionsId === chatId ? null : chatId;
@@ -143,6 +143,11 @@ export default {
   margin-bottom: 10px;
 }
 
+.chat-sidebar .close-button:hover {
+  color: #f08cae;
+  transition: color 0.2s;
+}
+
 .icon {
   width: 20px;
   height: 20px;
@@ -192,9 +197,10 @@ export default {
   background-color: #555;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .chat-sidebar {
     width: 100%;
+    margin-bottom: 6px;
   }
 }
 

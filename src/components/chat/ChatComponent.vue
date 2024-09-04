@@ -46,25 +46,27 @@ export default {
       chats: [],
       activeChatId: null,
       isSidebarOpen: true,
-      isMobile: window.innerWidth <= 768,
+      isMobile: window.innerWidth <= 900,
     };
   },
   computed: {
     ...mapGetters('chat', ['getChats']),
-    // ...mapGetters({
-    //   gatherChats: 'chat/gatherChats',
-    //   getValue: 'chat/getValue',
-    // }),
     activeChat() {
       return this.chats.find((chat) => chat._id === this.activeChatId);
-    },
+    }
   },
   async created() {
+    if (this.isMobile) {
+      this.isSidebarOpen = false;
+    }
+
     await this.getAllChats();
     this.chats.push(...this.getChats);
+
     if (this.chats.length > 0) {
       this.activeChatId = this.chats[0]._id;
     }
+
     window.addEventListener("resize", this.handleResize);
   },
   beforeUnmount() {
@@ -73,30 +75,34 @@ export default {
   methods: {
     ...mapActions('chat', ['getAllChats']),
     async updateChats() {
+
       await this.getAllChats();
       this.chats = this.getChats;
     },
     async createNewChat() {
+      
       try {
-        const newChatId = this.chats.length + 1;
-        const name = `Chat ${newChatId}`;
-        await axios.post(
+        const chatNum = this.chats.length + 1;
+        const name = `Chat ${chatNum}`;
+
+        const response = await axios.post(
           'http://localhost:3000/chat/create-chat', 
           { name }, 
           { withCredentials: true }
         )
-        this.updateChats();
+
+        await this.updateChats();
+        // Seleciona o novo chat criado
+        this.selectChat(response.data.chat._id)
+
       } catch (error) {
         console.error('Erro ao criar chat:', error);
       }
-      // this.chats.push({ id: newChatId, name: `Chat ${newChatId}`, messages: [] });
-      // this.activeChatId = newChatId;
     },
     selectChat(chatId) {
       this.activeChatId = chatId;
     },
     async sendMessage(message) {
-      console.log('message', message)
       if (!this.activeChat) {
         return;
       }
@@ -107,21 +113,25 @@ export default {
           { content: message, sender: 'user' }, 
           { withCredentials: true }
         )
-        this.updateChats();
-        this.botReply(message, this.activeChat);
+
+        await this.updateChats();
+        await this.botReply(message, this.activeChat);
       } catch (error) {
         console.error('Erro ao enviar mensagem:', error);
       }
     },
     async botReply(message, currentChat) {
+
       try{
         await axios.post(
           `http://localhost:3000/chat/send-message/${currentChat._id}`, 
           { content: `Mensagem de resposta: ${message}`, sender: 'bot' }, 
           { withCredentials: true }
         )
-        this.updateChats();
+
+        await this.updateChats();
         this.$refs.chatWindow.enableInput();
+
       } catch (error) {
         console.error('Erro ao enviar mensagem:', error);
       }
@@ -130,31 +140,34 @@ export default {
       this.isSidebarOpen = !this.isSidebarOpen;
     },
     async renameChat(chatId, name) {
-      console.log(chatId)
+
       try {
         await axios.put(
           `http://localhost:3000/chat/rename-chat/${chatId}`, 
           { name }, 
           { withCredentials: true }
         )
-        this.updateChats();
+
+        await this.updateChats();
       } catch (error) {
         console.error('Erro ao renomear chat:', error);
       }
     },
     async deleteChat(chatId) {
+
       try {
         await axios.delete(
           `http://localhost:3000/chat/delete-chat/${chatId}`, 
           { withCredentials: true }
         )
-        this.updateChats();
+
+        await this.updateChats();
       } catch (error) {
         console.error('Erro ao excluir chat:', error);
       }
     },
     handleResize() {
-      this.isMobile = window.innerWidth <= 768;
+      this.isMobile = window.innerWidth <= 900;
       if (this.isMobile) {
         this.isSidebarOpen = false;
       } else {
@@ -202,14 +215,19 @@ export default {
   color: #fff;
   border: none;
   padding: 10px;
+  margin-bottom: 6px;
   border-radius: 5px;
   cursor: pointer;
   display: none;
   width: 40px;
   height: 40px;
 }
+.menu-button:hover {
+  color: #f08cae;
+  transition: color 0.2s;
+}
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .chat-container {
     flex-direction: column;
   }
