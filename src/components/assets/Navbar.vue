@@ -113,7 +113,7 @@ export default {
 .nav a:hover {
   color: #fff;
 }
-@media (max-width: 379px) {
+@media (max-width: 420px) {
   .nav-content {
     flex-direction: column;
     align-items: center;

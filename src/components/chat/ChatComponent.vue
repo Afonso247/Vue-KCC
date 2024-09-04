@@ -19,6 +19,13 @@
       :messages="activeChat.messages"
       @send-message="sendMessage"
     />
+    <div v-else class="no-chat-message">
+      <h2>Nenhum chat atual encontrado.</h2>
+      <div>
+        Selecione um chat existente ou 
+        <a href="#" @click.prevent="createNewChat">crie um novo chat</a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -166,6 +173,29 @@ export default {
   border-radius: 10px;
   padding: 10px;
   position: relative;
+}
+.no-chat-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.no-chat-message h2 {
+  color: #485696;
+  font-size: 32px;
+}
+.no-chat-message div {
+  color: #485696;
+  font-size: 18px;
+}
+.no-chat-message a {
+  color: #5eb1bf;
+  text-decoration: none;
+}
+.no-chat-message a:hover {
+  color: #f08cae;
+  transition: color 0.2s;
 }
 .menu-button {
   background-color: #333;
