@@ -1,9 +1,10 @@
 <template>
-  <div class="chat-container">
+  <div class="chat-container" @click="checkClose($event)">
     <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }" v-if="isMobile">
       ☰
     </button>
     <Sidebar
+      ref="sidebar"
       :chats="chats"
       :activeChatId="activeChatId"
       :showSidebar="isSidebarOpen"
@@ -139,6 +140,11 @@ export default {
     toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
     },
+    checkClose(event) {
+      if (!event.target.closest('.chat-sidebar')) {
+        this.$refs.sidebar.closeOptions();
+      }
+    },
     async renameChat(chatId, name) {
 
       try {
@@ -192,6 +198,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   margin: auto;
 }
 .no-chat-message h2 {
@@ -205,6 +212,7 @@ export default {
 .no-chat-message a {
   color: #5eb1bf;
   text-decoration: none;
+  white-space: nowrap;
 }
 .no-chat-message a:hover {
   color: #f08cae;
