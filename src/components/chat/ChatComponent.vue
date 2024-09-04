@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-container" @click="checkClose($event)">
+  <div class="chat-container">
     <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }" v-if="isMobile">
       ☰
     </button>
