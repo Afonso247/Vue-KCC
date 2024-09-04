@@ -8,6 +8,7 @@
       :chats="chats"
       :activeChatId="activeChatId"
       :showSidebar="isSidebarOpen"
+      :errorMsg="errorMsg"
       @create-chat="createNewChat"
       @select-chat="selectChat"
       @rename-chat="renameChat"
@@ -47,8 +48,23 @@ export default {
       chats: [],
       activeChatId: null,
       isSidebarOpen: true,
+      errorMsg: '',
+      errorMsgTimeout: null,
       isMobile: window.innerWidth <= 900,
     };
+  },
+  watch: {
+    errorMsg(newValue) {
+      if (newValue) {
+        if (this.errorMsgTimeout) {
+          clearTimeout(this.errorMsgTimeout)
+        }
+
+        this.errorMsgTimeout = setTimeout(() => {
+          this.errorMsg = '';
+        }, 4000)
+      }
+    }
   },
   computed: {
     ...mapGetters('chat', ['getChats']),
@@ -95,9 +111,15 @@ export default {
         await this.updateChats();
         // Seleciona o novo chat criado
         this.selectChat(response.data.chat._id)
+        this.errorMsg = '';
 
       } catch (error) {
-        console.error('Erro ao criar chat:', error);
+        if (error.response.status === 400) {
+          this.errorMsg = error.response.data.message;
+        } else {
+          this.errorMsg = 'Erro ao criar chat';
+          console.error(error);
+        }
       }
     },
     selectChat(chatId) {
@@ -155,6 +177,7 @@ export default {
         )
 
         await this.updateChats();
+        this.errorMsg = '';
       } catch (error) {
         console.error('Erro ao renomear chat:', error);
       }
@@ -168,6 +191,7 @@ export default {
         )
 
         await this.updateChats();
+        this.errorMsg = '';
       } catch (error) {
         console.error('Erro ao excluir chat:', error);
       }

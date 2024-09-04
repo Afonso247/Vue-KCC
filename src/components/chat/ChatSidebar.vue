@@ -7,6 +7,7 @@
     <button class="close-button" @click="$emit('toggle-sidebar')" v-if="isMobile">
       <XMarkIcon class="icon" />
     </button>
+    <p :class="{ 'showing': errorMsg }">{{ errorMsg }}</p>
     <button class="confirm-btn" @click="createChat">Novo Chat</button>
 
     <ul>
@@ -43,7 +44,8 @@ export default {
   props: {
     chats: Array,
     activeChatId: String,
-    showSidebar: Boolean
+    showSidebar: Boolean,
+    errorMsg: String
   },
   data() {
     return {
@@ -131,6 +133,17 @@ export default {
 
 .chat-sidebar li:hover {
   background-color: #f08cae;
+}
+
+.chat-sidebar p {
+  margin-bottom: 10px;
+  text-align: center;
+  color: #ff0000;
+  background-color: transparent;
+  display: none;
+}
+.chat-sidebar p.showing {
+  display: block;
 }
 
 .chat-sidebar .confirm-btn {
