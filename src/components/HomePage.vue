@@ -1,8 +1,8 @@
 <template>
-  <div v-if="isAuthenticated">
+  <div v-if="isAuthenticated" @click="checkClose($event)">
     <h1>Olá, {{ getUsername }} !</h1>
     
-    <Chat />
+    <Chat ref="chat" />
   </div>
   <div v-else>
     <h1>Seja bem-vindo(a) a Kokomi's Mindspace</h1>
@@ -33,6 +33,14 @@ export default {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
     getUsername() {
       return this.isAuthenticated ? this.user.username : ''
+    }
+  },
+  methods: {
+    checkClose(event) {
+      if (!event.target.closest('.chat-sidebar')) {
+        // caminho: HomePage -> ChatComponent -> ChatSidebar
+        this.$refs.chat.checkClose(event)
+      }
     }
   }
 }
