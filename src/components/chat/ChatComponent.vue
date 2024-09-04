@@ -140,7 +140,8 @@ export default {
         await this.updateChats();
         await this.botReply(message, this.activeChat);
       } catch (error) {
-        console.error('Erro ao enviar mensagem:', error);
+        this.errorMsg = 'Erro ao enviar mensagem';
+        console.error(error);
       }
     },
     async botReply(message, currentChat) {
@@ -156,7 +157,8 @@ export default {
         this.$refs.chatWindow.enableInput();
 
       } catch (error) {
-        console.error('Erro ao enviar mensagem:', error);
+        this.errorMsg = 'Erro ao enviar mensagem';
+        console.error(error);
       }
     },
     toggleSidebar() {
@@ -179,7 +181,8 @@ export default {
         await this.updateChats();
         this.errorMsg = '';
       } catch (error) {
-        console.error('Erro ao renomear chat:', error);
+        this.errorMsg = 'Erro ao renomear chat';
+        console.error(error);
       }
     },
     async deleteChat(chatId) {
@@ -193,7 +196,8 @@ export default {
         await this.updateChats();
         this.errorMsg = '';
       } catch (error) {
-        console.error('Erro ao excluir chat:', error);
+        this.errorMsg = 'Erro ao excluir chat';
+        console.error(error);
       }
     },
     handleResize() {
