@@ -215,6 +215,9 @@ export default {
 <style>
 .chat-container {
   display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  justify-content: center;
   height: 100vh;
   border: 3px solid #333333;
   border-radius: 10px;
