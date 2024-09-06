@@ -1,6 +1,6 @@
 <template>
   <div class="chat-container">
-    <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }" v-if="isMobile">
+    <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }">
       ☰
     </button>
     <Sidebar
@@ -20,8 +20,9 @@
       ref="chatWindow"
       :messages="activeChat.messages"
       @send-message="sendMessage"
+      :class="{ 'full-width': !isSidebarOpen }"
     />
-    <div v-else class="no-chat-message">
+    <div v-else class="no-chat-message" :class="{ 'full-width': !isSidebarOpen }">
       <h2>Nenhum chat atual encontrado.</h2>
       <div>
         Selecione um chat existente ou 
@@ -215,9 +216,9 @@ export default {
 <style>
 .chat-container {
   display: flex;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
   border: 3px solid #333333;
   border-radius: 10px;
@@ -231,6 +232,10 @@ export default {
   justify-content: center;
   text-align: center;
   margin: auto;
+  transition: width 0.3s ease;
+}
+.no-chat-message.full-width {
+  width: 100%;
 }
 .no-chat-message h2 {
   color: #485696;
@@ -257,13 +262,19 @@ export default {
   margin-bottom: 6px;
   border-radius: 5px;
   cursor: pointer;
-  display: none;
   width: 40px;
   height: 40px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
 }
 .menu-button:hover {
   color: #f08cae;
   transition: color 0.2s;
+}
+.menu-button.hidden {
+  display: none;
 }
 
 @media (max-width: 900px) {
@@ -272,10 +283,10 @@ export default {
   }
 
   .menu-button {
-    display: block;
+    position: static;
+    margin-bottom: 6px;
+    top: 10px;
+    left: 10px;
   }
-  .hidden {
-    display: none;
-}
 }
 </style>
