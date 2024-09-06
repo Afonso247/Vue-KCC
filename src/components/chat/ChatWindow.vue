@@ -8,6 +8,12 @@
             >
                 {{ message.content }}
             </div>
+            <div 
+              class="no-messages" 
+              v-if="messages.length === 0"
+            >
+              Como você se sente hoje?
+            </div>
         </div>
         <div class="input-container">
             <input
@@ -69,9 +75,26 @@ export default {
 }
 .messages {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   margin-bottom: 10px;
   background-color: #222;
+  position: relative;
+}
+.no-messages {
+  background-color: transparent;
+  color: #f08cae;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
 }
 .message {
   padding: 5px 10px;
@@ -81,16 +104,18 @@ export default {
 .message.user {
   background-color: #b8daff;
   align-self: flex-end;
+  text-align: right;
+  width: 90%;
 }
 .message.bot {
   background-color: #e07b99;
   color: #fff;
   align-self: flex-start;
+  width: 90%;
 }
 .input-container {
   display: flex;
-  width: 100%;
-  max-width: 1200px;
+  width: 90%;
   padding: 0 10px;
   background-color: #222;
 }

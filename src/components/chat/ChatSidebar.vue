@@ -94,7 +94,10 @@ export default {
 
 <style scoped>
 .chat-sidebar {
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  min-width: 230px;
   padding: 20px;
   background-color: #333;
   border: 1px solid #444;
@@ -153,11 +156,15 @@ export default {
 }
 
 .chat-sidebar .close-button {
+  display: flex;
+  width: 40px;
+  justify-content: center;
   background: none;
   border: none;
   color: #fff;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  margin-left: -14px;
 }
 
 .chat-sidebar .close-button:hover {
@@ -217,7 +224,11 @@ export default {
 @media (max-width: 900px) {
   .chat-sidebar {
     width: calc(100% - 20px);
+    min-width: 0;
     margin-bottom: 6px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
   }
   .chat-sidebar.mobile-sidebar {
     z-index: 100;
