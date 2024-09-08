@@ -336,6 +336,7 @@ input {
 .confirm-btn {
   display: flex;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .cancel-btn {
