@@ -34,7 +34,7 @@
   </div>
 
   <!-- Modal para renomear chat -->
-  <Modal :isOpen="renameModalId" @close="closeRenameModal" title="Renomear Chat">
+  <Modal :isOpen="renameModalId" @close="closeRenameModal" :title="'Renomear Chat - ' + renameModalName">
     <input type="text" class="modal-input" v-model="newChatName" placeholder="Novo nome do chat" />
     <template #footer>
       <button class="confirm-btn modal-btn" @click="renameChat(renameModalId, newChatName)">Renomear</button>
@@ -43,7 +43,7 @@
   </Modal>
   <!-- Modal para excluir chat -->
   <Modal :isOpen="deleteModalId" @close="closeDeleteModal" title="Excluir Chat">
-    <div class="modal-message">Tem certeza que deseja excluir este chat?</div>
+    <div class="modal-message">Tem certeza que deseja excluir {{ deleteModalName }}?</div>
     <template #footer>
       <button class="confirm-btn modal-btn" @click="deleteChat(deleteModalId)">Excluir</button>
       <button class="cancel-btn modal-btn" @click="closeDeleteModal">Cancelar</button>
@@ -72,8 +72,10 @@ export default {
       isSidebarOpen: true,
       errorMsg: '',
       errorMsgTimeout: null,
-      renameModalId: null,
-      deleteModalId: null,
+      renameModalId: '',
+      renameModalName: '',
+      deleteModalId: '',
+      deleteModalName: '',
       newChatName: '',
       isMobile: window.innerWidth <= 900,
     };
@@ -229,15 +231,31 @@ export default {
     },
     triggerRenameModal(chatId) {
       this.renameModalId = chatId;
+      const chat = this.chats.find((chat) => chat._id === chatId);
+
+      if (chat) {
+        this.renameModalName = chat.name;
+      } else {
+        this.renameModalName = '';
+      }
     },
     closeRenameModal() {
-      this.renameModalId = null;
+      this.renameModalId = '';
+      this.renameModalName = '';
     },
     triggerDeleteModal(chatId) {
       this.deleteModalId = chatId;
+      const chat = this.chats.find((chat) => chat._id === chatId);
+
+      if (chat) {
+        this.deleteModalName = chat.name;
+      } else {
+        this.deleteModalName = '';
+      }
     },
     closeDeleteModal() {
-      this.deleteModalId = null;
+      this.deleteModalId = '';
+      this.deleteModalName = '';
     },
     handleResize() {
       this.isMobile = window.innerWidth <= 900;

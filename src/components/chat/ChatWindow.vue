@@ -134,4 +134,7 @@ export default {
   cursor: not-allowed;
   pointer-events: none;
 }
+.confirm-btn {
+  margin: 0 auto;
+}
 </style>

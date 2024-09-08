@@ -31,7 +31,7 @@ export default {
   },
   props: {
     isOpen: {
-      type: Boolean,
+      type: String,
       required: true
     },
     title: {

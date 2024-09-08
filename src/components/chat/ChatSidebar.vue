@@ -70,18 +70,11 @@ export default {
       this.showOptionsId = null;
     },
     renameChat(chatId) {
-      this.$emit('renameModal', chatId);
-      // const newName = prompt('Digite o novo nome do chat:');
-      // if (newName) {
-      //   this.$emit('rename-chat', chatId, newName);
-      // }
+      this.$emit('rename-modal', chatId);
       this.showOptionsId = null;
     },
     deleteChat(chatId) {
-      this.$emit('deleteModal', chatId);
-      // if (confirm('Tem certeza que deseja excluir este chat?')) {
-      //   this.$emit('delete-chat', chatId);
-      // }
+      this.$emit('delete-modal', chatId);
       this.showOptionsId = null;
     }
   },
