@@ -70,16 +70,18 @@ export default {
       this.showOptionsId = null;
     },
     renameChat(chatId) {
-      const newName = prompt('Digite o novo nome do chat:');
-      if (newName) {
-        this.$emit('rename-chat', chatId, newName);
-      }
+      this.$emit('renameModal', chatId);
+      // const newName = prompt('Digite o novo nome do chat:');
+      // if (newName) {
+      //   this.$emit('rename-chat', chatId, newName);
+      // }
       this.showOptionsId = null;
     },
     deleteChat(chatId) {
-      if (confirm('Tem certeza que deseja excluir este chat?')) {
-        this.$emit('delete-chat', chatId);
-      }
+      this.$emit('deleteModal', chatId);
+      // if (confirm('Tem certeza que deseja excluir este chat?')) {
+      //   this.$emit('delete-chat', chatId);
+      // }
       this.showOptionsId = null;
     }
   },
@@ -152,7 +154,7 @@ export default {
 .chat-sidebar .confirm-btn {
   width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
 }
 
 .chat-sidebar .close-button {

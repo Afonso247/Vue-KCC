@@ -14,6 +14,8 @@
       @rename-chat="renameChat"
       @delete-chat="deleteChat"
       @toggle-sidebar="toggleSidebar"
+      @rename-modal="triggerRenameModal"
+      @delete-modal="triggerDeleteModal"
     />
     <ChatWindow
       v-if="activeChat"
@@ -30,6 +32,23 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal para renomear chat -->
+  <Modal :isOpen="renameModalId" @close="closeRenameModal" title="Renomear Chat">
+    <input type="text" class="modal-input" v-model="newChatName" placeholder="Novo nome do chat" />
+    <template #footer>
+      <button class="confirm-btn modal-btn" @click="renameChat(renameModalId, newChatName)">Renomear</button>
+      <button class="cancel-btn modal-btn" @click="closeRenameModal">Cancelar</button>
+    </template>
+  </Modal>
+  <!-- Modal para excluir chat -->
+  <Modal :isOpen="deleteModalId" @close="closeDeleteModal" title="Excluir Chat">
+    <div class="modal-message">Tem certeza que deseja excluir este chat?</div>
+    <template #footer>
+      <button class="confirm-btn modal-btn" @click="deleteChat(deleteModalId)">Excluir</button>
+      <button class="cancel-btn modal-btn" @click="closeDeleteModal">Cancelar</button>
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -37,12 +56,14 @@ import axios from 'axios';
 import { mapActions, mapGetters } from 'vuex';
 import Sidebar from "./ChatSidebar.vue";
 import ChatWindow from "./ChatWindow.vue";
+import Modal from "../assets/ModalComponent.vue";
 
 export default {
   name: "ChatComponent",
   components: {
     Sidebar,
     ChatWindow,
+    Modal
   },
   data() {
     return {
@@ -51,6 +72,9 @@ export default {
       isSidebarOpen: true,
       errorMsg: '',
       errorMsgTimeout: null,
+      renameModalId: null,
+      deleteModalId: null,
+      newChatName: '',
       isMobile: window.innerWidth <= 900,
     };
   },
@@ -180,6 +204,7 @@ export default {
         )
 
         await this.updateChats();
+        this.closeRenameModal();
         this.errorMsg = '';
       } catch (error) {
         this.errorMsg = 'Erro ao renomear chat';
@@ -195,11 +220,24 @@ export default {
         )
 
         await this.updateChats();
+        this.closeDeleteModal();
         this.errorMsg = '';
       } catch (error) {
         this.errorMsg = 'Erro ao excluir chat';
         console.error(error);
       }
+    },
+    triggerRenameModal(chatId) {
+      this.renameModalId = chatId;
+    },
+    closeRenameModal() {
+      this.renameModalId = null;
+    },
+    triggerDeleteModal(chatId) {
+      this.deleteModalId = chatId;
+    },
+    closeDeleteModal() {
+      this.deleteModalId = null;
     },
     handleResize() {
       this.isMobile = window.innerWidth <= 900;
@@ -275,6 +313,28 @@ export default {
 }
 .menu-button.hidden {
   display: none;
+}
+
+.modal-input {
+  width: 100%;
+}
+.modal-message {
+  display: flex;
+  background-color: transparent;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff4d4d;
+}
+.confirm-btn {
+  margin: 0 16px;
+}
+
+@media (min-width: 901px) {
+  .modal-btn {
+    width: 120px;
+  }
 }
 
 @media (max-width: 900px) {
