@@ -275,7 +275,7 @@ export default {
   max-width: 1200px;
   margin: 0 auto;
   justify-content: flex-start;
-  height: 100vh;
+  height: calc(100vh - 100px);
   border: 3px solid #333333;
   border-radius: 10px;
   padding: 10px;
