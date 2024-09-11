@@ -4,7 +4,7 @@
     :class="{ hidden: !showSidebar, 'mobile-sidebar': isMobile }" 
     @click.self="closeOptions()"
   >
-    <button class="close-button" @click="$emit('toggle-sidebar')" v-if="isMobile">
+    <button class="close-button" @click="$emit('toggle-sidebar')">
       <XMarkIcon class="icon" />
     </button>
     <p :class="{ 'showing': errorMsg }">{{ errorMsg }}</p>
@@ -70,16 +70,11 @@ export default {
       this.showOptionsId = null;
     },
     renameChat(chatId) {
-      const newName = prompt('Digite o novo nome do chat:');
-      if (newName) {
-        this.$emit('rename-chat', chatId, newName);
-      }
+      this.$emit('rename-modal', chatId);
       this.showOptionsId = null;
     },
     deleteChat(chatId) {
-      if (confirm('Tem certeza que deseja excluir este chat?')) {
-        this.$emit('delete-chat', chatId);
-      }
+      this.$emit('delete-modal', chatId);
       this.showOptionsId = null;
     }
   },
@@ -96,7 +91,7 @@ export default {
 .chat-sidebar {
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 22%;
   min-width: 230px;
   padding: 20px;
   background-color: #333;
@@ -106,7 +101,7 @@ export default {
   position: relative;
 }
 
-.hidden {
+.chat-sidebar.hidden {
   display: none;
 }
 
@@ -152,7 +147,7 @@ export default {
 .chat-sidebar .confirm-btn {
   width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
 }
 
 .chat-sidebar .close-button {
@@ -197,7 +192,7 @@ export default {
 
 .dropdown-menu {
   position: absolute;
-  left: 0;
+  right: -5px;
   top: 100%;
   background-color: #444;
   border: 1px solid #666;
@@ -235,8 +230,4 @@ export default {
     position: absolute;
   }
 }
-
-/* .chat-sidebar button:hover {
-  background-color: #3e8e41;
-} */
 </style>

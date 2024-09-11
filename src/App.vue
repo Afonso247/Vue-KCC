@@ -8,7 +8,6 @@ export default {
   components: {
     NavBar,
     RouterView,
-    // eslint-disable-next-line vue/no-reserved-component-names
     Footer
   },
   data() {
@@ -21,9 +20,33 @@ export default {
 </script>
 
 <template>
-  <NavBar :logo="logo_src" :alt="app_name" />
-  <RouterView />
-  <Footer />
+  <div class="app-container">
+    <NavBar :logo="logo_src" :alt="app_name" />
+    <main class="content">
+      <RouterView />
+    </main>
+    <Footer />
+  </div>
 </template>
 
-<style></style>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1 0 auto;
+  padding-top: 80px;
+}
+
+body {
+  padding-top: 0;
+}
+</style>

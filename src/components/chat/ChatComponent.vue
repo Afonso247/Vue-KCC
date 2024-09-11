@@ -1,6 +1,6 @@
 <template>
   <div class="chat-container">
-    <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }" v-if="isMobile">
+    <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }">
       ☰
     </button>
     <Sidebar
@@ -14,14 +14,17 @@
       @rename-chat="renameChat"
       @delete-chat="deleteChat"
       @toggle-sidebar="toggleSidebar"
+      @rename-modal="triggerRenameModal"
+      @delete-modal="triggerDeleteModal"
     />
     <ChatWindow
       v-if="activeChat"
       ref="chatWindow"
       :messages="activeChat.messages"
       @send-message="sendMessage"
+      :class="{ 'full-width': !isSidebarOpen }"
     />
-    <div v-else class="no-chat-message">
+    <div v-else class="no-chat-message" :class="{ 'full-width': !isSidebarOpen }">
       <h2>Nenhum chat atual encontrado.</h2>
       <div>
         Selecione um chat existente ou 
@@ -29,6 +32,23 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal para renomear chat -->
+  <Modal :isOpen="renameModalId" @close="closeRenameModal" :title="'Renomear Chat - ' + renameModalName">
+    <input type="text" class="modal-input" v-model="newChatName" placeholder="Novo nome do chat" />
+    <template #footer>
+      <button class="confirm-btn modal-btn" @click="renameChat(renameModalId, newChatName)">Renomear</button>
+      <button class="cancel-btn modal-btn" @click="closeRenameModal">Cancelar</button>
+    </template>
+  </Modal>
+  <!-- Modal para excluir chat -->
+  <Modal :isOpen="deleteModalId" @close="closeDeleteModal" title="Excluir Chat">
+    <div class="modal-message">Tem certeza que deseja excluir {{ deleteModalName }}?</div>
+    <template #footer>
+      <button class="confirm-btn modal-btn" @click="deleteChat(deleteModalId)">Excluir</button>
+      <button class="cancel-btn modal-btn" @click="closeDeleteModal">Cancelar</button>
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -36,12 +56,14 @@ import axios from 'axios';
 import { mapActions, mapGetters } from 'vuex';
 import Sidebar from "./ChatSidebar.vue";
 import ChatWindow from "./ChatWindow.vue";
+import Modal from "../assets/ModalComponent.vue";
 
 export default {
   name: "ChatComponent",
   components: {
     Sidebar,
     ChatWindow,
+    Modal
   },
   data() {
     return {
@@ -50,6 +72,11 @@ export default {
       isSidebarOpen: true,
       errorMsg: '',
       errorMsgTimeout: null,
+      renameModalId: '',
+      renameModalName: '',
+      deleteModalId: '',
+      deleteModalName: '',
+      newChatName: '',
       isMobile: window.innerWidth <= 900,
     };
   },
@@ -179,6 +206,7 @@ export default {
         )
 
         await this.updateChats();
+        this.closeRenameModal();
         this.errorMsg = '';
       } catch (error) {
         this.errorMsg = 'Erro ao renomear chat';
@@ -194,11 +222,40 @@ export default {
         )
 
         await this.updateChats();
+        this.closeDeleteModal();
         this.errorMsg = '';
       } catch (error) {
         this.errorMsg = 'Erro ao excluir chat';
         console.error(error);
       }
+    },
+    triggerRenameModal(chatId) {
+      this.renameModalId = chatId;
+      const chat = this.chats.find((chat) => chat._id === chatId);
+
+      if (chat) {
+        this.renameModalName = chat.name;
+      } else {
+        this.renameModalName = '';
+      }
+    },
+    closeRenameModal() {
+      this.renameModalId = '';
+      this.renameModalName = '';
+    },
+    triggerDeleteModal(chatId) {
+      this.deleteModalId = chatId;
+      const chat = this.chats.find((chat) => chat._id === chatId);
+
+      if (chat) {
+        this.deleteModalName = chat.name;
+      } else {
+        this.deleteModalName = '';
+      }
+    },
+    closeDeleteModal() {
+      this.deleteModalId = '';
+      this.deleteModalName = '';
     },
     handleResize() {
       this.isMobile = window.innerWidth <= 900;
@@ -215,10 +272,10 @@ export default {
 <style>
 .chat-container {
   display: flex;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  justify-content: center;
-  height: 100vh;
+  justify-content: flex-start;
+  height: calc(100vh - 100px);
   border: 3px solid #333333;
   border-radius: 10px;
   padding: 10px;
@@ -231,6 +288,10 @@ export default {
   justify-content: center;
   text-align: center;
   margin: auto;
+  transition: width 0.3s ease;
+}
+.no-chat-message.full-width {
+  width: 100%;
 }
 .no-chat-message h2 {
   color: #485696;
@@ -257,13 +318,41 @@ export default {
   margin-bottom: 6px;
   border-radius: 5px;
   cursor: pointer;
-  display: none;
   width: 40px;
   height: 40px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
 }
 .menu-button:hover {
   color: #f08cae;
   transition: color 0.2s;
+}
+.menu-button.hidden {
+  display: none;
+}
+
+.modal-input {
+  width: 100%;
+}
+.modal-message {
+  display: flex;
+  background-color: transparent;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff4d4d;
+}
+.confirm-btn {
+  margin: 0 16px;
+}
+
+@media (min-width: 901px) {
+  .modal-btn {
+    width: 120px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -272,10 +361,10 @@ export default {
   }
 
   .menu-button {
-    display: block;
+    position: static;
+    margin-bottom: 6px;
+    top: 10px;
+    left: 10px;
   }
-  .hidden {
-    display: none;
-}
 }
 </style>

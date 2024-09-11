@@ -8,6 +8,12 @@
 <script setup></script>
 
 <style scoped>
+.footer {
+  flex-shrink: 0;
+  padding: 20px;
+  text-align: center;
+}
+
 a {
   color: #f08cae;
 }
