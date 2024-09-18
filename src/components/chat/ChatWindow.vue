@@ -4,11 +4,11 @@
           <div
             v-for="(message, index) in messages"
             :key="index"
-            :class="['message', message.sender]"
+            :class="['message', message.role]"
           >
             <img
-              :src="message.sender === 'user' ? '/img/chatimg/user-placeholder.png' : '/img/chatimg/user-kokomi.png'"
-              :alt="message.sender === 'user' ? 'User Avatar' : 'Bot Avatar'"
+              :src="message.role === 'user' ? '/img/chatimg/user-placeholder.png' : '/img/chatimg/user-kokomi.png'"
+              :alt="message.role === 'user' ? 'User Avatar' : 'Kokomai Avatar'"
               class="avatar"
             />
             <div class="message-content">
@@ -133,7 +133,7 @@ export default {
   margin-right: 0;
   margin-left: 10px;
 }
-.message.bot {
+.message.assistant {
   background-color: #e07b99;
   color: #fff;
   align-self: flex-start;

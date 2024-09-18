@@ -160,7 +160,7 @@ export default {
       try {
         await axios.post(
           `http://localhost:3000/chat/send-message/${this.activeChat._id}`, 
-          { content: message, sender: 'user' }, 
+          { content: message, role: 'user' }, 
           { withCredentials: true }
         )
 
@@ -176,7 +176,7 @@ export default {
       try{
         await axios.post(
           `http://localhost:3000/ai/send-message/${currentChat._id}`, 
-          { content: message, sender: 'bot' }, 
+          { content: message, role: 'assistant' }, 
           { withCredentials: true }
         )
 
