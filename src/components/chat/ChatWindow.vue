@@ -1,13 +1,20 @@
 <template>
     <div class="chat-window">
         <div class="messages">
-            <div
-                v-for="(message, index) in messages"
-                :key="index"
-                :class="['message', message.sender]"
-            >
-                {{ message.content }}
+          <div
+            v-for="(message, index) in messages"
+            :key="index"
+            :class="['message', message.sender]"
+          >
+            <img
+              :src="message.sender === 'user' ? '/public/img/chatimg/user-placeholder.png' : '/public/img/chatimg/user-kokomi.png'"
+              :alt="message.sender === 'user' ? 'User Avatar' : 'Bot Avatar'"
+              class="avatar"
+            />
+            <div class="message-content">
+              {{ message.content }}
             </div>
+          </div>
             <div 
               class="no-messages" 
               v-if="messages.length === 0"
@@ -97,15 +104,34 @@ export default {
   }
 }
 .message {
+  display: flex;
+  align-items: flex-start;
   padding: 5px 10px;
   margin-bottom: 20px;
   border-radius: 5px;
+}
+.message .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.message .message-content {
+  flex: 1;
+  margin-top: 0.2rem;
+  background-color: transparent;
 }
 .message.user {
   background-color: #b8daff;
   align-self: flex-end;
   text-align: right;
   width: 90%;
+  flex-direction: row-reverse;
+}
+.message.user .avatar {
+  margin-right: 0;
+  margin-left: 10px;
 }
 .message.bot {
   background-color: #e07b99;
