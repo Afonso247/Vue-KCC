@@ -175,8 +175,8 @@ export default {
 
       try{
         await axios.post(
-          `http://localhost:3000/chat/send-message/${currentChat._id}`, 
-          { content: `Mensagem de resposta: ${message}`, sender: 'bot' }, 
+          `http://localhost:3000/ai/send-message/${currentChat._id}`, 
+          { content: message, sender: 'bot' }, 
           { withCredentials: true }
         )
 

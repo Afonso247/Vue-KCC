@@ -7,7 +7,7 @@
             :class="['message', message.sender]"
           >
             <img
-              :src="message.sender === 'user' ? '/public/img/chatimg/user-placeholder.png' : '/public/img/chatimg/user-kokomi.png'"
+              :src="message.sender === 'user' ? '/img/chatimg/user-placeholder.png' : '/img/chatimg/user-kokomi.png'"
               :alt="message.sender === 'user' ? 'User Avatar' : 'Bot Avatar'"
               class="avatar"
             />
