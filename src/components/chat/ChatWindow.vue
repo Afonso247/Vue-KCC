@@ -104,6 +104,8 @@ export default {
   }
 }
 .message {
+  display: flex;
+  align-items: flex-start;
   padding: 5px 10px;
   margin-bottom: 20px;
   border-radius: 5px;
@@ -117,6 +119,7 @@ export default {
 }
 .message .message-content {
   flex: 1;
+  margin-top: 0.2rem;
   background-color: transparent;
 }
 .message.user {
