@@ -160,11 +160,12 @@ export default {
       try {
         await axios.post(
           `http://localhost:3000/chat/send-message/${this.activeChat._id}`, 
-          { content: message, sender: 'user' }, 
+          { content: message, role: 'user' }, 
           { withCredentials: true }
         )
 
         await this.updateChats();
+        this.$refs.chatWindow.scrollToBottom();
         await this.botReply(message, this.activeChat);
       } catch (error) {
         this.errorMsg = 'Erro ao enviar mensagem';
@@ -176,11 +177,12 @@ export default {
       try{
         await axios.post(
           `http://localhost:3000/ai/send-message/${currentChat._id}`, 
-          { content: message, sender: 'bot' }, 
+          { content: message, role: 'assistant' }, 
           { withCredentials: true }
         )
 
         await this.updateChats();
+        this.$refs.chatWindow.scrollToBottom();
         this.$refs.chatWindow.enableInput();
 
       } catch (error) {
