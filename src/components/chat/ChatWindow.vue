@@ -62,6 +62,12 @@ export default {
             this.$emit("send-message", this.newMessage)
             this.newMessage = ""
         },
+        scrollToBottom() {
+          this.$nextTick(() => {
+            const messages = this.$el.querySelector(".messages");
+            messages.scrollTop = messages.scrollHeight;
+          });
+        },
         enableInput() {
             this.isSending = false
         }

@@ -165,6 +165,7 @@ export default {
         )
 
         await this.updateChats();
+        this.$refs.chatWindow.scrollToBottom();
         await this.botReply(message, this.activeChat);
       } catch (error) {
         this.errorMsg = 'Erro ao enviar mensagem';
@@ -181,6 +182,7 @@ export default {
         )
 
         await this.updateChats();
+        this.$refs.chatWindow.scrollToBottom();
         this.$refs.chatWindow.enableInput();
 
       } catch (error) {
