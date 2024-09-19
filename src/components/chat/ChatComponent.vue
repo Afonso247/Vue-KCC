@@ -184,12 +184,13 @@ export default {
 
         await this.updateChats();
         this.$refs.chatWindow.stopLoading();
+        this.$refs.chatWindow.scrollToBottom();
 
         // Inicie o efeito de revelação do texto
         const lastMessage = this.activeChat.messages[this.activeChat.messages.length - 1];
         await this.$refs.chatWindow.revealText(lastMessage.content);
 
-        this.$refs.chatWindow.scrollToBottom();
+        // this.$refs.chatWindow.scrollToBottom();
         this.$refs.chatWindow.enableInput();
 
       } catch (error) {

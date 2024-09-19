@@ -26,6 +26,9 @@
             >
               Como você se sente hoje?
             </div>
+            <div v-if="currentLoadingPhrase" class="loading-message">
+              {{ currentLoadingPhrase }}
+            </div>
             <div v-if="isLoading" class="loading-indicator">
               <div class="dot"></div>
               <div class="dot"></div>
@@ -63,7 +66,14 @@ export default {
             isSending: false,
             isLoading: false,
             revealedText: "",
-            isRevealed: false
+            isRevealed: false,
+            currentLoadingPhrase: "",
+            loadingPhrases: [
+              "KokomAI está trabalhando duro para formular a sua resposta...",
+              "KokomAI está se esforçando por você...",
+              "KokomAI está em busca da melhor resposta...",
+              "KokomAI está se dedicando por você..."
+            ]
         };
     },
     methods: {
@@ -87,17 +97,25 @@ export default {
         async revealText(text) {
             this.isRevealing = true;
             this.revealedText = '';
+            
             for (let i = 0; i < text.length; i++) {
                 this.revealedText += text[i];
-                await new Promise(resolve => setTimeout(resolve, 20)); // ajuste este valor para controlar a velocidade
+                await new Promise(resolve => setTimeout(resolve, 15)); // ajuste o valor após 'resolve' para controlar a velocidade
             }
             this.isRevealing = false;
         },
         startLoading() {
             this.isLoading = true;
+            this.scrollToBottom();
+            setTimeout(() => {
+              if (this.isLoading) {
+                this.currentLoadingPhrase = this.loadingPhrases[Math.floor(Math.random() * this.loadingPhrases.length)];
+              }
+            }, 3000);
         },
         stopLoading() {
             this.isLoading = false;
+            this.currentLoadingPhrase = "";
         }
     },
 }
@@ -203,6 +221,13 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 10px 0;
+  background-color: transparent;
+}
+.loading-message {
+  color: #f08cae;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
   background-color: transparent;
 }
 .dot {
