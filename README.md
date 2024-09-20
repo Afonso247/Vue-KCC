@@ -4,13 +4,13 @@ Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace",
 
 ## Notas de Atualização
 
-v1.0.0(atual) - Versão inicial do projeto front-end
+`v1.0.0`* - Versão inicial do projeto front-end
 
 ## Índice
 
 - [Configuração de IDE Recomendada](#configuração-de-ide-recomendada)
 - [Instalação e Uso](#instalação-e-uso)
-- [Funcionalidades](#funcionalidades)
+- [Tecnologias e Funcionalidades](#tecnologias-e-funcionalidades)
 - [Contribuindo](#contribuindo)
 - [Contato](#contato)
 
@@ -57,4 +57,59 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Contribuindo
+
+Você tem ideias interessantes para adicionar ao projeto? Não hesite em contribuir:
+
+1. Faça um fork do repositório.
+
+2. Crie uma branch nova para implementar suas alterações
+```bash
+git checkout -b minha-nova-feature
+```
+
+3. Commit suas mudanças com uma mensagem descritiva:
+```bash
+git commit -m 'Adicionando nova feature'
+```
+
+4. Faça um push para a branch criada:
+```bash
+git push origin minha-nova-feature
+```
+
+5. Abra um pull request.
+
+## Tecnologias e Funcionalidades
+
+### Tecnologias Utilizadas
+
+Esta aplicação foi desenvolvida utilizando as seguintes tecnologias principais:
+
+- **Vue.js**: Framework JavaScript utilizado para construir a interface do usuário.
+- **Vite**: Ferramenta de build e desenvolvimento que oferece um ambiente de desenvolvimento rápido e moderno para aplicações Vue.js.
+- **Vue Router**: Biblioteca para gerenciamento de rotas.
+- **Axios**: Biblioteca para realizar requisições HTTP, facilitando a comunicação entre o front-end e o back-end.
+- **Vuex**: Biblioteca para gerenciamento de estado.
+
+### Funcionalidades Principais
+
+A aplicação oferece as seguintes funcionalidades:
+
+- **Layout da Aplicação**: Design intuitivo e responsivo para facilitar a navegação e usabilidade.
+- **Navegação**: Sistema de rotas que permite a transição fluida entre diferentes páginas.
+- **Autenticação de Usuário**: Sistema de login e autenticação seguro para usuários.
+- **Configuração de Usuário**: Opção de personalizar configurações pessoais.
+- **Chat entre Usuário e a IA**: Funcionalidade de chat interativo, permitindo a comunicação entre o usuário e a KokomAI.
+
+## Contato
+
+Se você tiver dúvidas, sugestões, ou qualquer outro assunto em relação ao repositório, entre em contato comigo:
+
+- **Email**: afonsoh.dev@gmail.com
+- **LinkedIn**: [Afonso Henrique](https://www.linkedin.com/in/afonso-h)
+- **GitHub**: [Afonso247](https://github.com/Afonso247)
+
+Fique à vontade para abrir issues no repositório ou enviar pull requests com melhorias e correções!
 
