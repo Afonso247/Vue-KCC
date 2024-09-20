@@ -4,10 +4,12 @@ Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace",
 
 ## Notas de Atualização
 
-`v1.0.1`* - Corrigido um bug em que, ao trocar de nome de usuário, o front não deixa você trocar para o nome original (a menos que a página seja atualizada)
-          - Documentação e indentação do código
+`v1.0.1` *
+- Corrigido um bug em que, ao trocar de nome de usuário, o front não deixa você trocar para o nome original (a menos que a página seja atualizada)        
+- Documentação e indentação do código
 
-`v1.0.0` - Versão inicial do projeto front-end
+`v1.0.0` 
+- Versão inicial do projeto front-end
 
 ## Índice
 
