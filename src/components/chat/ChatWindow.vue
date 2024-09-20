@@ -12,12 +12,7 @@
               class="avatar"
             />
             <div class="message-content">
-              <template v-if="index === messages.length - 1 && message.role === 'assistant' && isRevealing">
-                {{ revealedText }}
-              </template>
-              <template v-else>
-                {{ message.content }}
-              </template>
+              {{ message.content }}
             </div>
           </div>
             <div 
@@ -25,9 +20,6 @@
               v-if="messages.length === 0"
             >
               Como você se sente hoje?
-            </div>
-            <div v-if="currentLoadingPhrase" class="loading-message">
-              {{ currentLoadingPhrase }}
             </div>
             <div v-if="isLoading" class="loading-indicator">
               <div class="dot"></div>
@@ -66,14 +58,7 @@ export default {
             isSending: false,
             isLoading: false,
             revealedText: "",
-            isRevealed: false,
-            currentLoadingPhrase: "",
-            loadingPhrases: [
-              "KokomAI está trabalhando duro para formular a sua resposta...",
-              "KokomAI está se esforçando por você...",
-              "KokomAI está em busca da melhor resposta...",
-              "KokomAI está se dedicando por você..."
-            ]
+            isRevealed: false
         };
     },
     methods: {
@@ -107,15 +92,9 @@ export default {
         startLoading() {
             this.isLoading = true;
             this.scrollToBottom();
-            setTimeout(() => {
-              if (this.isLoading) {
-                this.currentLoadingPhrase = this.loadingPhrases[Math.floor(Math.random() * this.loadingPhrases.length)];
-              }
-            }, 3000);
         },
         stopLoading() {
             this.isLoading = false;
-            this.currentLoadingPhrase = "";
         }
     },
 }
