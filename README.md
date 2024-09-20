@@ -96,7 +96,7 @@ Esta aplicação foi desenvolvida utilizando as seguintes tecnologias principais
 
 ### Funcionalidades Principais
 
-A aplicação oferece as seguintes funcionalidades:
+A aplicação oferece as seguintes funcionalidades principais:
 
 - **Layout da Aplicação**: Design intuitivo e responsivo para facilitar a navegação e usabilidade.
 - **Navegação**: Sistema de rotas que permite a transição fluida entre diferentes páginas.
