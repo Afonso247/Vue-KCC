@@ -79,16 +79,16 @@ export default {
         enableInput() {
             this.isSending = false
         },
-        async revealText(text) {
-            this.isRevealing = true;
-            this.revealedText = '';
+        // async revealText(text) {
+        //     this.isRevealing = true;
+        //     this.revealedText = '';
             
-            for (let i = 0; i < text.length; i++) {
-                this.revealedText += text[i];
-                await new Promise(resolve => setTimeout(resolve, 15)); // ajuste o valor após 'resolve' para controlar a velocidade
-            }
-            this.isRevealing = false;
-        },
+        //     for (let i = 0; i < text.length; i++) {
+        //         this.revealedText += text[i];
+        //         await new Promise(resolve => setTimeout(resolve, 15)); // ajuste o valor após 'resolve' para controlar a velocidade
+        //     }
+        //     this.isRevealing = false;
+        // },
         startLoading() {
             this.isLoading = true;
             this.scrollToBottom();
