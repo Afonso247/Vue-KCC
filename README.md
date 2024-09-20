@@ -1,35 +1,63 @@
 # Vue-KCC
 
-This template should help get you started developing with Vue 3 in Vite.
+Versão - 1.0.0
 
-## Recommended IDE Setup
+Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace", em que a KokomAI, a inteligência artificial principal do projeto, atende usuários e fornece assistência terapeutica para quem precisa.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Índice
 
-## Customize configuration
+- [Notas de Atualização](#notas-de-atualização)
+- [Configuração de IDE Recomendada](#configuração-de-ide-recomendada)
+- [Instalação e Uso](#instalação-e-uso)
+- [Funcionalidades](#funcionalidades)
+- [Contribuindo](#contribuindo)
+- [Contato](#contato)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+---
 
-## Project Setup
+## Notas de Atualização
 
-```sh
+v1.0.0 - Versão inicial do projeto front-end
+
+## Configuração de IDE Recomendada
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (e desative Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+## Instalação e Uso
+
+Antes de iniciar a instalação, certifique-se de que você possui o Node.js instalado em sua máquina. Recomendo a versão 18.18.0 ou superior, para garantir que a aplicação rode sem problemas.
+
+Siga os passos abaixo para configurar e rodar o projeto localmente:
+
+### Clone o repositório
+```bash
+git clone https://github.com/Afonso247/Vue-KCC.git
+```
+### Navegue até a pasta do projeto
+```bash
+cd Vue-KCC
+```
+
+### Instale as dependências
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compilar e Hot-Reload p/ Desenvolvimento (Porta 5173)
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Compilar e 'Minify' p/ Produção
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Lint com [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
 ```
+
