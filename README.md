@@ -4,9 +4,12 @@ Versão - 1.0.0
 
 Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace", em que a KokomAI, a inteligência artificial principal do projeto, atende usuários e fornece assistência terapeutica para quem precisa.
 
+## Notas de Atualização
+
+v1.0.0 - Versão inicial do projeto front-end
+
 ## Índice
 
-- [Notas de Atualização](#notas-de-atualização)
 - [Configuração de IDE Recomendada](#configuração-de-ide-recomendada)
 - [Instalação e Uso](#instalação-e-uso)
 - [Funcionalidades](#funcionalidades)
@@ -14,10 +17,6 @@ Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace",
 - [Contato](#contato)
 
 ---
-
-## Notas de Atualização
-
-v1.0.0 - Versão inicial do projeto front-end
 
 ## Configuração de IDE Recomendada
 
