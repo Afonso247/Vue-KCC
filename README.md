@@ -10,8 +10,8 @@ Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace",
 
 - [Configuração de IDE Recomendada](#configuração-de-ide-recomendada)
 - [Instalação e Uso](#instalação-e-uso)
-- [Tecnologias e Funcionalidades](#tecnologias-e-funcionalidades)
 - [Contribuindo](#contribuindo)
+- [Tecnologias e Funcionalidades](#tecnologias-e-funcionalidades)
 - [Contato](#contato)
 
 ---
