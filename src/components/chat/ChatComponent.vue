@@ -1,6 +1,11 @@
 <template>
   <div class="chat-container">
     <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }">☰</button>
+
+    <!-- ref= executar funções do componente filho -->
+    <!-- @= executar funções do componente pai ao receber emits do componente filho -->
+    <!-- : = executar propriedades do componente pai ao receber props do componente filho -->
+
     <Sidebar
       ref="sidebar"
       :chats="chats"
@@ -85,6 +90,7 @@ export default {
     }
   },
   watch: {
+    // Verifica o estado da mensagem de erro
     errorMsg(newValue) {
       if (newValue) {
         if (this.errorMsgTimeout) {
@@ -153,6 +159,7 @@ export default {
     selectChat(chatId) {
       this.activeChatId = chatId
     },
+    // O usuário envia uma mensagem...
     async sendMessage(message) {
       if (!this.activeChat) {
         return
@@ -168,12 +175,16 @@ export default {
         await this.updateChats()
         this.$refs.chatWindow.scrollToBottom()
         await this.botReply(message, this.activeChat)
+
       } catch (error) {
         this.errorMsg = 'Erro ao enviar mensagem'
         console.error(error)
       }
     },
+    // A KokomAI responde a mensagem do usuário...
     async botReply(message, currentChat) {
+
+      // Inicia a animação do data streaming da KokomAI
       try {
         this.$refs.chatWindow.startLoading()
         const response = await fetch(`http://localhost:3000/ai/send-message/${currentChat._id}`, {
@@ -192,7 +203,7 @@ export default {
         // eslint-disable-next-line no-constant-condition
         while (true) {
           const { done, value } = await reader.read()
-          if (done) break
+          if (done) break // Quebra o loop com a resposta completa
 
           const chunk = decoder.decode(value)
           const lines = chunk.split('\n')
@@ -201,7 +212,7 @@ export default {
             if (line.startsWith('data: ')) {
               const jsonData = line.slice(6)
 
-              if (!jsonData.trim()) continue
+              if (!jsonData.trim()) continue // Ignora strings vazias
 
               try {
                 const parsedData = JSON.parse(jsonData)
@@ -218,12 +229,14 @@ export default {
         this.$refs.chatWindow.stopLoading()
         this.$refs.chatWindow.scrollToBottom()
         this.$refs.chatWindow.enableInput()
+
       } catch (error) {
         this.$refs.chatWindow.stopLoading()
         this.errorMsg = 'Erro ao enviar mensagem'
         console.error(error)
       }
     },
+    // Atualiza de forma parcial a resposta da KokomAI
     async updatePartialResponse(chatId, partialResponse) {
       const chat = this.chats.find((c) => c._id === chatId)
       if (chat) {

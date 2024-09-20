@@ -108,6 +108,7 @@ export default {
   },
   methods: {
     async updateUsername() {
+      
       const errors = {
         empty: 'Insira um nome de usuário.',
         minLength: 'O nome de usuário deve ter pelo menos 3 caracteres.',
@@ -144,7 +145,6 @@ export default {
         )
 
         if (res.status === 200) {
-          console.log('Nome de usuário atualizado para:', this.newUsername)
           this.usernameMessageClass = 'success-message'
           this.usernameMessage = res.data.message
         } else {
@@ -159,11 +159,12 @@ export default {
         } else {
           this.usernameMessageClass = 'error-message'
           this.usernameMessage = errors.err
-          console.log(error)
+          // console.log(error)
         }
       }
     },
     async updatePassword() {
+
       const errors = {
         emptyInputs: 'Preencha todos os campos.',
         notMatch: 'As novas senhas inseridas não correspondem.',
@@ -204,7 +205,6 @@ export default {
         )
 
         if (res.status === 200) {
-          console.log('Senha atualizada para:', this.newPassword)
           this.passwordMessageClass = 'success-message'
           this.passwordMessage = res.data.message
         } else {
@@ -219,12 +219,12 @@ export default {
         } else {
           this.passwordMessageClass = 'error-message'
           this.passwordMessage = errors.err
-          console.log(error)
+          // console.log(error)
         }
       }
     },
     async handleDeleteAccount() {
-      // Lógica para remover a conta
+
       if (this.deleteInput === this.confirmationText) {
         try {
           const res = await axios.delete('http://localhost:3000/user/delete-account', {
@@ -232,7 +232,6 @@ export default {
           })
 
           if (res.status === 200) {
-            console.log('Conta excluída com sucesso')
             this.dangerConfirmation = false
             this.deleteInput = ''
             this.$router.push({ name: 'home' })
@@ -246,7 +245,7 @@ export default {
             return
           } else {
             this.deleteMessage = 'Erro ao remover a conta.'
-            console.log(error)
+            // console.log(error)
             return
           }
         }

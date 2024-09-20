@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <form class="login-form" @submit.prevent="login">
+    <form class="login-form" @submit.prevent="handleLogin">
       <input type="text" placeholder="Nome de usuário" v-model="username" />
       <input type="password" placeholder="Senha" autocomplete="off" v-model="password" />
       <button type="submit" class="confirm-btn">Log In</button>
@@ -33,7 +33,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated', 'user'])
   },
   methods: {
-    async login() {
+    async handleLogin() {
       if (this.username === '' || this.password === '') {
         this.loginMessage = 'Preencha todos os campos.'
         return

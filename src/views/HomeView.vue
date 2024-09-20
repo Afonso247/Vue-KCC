@@ -1,7 +1,6 @@
 <template>
   <Banner />
   <div class="main-container">
-    <!-- <h1>Crie um Grupo de Personagens</h1> -->
     <Home />
   </div>
 </template>
