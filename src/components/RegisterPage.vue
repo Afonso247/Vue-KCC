@@ -52,7 +52,8 @@ export default {
       if (this.password !== this.confirmPassword) {
         this.registerMessage = 'As senhas devem ser iguais.'
         return
-      } 
+      }
+
       try {
         const res = await axios.post('http://localhost:3000/api/register', {
           username: this.username,
@@ -67,7 +68,6 @@ export default {
           alert(error.response.data.message)
         } else {
           this.registerMessage = 'Erro ao registrar o usuário.'
-          console.log(error)
         }
       }
     }

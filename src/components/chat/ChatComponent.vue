@@ -1,8 +1,11 @@
 <template>
   <div class="chat-container">
-    <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }">
-      ☰
-    </button>
+    <button class="menu-button" @click="toggleSidebar" :class="{ hidden: isSidebarOpen }">☰</button>
+
+    <!-- ref= executar funções do componente filho -->
+    <!-- @= executar funções do componente pai ao receber emits do componente filho -->
+    <!-- : = executar propriedades do componente pai ao receber props do componente filho -->
+
     <Sidebar
       ref="sidebar"
       :chats="chats"
@@ -27,17 +30,23 @@
     <div v-else class="no-chat-message" :class="{ 'full-width': !isSidebarOpen }">
       <h2>Nenhum chat atual encontrado.</h2>
       <div>
-        Selecione um chat existente ou 
+        Selecione um chat existente ou
         <a href="#" @click.prevent="createNewChat">crie um novo chat</a>
       </div>
     </div>
   </div>
 
   <!-- Modal para renomear chat -->
-  <Modal :isOpen="renameModalId" @close="closeRenameModal" :title="'Renomear Chat - ' + renameModalName">
+  <Modal
+    :isOpen="renameModalId"
+    @close="closeRenameModal"
+    :title="'Renomear Chat - ' + renameModalName"
+  >
     <input type="text" class="modal-input" v-model="newChatName" placeholder="Novo nome do chat" />
     <template #footer>
-      <button class="confirm-btn modal-btn" @click="renameChat(renameModalId, newChatName)">Renomear</button>
+      <button class="confirm-btn modal-btn" @click="renameChat(renameModalId, newChatName)">
+        Renomear
+      </button>
       <button class="cancel-btn modal-btn" @click="closeRenameModal">Cancelar</button>
     </template>
   </Modal>
@@ -52,14 +61,14 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mapActions, mapGetters } from 'vuex';
-import Sidebar from "./ChatSidebar.vue";
-import ChatWindow from "./ChatWindow.vue";
-import Modal from "../assets/ModalComponent.vue";
+import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
+import Sidebar from './ChatSidebar.vue'
+import ChatWindow from './ChatWindow.vue'
+import Modal from '../assets/ModalComponent.vue'
 
 export default {
-  name: "ChatComponent",
+  name: 'ChatComponent',
   components: {
     Sidebar,
     ChatWindow,
@@ -77,10 +86,11 @@ export default {
       deleteModalId: '',
       deleteModalName: '',
       newChatName: '',
-      isMobile: window.innerWidth <= 900,
-    };
+      isMobile: window.innerWidth <= 900
+    }
   },
   watch: {
+    // Verifica o estado da mensagem de erro
     errorMsg(newValue) {
       if (newValue) {
         if (this.errorMsgTimeout) {
@@ -88,7 +98,7 @@ export default {
         }
 
         this.errorMsgTimeout = setTimeout(() => {
-          this.errorMsg = '';
+          this.errorMsg = ''
         }, 4000)
       }
     }
@@ -96,86 +106,87 @@ export default {
   computed: {
     ...mapGetters('chat', ['getChats']),
     activeChat() {
-      return this.chats.find((chat) => chat._id === this.activeChatId);
+      return this.chats.find((chat) => chat._id === this.activeChatId)
     }
   },
   async created() {
     if (this.isMobile) {
-      this.isSidebarOpen = false;
+      this.isSidebarOpen = false
     }
 
-    await this.getAllChats();
-    this.chats.push(...this.getChats);
+    await this.getAllChats()
+    this.chats.push(...this.getChats)
 
     if (this.chats.length > 0) {
-      this.activeChatId = this.chats[0]._id;
+      this.activeChatId = this.chats[0]._id
     }
 
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener('resize', this.handleResize)
   },
   beforeUnmount() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
     ...mapActions('chat', ['getAllChats']),
     async updateChats() {
-
-      await this.getAllChats();
-      this.chats = this.getChats;
+      await this.getAllChats()
+      this.chats = this.getChats
     },
     async createNewChat() {
-      
       try {
-        const chatNum = this.chats.length + 1;
-        const name = `Chat ${chatNum}`;
+        const chatNum = this.chats.length + 1
+        const name = `Chat ${chatNum}`
 
         const response = await axios.post(
-          'http://localhost:3000/chat/create-chat', 
-          { name }, 
+          'http://localhost:3000/chat/create-chat',
+          { name },
           { withCredentials: true }
         )
 
-        await this.updateChats();
+        await this.updateChats()
         // Seleciona o novo chat criado
         this.selectChat(response.data.chat._id)
-        this.errorMsg = '';
-
+        this.errorMsg = ''
       } catch (error) {
         if (error.response.status === 400) {
-          this.errorMsg = error.response.data.message;
+          this.errorMsg = error.response.data.message
         } else {
-          this.errorMsg = 'Erro ao criar chat';
-          console.error(error);
+          this.errorMsg = 'Erro ao criar chat'
+          console.error(error)
         }
       }
     },
     selectChat(chatId) {
-      this.activeChatId = chatId;
+      this.activeChatId = chatId
     },
+    // O usuário envia uma mensagem...
     async sendMessage(message) {
       if (!this.activeChat) {
-        return;
+        return
       }
 
       try {
         await axios.post(
-          `http://localhost:3000/chat/send-message/${this.activeChat._id}`, 
-          { content: message, role: 'user' }, 
+          `http://localhost:3000/chat/send-message/${this.activeChat._id}`,
+          { content: message, role: 'user' },
           { withCredentials: true }
         )
 
-        await this.updateChats();
-        this.$refs.chatWindow.scrollToBottom();
-        await this.botReply(message, this.activeChat);
+        await this.updateChats()
+        this.$refs.chatWindow.scrollToBottom()
+        await this.botReply(message, this.activeChat)
+
       } catch (error) {
-        this.errorMsg = 'Erro ao enviar mensagem';
-        console.error(error);
+        this.errorMsg = 'Erro ao enviar mensagem'
+        console.error(error)
       }
     },
+    // A KokomAI responde a mensagem do usuário...
     async botReply(message, currentChat) {
 
-      try{
-        this.$refs.chatWindow.startLoading();
+      // Inicia a animação do data streaming da KokomAI
+      try {
+        this.$refs.chatWindow.startLoading()
         const response = await fetch(`http://localhost:3000/ai/send-message/${currentChat._id}`, {
           method: 'POST',
           headers: {
@@ -183,140 +194,138 @@ export default {
           },
           body: JSON.stringify({ content: message, role: 'assistant' }),
           credentials: 'include'
-        });
+        })
 
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let accumulatedResponse = '';
+        const reader = response.body.getReader()
+        const decoder = new TextDecoder()
+        let accumulatedResponse = ''
 
         // eslint-disable-next-line no-constant-condition
         while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n');
-          
+          const { done, value } = await reader.read()
+          if (done) break // Quebra o loop com a resposta completa
+
+          const chunk = decoder.decode(value)
+          const lines = chunk.split('\n')
+
           for (const line of lines) {
             if (line.startsWith('data: ')) {
-              const jsonData = line.slice(6);
+              const jsonData = line.slice(6)
 
-              if (!jsonData.trim()) continue;
+              if (!jsonData.trim()) continue // Ignora strings vazias
 
               try {
-                const parsedData = JSON.parse(jsonData);
-                accumulatedResponse += parsedData;
-                await this.updatePartialResponse(currentChat._id, accumulatedResponse);
+                const parsedData = JSON.parse(jsonData)
+                accumulatedResponse += parsedData
+                await this.updatePartialResponse(currentChat._id, accumulatedResponse)
               } catch (e) {
-                console.error('Erro ao analisar JSON:', e);
+                console.error('Erro ao analisar JSON:', e)
               }
             }
           }
         }
 
-        await this.updateChats();
-        this.$refs.chatWindow.stopLoading();
-        this.$refs.chatWindow.scrollToBottom();
-        this.$refs.chatWindow.enableInput();
+        await this.updateChats()
+        this.$refs.chatWindow.stopLoading()
+        this.$refs.chatWindow.scrollToBottom()
+        this.$refs.chatWindow.enableInput()
 
       } catch (error) {
-        this.$refs.chatWindow.stopLoading();
-        this.errorMsg = 'Erro ao enviar mensagem';
-        console.error(error);
+        this.$refs.chatWindow.stopLoading()
+        this.errorMsg = 'Erro ao enviar mensagem'
+        console.error(error)
       }
     },
+    // Atualiza de forma parcial a resposta da KokomAI
     async updatePartialResponse(chatId, partialResponse) {
-      const chat = this.chats.find(c => c._id === chatId);
+      const chat = this.chats.find((c) => c._id === chatId)
       if (chat) {
         if (chat.messages[chat.messages.length - 1].role === 'assistant') {
-          chat.messages[chat.messages.length - 1].content = partialResponse;
+          chat.messages[chat.messages.length - 1].content = partialResponse
         } else {
-          chat.messages.push({ role: 'assistant', content: partialResponse });
+          chat.messages.push({ role: 'assistant', content: partialResponse })
         }
 
-        await this.updateChats();
-        this.$refs.chatWindow.scrollToBottom();
+        await this.updateChats()
+        this.$refs.chatWindow.scrollToBottom()
       }
     },
     toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen;
+      this.isSidebarOpen = !this.isSidebarOpen
     },
     checkClose(event) {
       if (!event.target.closest('.chat-sidebar')) {
-        this.$refs.sidebar.closeOptions();
+        this.$refs.sidebar.closeOptions()
       }
     },
     async renameChat(chatId, name) {
-
       try {
         await axios.put(
-          `http://localhost:3000/chat/rename-chat/${chatId}`, 
-          { name }, 
+          `http://localhost:3000/chat/rename-chat/${chatId}`,
+          { name },
           { withCredentials: true }
         )
 
-        await this.updateChats();
-        this.closeRenameModal();
-        this.errorMsg = '';
+        await this.updateChats()
+        this.closeRenameModal()
+        this.errorMsg = ''
       } catch (error) {
-        this.errorMsg = 'Erro ao renomear chat';
-        console.error(error);
+        this.errorMsg = 'Erro ao renomear chat'
+        console.error(error)
       }
     },
     async deleteChat(chatId) {
-
       try {
-        await axios.delete(
-          `http://localhost:3000/chat/delete-chat/${chatId}`, 
-          { withCredentials: true }
-        )
+        await axios.delete(`http://localhost:3000/chat/delete-chat/${chatId}`, {
+          withCredentials: true
+        })
 
-        await this.updateChats();
-        this.closeDeleteModal();
-        this.errorMsg = '';
+        await this.updateChats()
+        this.closeDeleteModal()
+        this.errorMsg = ''
       } catch (error) {
-        this.errorMsg = 'Erro ao excluir chat';
-        console.error(error);
+        this.errorMsg = 'Erro ao excluir chat'
+        console.error(error)
       }
     },
     triggerRenameModal(chatId) {
-      this.renameModalId = chatId;
-      const chat = this.chats.find((chat) => chat._id === chatId);
+      this.renameModalId = chatId
+      const chat = this.chats.find((chat) => chat._id === chatId)
 
       if (chat) {
-        this.renameModalName = chat.name;
+        this.renameModalName = chat.name
       } else {
-        this.renameModalName = '';
+        this.renameModalName = ''
       }
     },
     closeRenameModal() {
-      this.renameModalId = '';
-      this.renameModalName = '';
+      this.renameModalId = ''
+      this.renameModalName = ''
     },
     triggerDeleteModal(chatId) {
-      this.deleteModalId = chatId;
-      const chat = this.chats.find((chat) => chat._id === chatId);
+      this.deleteModalId = chatId
+      const chat = this.chats.find((chat) => chat._id === chatId)
 
       if (chat) {
-        this.deleteModalName = chat.name;
+        this.deleteModalName = chat.name
       } else {
-        this.deleteModalName = '';
+        this.deleteModalName = ''
       }
     },
     closeDeleteModal() {
-      this.deleteModalId = '';
-      this.deleteModalName = '';
+      this.deleteModalId = ''
+      this.deleteModalName = ''
     },
     handleResize() {
-      this.isMobile = window.innerWidth <= 900;
+      this.isMobile = window.innerWidth <= 900
       if (this.isMobile) {
-        this.isSidebarOpen = false;
+        this.isSidebarOpen = false
       } else {
-        this.isSidebarOpen = true;
+        this.isSidebarOpen = true
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>

@@ -7,8 +7,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
-    "backend": "json-server --watch db/db.json"
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.5",

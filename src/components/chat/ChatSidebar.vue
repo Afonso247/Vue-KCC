@@ -1,21 +1,21 @@
 <template>
-  <div 
-    class="chat-sidebar" 
-    :class="{ hidden: !showSidebar, 'mobile-sidebar': isMobile }" 
+  <div
+    class="chat-sidebar"
+    :class="{ hidden: !showSidebar, 'mobile-sidebar': isMobile }"
     @click.self="closeOptions()"
   >
     <button class="close-button" @click="$emit('toggle-sidebar')">
       <XMarkIcon class="icon" />
     </button>
-    <p :class="{ 'showing': errorMsg }">{{ errorMsg }}</p>
+    <p :class="{ showing: errorMsg }">{{ errorMsg }}</p>
     <button class="confirm-btn" @click="createChat">Novo Chat</button>
 
     <ul>
-      <li 
-          v-for="chat in chats" 
-          :key="chat.id"
-          :class="{ active: chat._id === activeChatId }"
-          @click="selectChat(chat._id)"
+      <li
+        v-for="chat in chats"
+        :key="chat.id"
+        :class="{ active: chat._id === activeChatId }"
+        @click="selectChat(chat._id)"
       >
         {{ chat.name }}
         <div class="options-container" @click.stop>
@@ -51,40 +51,40 @@ export default {
     return {
       isMobile: window.innerWidth <= 900,
       showOptionsId: null
-    };
+    }
   },
   methods: {
     createChat() {
-      this.$emit('create-chat');
+      this.$emit('create-chat')
     },
     selectChat(chatId) {
-      this.$emit('select-chat', chatId);
+      this.$emit('select-chat', chatId)
     },
     handleResize() {
-      this.isMobile = window.innerWidth <= 900;
+      this.isMobile = window.innerWidth <= 900
     },
     toggleOptions(chatId) {
-      this.showOptionsId = this.showOptionsId === chatId ? null : chatId;
+      this.showOptionsId = this.showOptionsId === chatId ? null : chatId
     },
     closeOptions() {
-      this.showOptionsId = null;
+      this.showOptionsId = null
     },
     renameChat(chatId) {
-      this.$emit('rename-modal', chatId);
-      this.showOptionsId = null;
+      this.$emit('rename-modal', chatId)
+      this.showOptionsId = null
     },
     deleteChat(chatId) {
-      this.$emit('delete-modal', chatId);
-      this.showOptionsId = null;
+      this.$emit('delete-modal', chatId)
+      this.showOptionsId = null
     }
   },
   created() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('resize', this.handleResize)
   },
   beforeUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('resize', this.handleResize)
   }
-};
+}
 </script>
 
 <style scoped>

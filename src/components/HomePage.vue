@@ -1,7 +1,7 @@
 <template>
   <div v-if="isAuthenticated" @click="checkClose($event)">
     <h1>Olá, {{ getUsername }} !</h1>
-    
+
     <Chat ref="chat" />
   </div>
   <div v-else>
