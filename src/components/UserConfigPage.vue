@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -107,6 +107,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated', 'user'])
   },
   methods: {
+    ...mapActions('auth', ['checkAuth']),
     async updateUsername() {
       
       const errors = {
@@ -147,6 +148,9 @@ export default {
         if (res.status === 200) {
           this.usernameMessageClass = 'success-message'
           this.usernameMessage = res.data.message
+
+          // atualiza o nome de usuário no state
+          this.checkAuth()
         } else {
           this.usernameMessageClass = 'error-message'
           this.usernameMessage = errors.err
