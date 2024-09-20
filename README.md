@@ -51,12 +51,7 @@ npm run dev
 ```sh
 npm run build
 ```
-
-### Lint com [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Para mais informações sobre os scripts do `npm run`, acesse o `package.json` da aplicação.
 
 ## Contribuindo
 
