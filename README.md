@@ -89,6 +89,7 @@ Esta aplicação foi desenvolvida utilizando as seguintes tecnologias principais
 
 - **Vue.js**: Framework JavaScript utilizado para construir a interface do usuário.
 - **Vite**: Ferramenta de build e desenvolvimento que oferece um ambiente de desenvolvimento rápido e moderno para aplicações Vue.js.
+- **Lint**: Ferramenta de desenvolvimento p/ clean code.
 - **Vue Router**: Biblioteca para gerenciamento de rotas.
 - **Axios**: Biblioteca para realizar requisições HTTP, facilitando a comunicação entre o front-end e o back-end.
 - **Vuex**: Biblioteca para gerenciamento de estado.
