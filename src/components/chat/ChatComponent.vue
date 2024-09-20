@@ -175,19 +175,67 @@ export default {
     async botReply(message, currentChat) {
 
       try{
-        await axios.post(
-          `http://localhost:3000/ai/send-message/${currentChat._id}`, 
-          { content: message, role: 'assistant' }, 
-          { withCredentials: true }
-        )
+        this.$refs.chatWindow.startLoading();
+        const response = await fetch(`http://localhost:3000/ai/send-message/${currentChat._id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ content: message, role: 'assistant' }),
+          credentials: 'include'
+        });
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let accumulatedResponse = '';
+
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+          
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const jsonData = line.slice(6);
+
+              if (!jsonData.trim()) continue;
+
+              try {
+                const parsedData = JSON.parse(jsonData);
+                accumulatedResponse += parsedData;
+                await this.updatePartialResponse(currentChat._id, accumulatedResponse);
+              } catch (e) {
+                console.error('Erro ao analisar JSON:', e);
+              }
+            }
+          }
+        }
 
         await this.updateChats();
+        this.$refs.chatWindow.stopLoading();
         this.$refs.chatWindow.scrollToBottom();
         this.$refs.chatWindow.enableInput();
 
       } catch (error) {
+        this.$refs.chatWindow.stopLoading();
         this.errorMsg = 'Erro ao enviar mensagem';
         console.error(error);
+      }
+    },
+    async updatePartialResponse(chatId, partialResponse) {
+      const chat = this.chats.find(c => c._id === chatId);
+      if (chat) {
+        if (chat.messages[chat.messages.length - 1].role === 'assistant') {
+          chat.messages[chat.messages.length - 1].content = partialResponse;
+        } else {
+          chat.messages.push({ role: 'assistant', content: partialResponse });
+        }
+
+        await this.updateChats();
+        this.$refs.chatWindow.scrollToBottom();
       }
     },
     toggleSidebar() {

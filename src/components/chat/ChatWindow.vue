@@ -21,6 +21,11 @@
             >
               Como você se sente hoje?
             </div>
+            <div v-if="isLoading" class="loading-indicator">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
         </div>
         <div class="input-container">
             <input
@@ -50,7 +55,10 @@ export default {
     data() {
         return {
             newMessage: "",
-            isSending: false
+            isSending: false,
+            isLoading: false,
+            revealedText: "",
+            isRevealed: false
         };
     },
     methods: {
@@ -70,6 +78,23 @@ export default {
         },
         enableInput() {
             this.isSending = false
+        },
+        // async revealText(text) {
+        //     this.isRevealing = true;
+        //     this.revealedText = '';
+            
+        //     for (let i = 0; i < text.length; i++) {
+        //         this.revealedText += text[i];
+        //         await new Promise(resolve => setTimeout(resolve, 15)); // ajuste o valor após 'resolve' para controlar a velocidade
+        //     }
+        //     this.isRevealing = false;
+        // },
+        startLoading() {
+            this.isLoading = true;
+            this.scrollToBottom();
+        },
+        stopLoading() {
+            this.isLoading = false;
         }
     },
 }
@@ -168,5 +193,35 @@ export default {
 }
 .confirm-btn {
   margin: 0 auto;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  background-color: transparent;
+}
+.loading-message {
+  color: #f08cae;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  background-color: transparent;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 0 3px;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
 }
 </style>
