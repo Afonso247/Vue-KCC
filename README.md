@@ -1,12 +1,10 @@
 # Vue-KCC
 
-Versão - 1.0.0
-
 Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace", em que a KokomAI, a inteligência artificial principal do projeto, atende usuários e fornece assistência terapeutica para quem precisa.
 
 ## Notas de Atualização
 
-v1.0.0 - Versão inicial do projeto front-end
+v1.0.0(atual) - Versão inicial do projeto front-end
 
 ## Índice
 
