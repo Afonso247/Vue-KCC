@@ -1,102 +1,91 @@
 <template>
-    <div class="chat-window">
-        <div class="messages">
-          <div
-            v-for="(message, index) in messages"
-            :key="index"
-            :class="['message', message.role]"
-          >
-            <img
-              :src="message.role === 'user' ? '/img/chatimg/user-placeholder.png' : '/img/chatimg/user-kokomi.png'"
-              :alt="message.role === 'user' ? 'User Avatar' : 'Kokomai Avatar'"
-              class="avatar"
-            />
-            <div class="message-content">
-              {{ message.content }}
-            </div>
-          </div>
-            <div 
-              class="no-messages" 
-              v-if="messages.length === 0"
-            >
-              Como você se sente hoje?
-            </div>
-            <div v-if="isLoading" class="loading-indicator">
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-            </div>
+  <div class="chat-window">
+    <div class="messages">
+      <div v-for="(message, index) in messages" :key="index" :class="['message', message.role]">
+        <img
+          :src="
+            message.role === 'user'
+              ? '/img/chatimg/user-placeholder.png'
+              : '/img/chatimg/user-kokomi.png'
+          "
+          :alt="message.role === 'user' ? 'User Avatar' : 'Kokomai Avatar'"
+          class="avatar"
+        />
+        <div class="message-content">
+          {{ message.content }}
         </div>
-        <div class="input-container">
-            <input
-                type="text"
-                v-model="newMessage"
-                @keyup.enter="sendMessage"
-                :disabled="isSending"
-                placeholder="Digite sua mensagem..."
-            />
-            <button 
-                class="confirm-btn" 
-                @click="sendMessage" 
-                :disabled="isSending"
-            >
-                Enviar
-            </button>
-        </div>
+      </div>
+      <div class="no-messages" v-if="messages.length === 0">Como você se sente hoje?</div>
+      <div v-if="isLoading" class="loading-indicator">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
     </div>
+    <div class="input-container">
+      <input
+        type="text"
+        v-model="newMessage"
+        @keyup.enter="sendMessage"
+        :disabled="isSending"
+        placeholder="Digite sua mensagem..."
+      />
+      <button class="confirm-btn" @click="sendMessage" :disabled="isSending">Enviar</button>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "ChatWindow",
-    props: {
-        messages: Array
+  name: 'ChatWindow',
+  props: {
+    messages: Array
+  },
+  data() {
+    return {
+      newMessage: '',
+      isSending: false,
+      isLoading: false,
+      revealedText: '',
+      isRevealed: false
+    }
+  },
+  methods: {
+    sendMessage() {
+      if (!this.newMessage || this.isSending) {
+        return
+      }
+      this.isSending = true
+      this.$emit('send-message', this.newMessage)
+      this.newMessage = ''
     },
-    data() {
-        return {
-            newMessage: "",
-            isSending: false,
-            isLoading: false,
-            revealedText: "",
-            isRevealed: false
-        };
+    scrollToBottom() {
+      this.$nextTick(() => {
+        const messages = this.$el.querySelector('.messages')
+        messages.scrollTop = messages.scrollHeight
+      })
     },
-    methods: {
-        sendMessage() {
-            if (!this.newMessage || this.isSending) {
-                return;
-            }
-            this.isSending = true
-            this.$emit("send-message", this.newMessage)
-            this.newMessage = ""
-        },
-        scrollToBottom() {
-          this.$nextTick(() => {
-            const messages = this.$el.querySelector(".messages");
-            messages.scrollTop = messages.scrollHeight;
-          });
-        },
-        enableInput() {
-            this.isSending = false
-        },
-        // async revealText(text) {
-        //     this.isRevealing = true;
-        //     this.revealedText = '';
-            
-        //     for (let i = 0; i < text.length; i++) {
-        //         this.revealedText += text[i];
-        //         await new Promise(resolve => setTimeout(resolve, 15)); // ajuste o valor após 'resolve' para controlar a velocidade
-        //     }
-        //     this.isRevealing = false;
-        // },
-        startLoading() {
-            this.isLoading = true;
-            this.scrollToBottom();
-        },
-        stopLoading() {
-            this.isLoading = false;
-        }
+    enableInput() {
+      this.isSending = false
     },
+    // async revealText(text) {
+    //     this.isRevealing = true;
+    //     this.revealedText = '';
+
+    //     for (let i = 0; i < text.length; i++) {
+    //         this.revealedText += text[i];
+    //         await new Promise(resolve => setTimeout(resolve, 15)); // ajuste o valor após 'resolve' para controlar a velocidade
+    //     }
+    //     this.isRevealing = false;
+    // },
+    startLoading() {
+      this.isLoading = true
+      this.scrollToBottom()
+    },
+    stopLoading() {
+      this.isLoading = false
+    }
+  }
 }
 </script>
 
@@ -217,11 +206,21 @@ export default {
   margin: 0 3px;
   animation: bounce 1.4s infinite ease-in-out both;
 }
-.dot:nth-child(1) { animation-delay: -0.32s; }
-.dot:nth-child(2) { animation-delay: -0.16s; }
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
 
 @keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
 }
 </style>

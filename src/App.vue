@@ -30,7 +30,8 @@ export default {
 </template>
 
 <style>
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }

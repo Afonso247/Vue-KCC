@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     closeModal() {
-      this.$emit('close');
+      this.$emit('close')
     }
   }
 }
@@ -127,11 +127,13 @@ export default {
 }
 
 /* Transições */
-.modal-enter-active, .modal-leave-active {
+.modal-enter-active,
+.modal-leave-active {
   transition: opacity 0.3s;
 }
 
-.modal-enter, .modal-leave-to {
+.modal-enter,
+.modal-leave-to {
   opacity: 0;
 }
 </style>
