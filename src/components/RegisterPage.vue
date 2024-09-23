@@ -2,6 +2,7 @@
   <div class="register">
     <form class="register-form" @submit.prevent="registerUser">
       <input type="text" placeholder="Nome de usuário" v-model="username" />
+      <input type="email" placeholder="E-mail" v-model="email" />
       <input type="password" placeholder="Senha" autocomplete="off" v-model="password" />
       <input
         type="password"
@@ -31,6 +32,7 @@ export default {
   data() {
     return {
       username: '',
+      email: '',
       password: '',
       confirmPassword: '',
       registerMessage: ''
@@ -41,8 +43,12 @@ export default {
   },
   methods: {
     async registerUser() {
-      if (!this.username || !this.password || !this.confirmPassword) {
+      if (!this.username || !this.email || !this.password || !this.confirmPassword) {
         this.registerMessage = 'Preencha todos os campos.'
+        return
+      }
+      if (!this.validateEmail(this.email)) {
+        this.registerMessage = 'E-mail inválido.'
         return
       }
       if (this.password.length < 8) {
@@ -57,6 +63,7 @@ export default {
       try {
         const res = await axios.post('http://localhost:3000/api/register', {
           username: this.username,
+          email: this.email,
           password: this.password
         })
 
@@ -70,6 +77,10 @@ export default {
           this.registerMessage = 'Erro ao registrar o usuário.'
         }
       }
+    },
+    validateEmail(email) {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailRegex.test(email);
     }
   },
   mounted() {

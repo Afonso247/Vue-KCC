@@ -20,6 +20,34 @@
     </section>
 
     <section class="settings-section config-zone">
+      <h2 class="config-title">Mudar E-mail</h2>
+      <form @submit.prevent="updateEmail">
+        <div class="form-group">
+          <label for="current-email">E-mail atual:</label>
+          <input
+            type="email"
+            autocomplete="off"
+            v-model="currentEmail"
+            placeholder="Insira o e-mail atual"
+          />
+        </div>
+        <div class="form-group">
+          <label for="new-email">Novo E-mail:</label>
+          <input
+            type="email"
+            autocomplete="off"
+            v-model="newEmail"
+            placeholder="Insira o novo e-mail"
+          />
+        </div>
+        <button type="submit" class="confirm-btn" style="text-align: center">
+          Salvar E-mail
+        </button>
+        <p v-show="emailMessage" :class="emailMessageClass">{{ emailMessage }}</p>
+      </form>
+    </section>
+
+    <section class="settings-section config-zone">
       <h2 class="config-title">Mudar Senha</h2>
       <form @submit.prevent="updatePassword">
         <div class="form-group">
@@ -92,6 +120,10 @@ export default {
       newUsername: '',
       usernameMessage: '',
       usernameMessageClass: '',
+      currentEmail: '',
+      newEmail: '',
+      emailMessage: '',
+      emailMessageClass: '',
       currentPassword: '',
       newPassword: '',
       confirmNewPassword: '',
@@ -163,6 +195,50 @@ export default {
         } else {
           this.usernameMessageClass = 'error-message'
           this.usernameMessage = errors.err
+          // console.log(error)
+        }
+      }
+    },
+    async updateEmail() {
+
+      const errors = {
+        emptyInputs: 'Preencha todos os campos.',
+        err: 'Erro ao atualizar o e-mail.'
+      }
+
+      if (this.currentEmail === '' ||this.newEmail === '') {
+        this.emailMessageClass = 'error-message'
+        this.emailMessage = errors.emptyInputs
+        return
+      }
+      
+      try {
+        const res = await axios.put(
+          'http://localhost:3000/user/change-email',
+          {
+            currentEmail: this.currentEmail,
+            newEmail: this.newEmail
+          },
+          {
+            withCredentials: true
+          }
+        )
+
+        if (res.status === 200) {
+          this.emailMessageClass = 'success-message'
+          this.emailMessage = res.data.message
+        } else {
+          this.emailMessageClass = 'error-message'
+          this.emailMessage = errors.err
+          return
+        }
+      } catch (error) {
+        if (error.response.status === 400) {
+          this.emailMessageClass = 'error-message'
+          this.emailMessage = error.response.data.message
+        } else {
+          this.emailMessageClass = 'error-message'
+          this.emailMessage = errors.err
           // console.log(error)
         }
       }

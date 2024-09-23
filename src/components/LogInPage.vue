@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <form class="login-form" @submit.prevent="handleLogin">
-      <input type="text" placeholder="Nome de usuário" v-model="username" />
+      <input type="text" placeholder="E-mail ou Nome de usuário" v-model="userEntry" />
       <input type="password" placeholder="Senha" autocomplete="off" v-model="password" />
       <button type="submit" class="confirm-btn">Log In</button>
       <div class="register-req">
@@ -24,7 +24,7 @@ export default {
   name: 'LogInPage',
   data() {
     return {
-      username: '',
+      userEntry: '',
       password: '',
       loginMessage: ''
     }
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     async handleLogin() {
-      if (this.username === '' || this.password === '') {
+      if (this.userEntry === '' || this.password === '') {
         this.loginMessage = 'Preencha todos os campos.'
         return
       }
@@ -42,7 +42,7 @@ export default {
         const res = await axios.post(
           'http://localhost:3000/api/login',
           {
-            username: this.username,
+            userEntry: this.userEntry,
             password: this.password
           },
           {
