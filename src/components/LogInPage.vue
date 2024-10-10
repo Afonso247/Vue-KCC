@@ -11,6 +11,13 @@
           ></span
         >
       </div>
+      <div class="pwd-req">
+        <span>
+          <router-link class="pwd-link" :to="{ name: 'forgotpwd' }">
+            Esqueci minha senha
+          </router-link>
+        </span>
+      </div>
       <p v-show="loginMessage" class="error-message">{{ loginMessage }}</p>
     </form>
   </div>
@@ -102,6 +109,20 @@ export default {
   transition: 0.2s;
 }
 .register-link:hover {
+  color: #fff;
+}
+.pwd-req,
+.pwd-link {
+  font-size: 16px;
+  text-align: center;
+  margin: 6px 8px;
+}
+.pwd-link {
+  color: #5eb1bf;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.pwd-link:hover {
   color: #fff;
 }
 input {
