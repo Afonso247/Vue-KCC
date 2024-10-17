@@ -4,7 +4,10 @@ Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace",
 
 ## Notas de Atualização
 
-`v1.1.0` *
+`v1.2.0` *
+- Implementado uma feature de recuperação de senha do usuário
+
+`v1.1.0`
 - Usuários podem agora inserir e-mail em seu cadastro
 
 `v1.0.1`
@@ -103,7 +106,7 @@ A aplicação oferece as seguintes funcionalidades principais:
 
 - **Layout da Aplicação**: Design intuitivo e responsivo para facilitar a navegação e usabilidade.
 - **Navegação**: Sistema de rotas que permite a transição fluida entre diferentes páginas.
-- **Autenticação de Usuário**: Sistema de login e autenticação seguro para usuários.
+- **Autenticação de Usuário**: Sistema de login e autenticação seguro para usuários, incluindo uma feature de recuperação de senha.
 - **Configuração de Usuário**: Opção de personalizar configurações pessoais.
 - **Chat entre Usuário e a IA**: Funcionalidade de chat interativo, permitindo a comunicação entre o usuário e a KokomAI.
 
