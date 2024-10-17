@@ -13,6 +13,11 @@
       <p v-show="errMessage" class="error-message">{{ errMessage }}</p>
     </form>
     <form v-else class="forgot-form" @submit.prevent="handleResetPwd">
+      <div class="forgot-req">
+        <span>
+          Um novo token foi enviado para o e-mail <p>{{ userEntry }}</p>
+        </span>
+      </div>
       <input type="text" placeholder="Insira o token gerado" v-model="tokenEntry" />
       <input type="password" placeholder="Insira sua nova senha" autocomplete="off" v-model="password" />
       <input type="password" placeholder="Confirme a nova senha" autocomplete="off" v-model="confirmPassword" />
@@ -144,6 +149,9 @@ export default {
   font-size: 16px;
   text-align: center;
   margin: 6px 8px;
+}
+.forgot-req p {
+  color: #485696;
 }
 .forgot-link {
   color: #5eb1bf;
