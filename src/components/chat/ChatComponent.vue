@@ -335,7 +335,7 @@ export default {
   margin: 0 auto;
   justify-content: flex-start;
   height: calc(100vh - 100px);
-  border: 3px solid #333333;
+  border: 3px solid #d3c8f1;
   border-radius: 10px;
   padding: 10px;
   position: relative;
@@ -361,12 +361,12 @@ export default {
   font-size: 18px;
 }
 .no-chat-message a {
-  color: #5eb1bf;
+  color: #4fa3d1;
   text-decoration: none;
   white-space: nowrap;
 }
 .no-chat-message a:hover {
-  color: #f08cae;
+  color: #356b9a;
   transition: color 0.2s;
 }
 .menu-button {

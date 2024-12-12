@@ -85,9 +85,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: #222;
-  border: none;
-  border: 1px solid #444;
+  background-color: #b8e1ff;
   border-radius: 5px;
 }
 .messages {
@@ -96,7 +94,9 @@ export default {
   flex-direction: column;
   overflow-y: auto;
   margin-bottom: 10px;
-  background-color: #222;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #ffffff;
   position: relative;
 }
 .no-messages {
@@ -116,6 +116,7 @@ export default {
 .message {
   display: flex;
   align-items: flex-start;
+  color: #333333;
   padding: 5px 10px;
   margin-bottom: 20px;
   border-radius: 5px;
@@ -133,7 +134,7 @@ export default {
   background-color: transparent;
 }
 .message.user {
-  background-color: #b8daff;
+  background-color: #b8e1ff;
   align-self: flex-end;
   text-align: right;
   width: 90%;
@@ -144,8 +145,7 @@ export default {
   margin-left: 10px;
 }
 .message.assistant {
-  background-color: #e07b99;
-  color: #fff;
+  background-color: #d9cff5;
   align-self: flex-start;
   width: 90%;
 }
@@ -153,18 +153,22 @@ export default {
   display: flex;
   width: 90%;
   padding: 0 10px;
-  background-color: #222;
+  background-color: transparent;
 }
 .input-container input {
   width: 100%;
   padding: 10px;
+  border-radius: 5px;
   text-overflow: ellipsis;
+  background-color: #fff;
+  color: #5a6472;
   overflow: hidden;
 }
 .input-container button {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
+  border-radius: 5px;
 }
 .input-container button:disabled {
   cursor: not-allowed;
