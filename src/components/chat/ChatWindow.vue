@@ -106,9 +106,9 @@ export default {
   font-weight: bold;
   text-align: center;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   @media (max-width: 600px) {
     font-size: 20px;
   }

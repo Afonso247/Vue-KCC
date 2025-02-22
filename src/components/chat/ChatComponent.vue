@@ -394,6 +394,8 @@ export default {
 
 .modal-input {
   width: 100%;
+  background-color: #fff;
+  color: #5a6472;
 }
 .modal-message {
   display: flex;

@@ -69,6 +69,7 @@ export default {
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
+  border: 3px solid #d3c8f1;
 }
 
 .modal-header {
@@ -76,23 +77,23 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background-color: #333;
-  border-bottom: 1px solid #e7e7e7;
+  background-color: #d9cff5;
+  border-bottom: 2px solid #e7e7e7;
 }
 
 .modal-header h3 {
   background-color: transparent;
-  color: #fff;
+  color: #f08cae;
   margin: 0 auto;
   font-size: 1.25rem;
 }
 
 .modal-header .close-button {
   background-color: transparent;
-  color: #fff;
+  color: #5a6472;
 }
 .modal-header .close-button:hover {
-  color: #f08cae;
+  color: #e74c3c;
   transition: color 0.2s;
 }
 
@@ -111,14 +112,14 @@ export default {
 }
 
 .modal-body {
-  background-color: #333;
+  background-color: #d9cff5;
   padding: 20px;
 }
 
 .modal-footer {
   padding: 15px 20px;
-  background-color: #333;
-  border-top: 1px solid #e7e7e7;
+  background-color: #d9cff5;
+  border-top: 2px solid #e7e7e7;
   text-align: right;
 }
 

@@ -41,12 +41,12 @@ h1 {
 }
 .footer a {
   background-color: transparent;
-  color: #4fa3d1;
+  color: #356b9a;
   text-decoration: none;
   transition: 0.2s;
 }
 .footer a:hover {
-  color: #356b9a;
+  color: #4fa3d1;
 }
 
 .fade-enter-active,
@@ -83,7 +83,7 @@ label {
   margin-bottom: 15px;
   color: #485696;
   padding: 5px 10px;
-  border-left: 4px solid #f08cae;
+  border-left: 4px solid #d3c8f1;
 }
 input,
 select {
@@ -127,8 +127,7 @@ select {
   transition: 0.2s;
 }
 .cancel-btn:hover {
-  background-color: #fff;
-  color: #e74c3c;
+  background-color: #b83c2f;
 }
 
 @media screen and (max-width: 768px) {

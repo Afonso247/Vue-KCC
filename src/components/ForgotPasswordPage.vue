@@ -134,7 +134,7 @@ export default {
   text-align: center;
 }
 .forgot-form {
-  border: 3px solid #333333;
+  border: 3px solid #d3c8f1;
   border-radius: 10px;
   width: 500px;
   margin: 0 auto;
@@ -165,6 +165,8 @@ input {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  background-color: #fff;
+  color: #5a6472;
 }
 input,
 button {
