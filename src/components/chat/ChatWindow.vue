@@ -11,9 +11,7 @@
           :alt="message.role === 'user' ? 'User Avatar' : 'Kokomai Avatar'"
           class="avatar"
         />
-        <div class="message-content">
-          {{ message.content }}
-        </div>
+        <div class="message-content" v-html="formatMessage(message.content)"></div>
       </div>
       <div class="no-messages" v-if="messages.length === 0">Como você se sente hoje?</div>
       <div v-if="isLoading" class="loading-indicator">
@@ -51,6 +49,11 @@ export default {
     }
   },
   methods: {
+    formatMessage(text) {
+      return text.replace(
+        /\*\*(.*?)\*\*/g, '<span style="background-color: #d9cff5; font-weight: bold; color: #5a6472;">$1</span>'
+      );
+    },
     sendMessage() {
       if (!this.newMessage || this.isSending) {
         return
