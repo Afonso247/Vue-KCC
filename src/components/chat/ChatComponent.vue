@@ -146,6 +146,13 @@ export default {
         await this.updateChats()
         // Seleciona o novo chat criado
         this.selectChat(response.data.chat._id)
+        setTimeout(async () => {
+          if (this.$refs.chatWindow) {
+            await this.botReply('', response.data.chat)
+          } else {
+            console.error('Chat não encontrado')
+          }
+        }, 100)
         this.errorMsg = ''
       } catch (error) {
         if (error.response.status === 400) {
@@ -226,12 +233,17 @@ export default {
         }
 
         await this.updateChats()
-        this.$refs.chatWindow.stopLoading()
-        this.$refs.chatWindow.scrollToBottom()
-        this.$refs.chatWindow.enableInput()
+        
+        if (this.$refs.chatWindow) {
+          this.$refs.chatWindow.stopLoading()
+          this.$refs.chatWindow.scrollToBottom()
+          this.$refs.chatWindow.enableInput()
+        }
 
       } catch (error) {
-        this.$refs.chatWindow.stopLoading()
+        if (this.$refs.chatWindow) {
+          this.$refs.chatWindow.stopLoading()
+        }
         this.errorMsg = 'Erro ao enviar mensagem'
         console.error(error)
       }
@@ -240,14 +252,16 @@ export default {
     async updatePartialResponse(chatId, partialResponse) {
       const chat = this.chats.find((c) => c._id === chatId)
       if (chat) {
-        if (chat.messages[chat.messages.length - 1].role === 'assistant') {
+        if (chat.messages && chat.messages.length > 0 && chat.messages[chat.messages.length - 1].role === 'assistant') {
           chat.messages[chat.messages.length - 1].content = partialResponse
         } else {
           chat.messages.push({ role: 'assistant', content: partialResponse })
         }
 
         await this.updateChats()
-        this.$refs.chatWindow.scrollToBottom()
+        if (this.$refs.chatWindow) {
+          this.$refs.chatWindow.scrollToBottom()
+        }
       }
     },
     toggleSidebar() {

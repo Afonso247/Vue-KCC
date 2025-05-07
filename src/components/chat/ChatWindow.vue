@@ -13,7 +13,7 @@
         />
         <div class="message-content" v-html="formatMessage(message.content)"></div>
       </div>
-      <div class="no-messages" v-if="messages.length === 0">Como você se sente hoje?</div>
+      <div class="no-messages" v-if="messages.length === 0">Por favor aguarde...</div>
       <div v-if="isLoading" class="loading-indicator">
         <div class="dot"></div>
         <div class="dot"></div>
