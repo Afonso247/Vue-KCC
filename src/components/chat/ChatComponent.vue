@@ -146,8 +146,11 @@ export default {
         await this.updateChats()
         // Seleciona o novo chat criado
         this.selectChat(response.data.chat._id)
+        
+        // Primeira resposta do chatbot
         setTimeout(async () => {
           if (this.$refs.chatWindow) {
+            this.$refs.chatWindow.disableInput()
             await this.botReply('', response.data.chat)
           } else {
             console.error('Chat não encontrado')

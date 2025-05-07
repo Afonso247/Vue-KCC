@@ -68,6 +68,9 @@ export default {
         messages.scrollTop = messages.scrollHeight
       })
     },
+    disableInput() {
+      this.isSending = true
+    },
     enableInput() {
       this.isSending = false
     },
