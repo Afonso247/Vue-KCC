@@ -226,8 +226,20 @@ export default {
 
               try {
                 const parsedData = JSON.parse(jsonData)
-                accumulatedResponse += parsedData
-                await this.updatePartialResponse(currentChat._id, accumulatedResponse)
+
+                // Verifica se o dado recebido é uma identificação de tema
+                if (parsedData.tipo === 'tema_identificado') {
+                  // Atualiza o chat com o tema identificado
+                  await this.renameChat(currentChat._id, parsedData.tema);
+                  continue;
+                }
+
+                // Se for uma mensagem normal
+                if (parsedData.tipo === 'mensagem' || !parsedData.tipo) {
+                  const conteudo = parsedData.tipo === 'mensagem' ? parsedData.conteudo : parsedData;
+                  accumulatedResponse += conteudo;
+                  await this.updatePartialResponse(currentChat._id, accumulatedResponse);
+                }
               } catch (e) {
                 console.error('Erro ao analisar JSON:', e)
               }
