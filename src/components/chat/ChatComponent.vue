@@ -24,6 +24,7 @@
       v-if="activeChat"
       ref="chatWindow"
       :messages="activeChat.messages"
+      :isLoading="isLoading"
       @send-message="sendMessage"
       :class="{ 'full-width': !isSidebarOpen }"
     />
@@ -79,6 +80,7 @@ export default {
       chats: [],
       activeChatId: null,
       isSidebarOpen: true,
+      isLoading: false,
       errorMsg: '',
       errorMsgTimeout: null,
       renameModalId: '',
@@ -196,7 +198,11 @@ export default {
 
       // Inicia a animação do data streaming da KokomAI
       try {
-        this.$refs.chatWindow.startLoading()
+        this.isLoading = true
+        this.$refs.chatWindow.scrollToBottom()
+
+        await this.$nextTick()
+
         const response = await fetch(`http://localhost:3000/ai/send-message/${currentChat._id}`, {
           method: 'POST',
           headers: {
@@ -209,6 +215,8 @@ export default {
         const reader = response.body.getReader()
         const decoder = new TextDecoder()
         let accumulatedResponse = ''
+
+        this.isLoading = false
 
         // eslint-disable-next-line no-constant-condition
         while (true) {
@@ -248,22 +256,21 @@ export default {
         }
 
         await this.updateChats()
-        
-        if (this.$refs.chatWindow) {
-          this.$refs.chatWindow.stopLoading()
-          this.$refs.chatWindow.scrollToBottom()
-          this.$refs.chatWindow.enableInput()
-        }
 
       } catch (error) {
         if (this.$refs.chatWindow) {
-          this.$refs.chatWindow.stopLoading()
+          this.isLoading = false
         }
         this.errorMsg = 'Erro ao enviar mensagem'
         console.error(error)
+      } finally {
+        if (this.$refs.chatWindow) {
+          this.$refs.chatWindow.scrollToBottom()
+          this.$refs.chatWindow.enableInput()
+        }
       }
     },
-    // Atualiza de forma parcial a resposta da KokomAI
+    // Atualiza de forma parcial a resposta do Chatbot
     async updatePartialResponse(chatId, partialResponse) {
       const chat = this.chats.find((c) => c._id === chatId)
       if (chat) {
