@@ -55,9 +55,22 @@ export default {
   },
   methods: {
     formatMessage(text) {
-      return text.replace(
-        /\*\*(.*?)\*\*/g, '<span style="background-color: #d9cff5; font-weight: bold; color: #5a6472;">$1</span>'
+      // Substitui quebras de linha por <br>
+      let formatted = text.replace(/\n/g, '<br>');
+      
+      // Formata texto entre ** ** (negrito com fundo)
+      formatted = formatted.replace(
+        /\*\*(.*?)\*\*/g, 
+        '<span style="background-color: #d9cff5; font-weight: bold; color: #5a6472;">$1</span>'
       );
+      
+      // Formata texto entre " " (destaque)
+      formatted = formatted.replace(
+        /"([^"]*)"/g, 
+        '<span class="quote-highlight">$1</span>'
+      );
+      
+      return formatted;
     },
     sendMessage() {
       if (!this.newMessage || this.isSending) {
@@ -136,6 +149,13 @@ export default {
   flex: 1;
   margin-top: 0.2rem;
   background-color: transparent;
+}
+.message-content :deep(.quote-highlight) {
+  background-color: transparent;
+  font-style: italic;
+  /* padding: 2px 4px;
+  border-radius: 3px;
+  border-left: 3px solid #8a4fff; */
 }
 .message.user {
   background-color: #b8e1ff;
