@@ -4,7 +4,11 @@ Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace",
 
 ## Notas de Atualização
 
-`v1.2.0` *
+`v1.3.0` *
+- Implementado diversos incrementos e correções de design
+- Indicador de loading para a geração da mensagem da Chatbot
+
+`v1.2.0`
 - Implementado uma feature de recuperação de senha do usuário
 
 `v1.1.0`
