@@ -47,9 +47,6 @@ export default {
 </script>
 
 <style scoped>
-* {
-  background-color: #111;
-}
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -60,17 +57,17 @@ export default {
   align-items: center;
 }
 .container h2 {
-  color: #485696;
+  color: #5a6472;
   text-align: center;
   margin: 6px auto;
 }
 .links {
-  color: #5eb1bf;
+  color: #4fa3d1;
   text-decoration: none;
   transition: 0.2s;
 }
 .links:hover {
-  color: #fff;
+  color: #356b9a;
 }
 
 @media screen and (max-width: 768px) {

@@ -78,15 +78,15 @@ export default {
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: #222;
-  border-bottom: 4px solid #111;
+  background-color: #d9cff5;
+  border-bottom: 4px solid #d3c8f1;
   padding: 15px 50px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 .nav-content {
-  background-color: #222;
+  background-color: transparent;
 }
 .icon {
   width: 16px;
@@ -101,7 +101,8 @@ export default {
   transition: 0.2s;
 }
 .logo {
-  background-color: #222;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
   width: 40px;
   height: 40px;
 }
@@ -109,14 +110,14 @@ export default {
   transform: scale(1.25);
 }
 .nav a {
-  background-color: #222;
-  color: #f08cae;
+  background-color: transparent;
+  color: #356b9a;
   text-decoration: none;
   margin: 12px;
   transition: 0.2s;
 }
 .nav a:hover {
-  color: #fff;
+  color: #4fa3d1;
 }
 @media (max-width: 420px) {
   .nav-content {

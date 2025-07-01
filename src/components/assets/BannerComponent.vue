@@ -50,7 +50,7 @@ export default {
   color: #fff;
   text-align: center;
   -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #485696;
+  -webkit-text-stroke-color: #c6b6f0;
   font-size: 60px;
   background-color: transparent;
   padding: 20px 40px;

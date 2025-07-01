@@ -11,15 +11,18 @@
           :alt="message.role === 'user' ? 'User Avatar' : 'Kokomai Avatar'"
           class="avatar"
         />
-        <div class="message-content">
-          {{ message.content }}
-        </div>
+        <div class="message-content" v-html="formatMessage(message.content)"></div>
       </div>
-      <div class="no-messages" v-if="messages.length === 0">Como você se sente hoje?</div>
-      <div v-if="isLoading" class="loading-indicator">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+      <div class="no-messages" v-if="messages.length === 0">Por favor aguarde...</div>
+      
+      <!-- Indicador de digitação com fade -->
+      <div v-if="isLoading" class="typing-indicator">
+        <img
+          src="/img/chatimg/user-kokomi.png"
+          alt="Ana Avatar"
+          class="avatar"
+        />
+        <div class="typing-message">Ana está digitando...</div>
       </div>
     </div>
     <div class="input-container">
@@ -39,18 +42,23 @@
 export default {
   name: 'ChatWindow',
   props: {
-    messages: Array
+    messages: Array,
+    isLoading: Boolean
   },
   data() {
     return {
       newMessage: '',
       isSending: false,
-      isLoading: false,
       revealedText: '',
       isRevealed: false
     }
   },
   methods: {
+    formatMessage(text) {
+      return text.replace(
+        /\*\*(.*?)\*\*/g, '<span style="background-color: #d9cff5; font-weight: bold; color: #5a6472;">$1</span>'
+      );
+    },
     sendMessage() {
       if (!this.newMessage || this.isSending) {
         return
@@ -65,15 +73,11 @@ export default {
         messages.scrollTop = messages.scrollHeight
       })
     },
+    disableInput() {
+      this.isSending = true
+    },
     enableInput() {
       this.isSending = false
-    },
-    startLoading() {
-      this.isLoading = true
-      this.scrollToBottom()
-    },
-    stopLoading() {
-      this.isLoading = false
     }
   }
 }
@@ -85,9 +89,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: #222;
-  border: none;
-  border: 1px solid #444;
+  background-color: #b8e1ff;
   border-radius: 5px;
 }
 .messages {
@@ -96,7 +98,9 @@ export default {
   flex-direction: column;
   overflow-y: auto;
   margin-bottom: 10px;
-  background-color: #222;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #ffffff;
   position: relative;
 }
 .no-messages {
@@ -106,9 +110,9 @@ export default {
   font-weight: bold;
   text-align: center;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   @media (max-width: 600px) {
     font-size: 20px;
   }
@@ -116,6 +120,7 @@ export default {
 .message {
   display: flex;
   align-items: flex-start;
+  color: #333333;
   padding: 5px 10px;
   margin-bottom: 20px;
   border-radius: 5px;
@@ -133,7 +138,7 @@ export default {
   background-color: transparent;
 }
 .message.user {
-  background-color: #b8daff;
+  background-color: #b8e1ff;
   align-self: flex-end;
   text-align: right;
   width: 90%;
@@ -144,8 +149,7 @@ export default {
   margin-left: 10px;
 }
 .message.assistant {
-  background-color: #e07b99;
-  color: #fff;
+  background-color: #d9cff5;
   align-self: flex-start;
   width: 90%;
 }
@@ -153,18 +157,22 @@ export default {
   display: flex;
   width: 90%;
   padding: 0 10px;
-  background-color: #222;
+  background-color: transparent;
 }
 .input-container input {
   width: 100%;
   padding: 10px;
+  border-radius: 5px;
   text-overflow: ellipsis;
+  background-color: #fff;
+  color: #5a6472;
   overflow: hidden;
 }
 .input-container button {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
+  border-radius: 5px;
 }
 .input-container button:disabled {
   cursor: not-allowed;
@@ -174,43 +182,62 @@ export default {
   margin: 0 auto;
 }
 
-.loading-indicator {
+/* Indicador de digitação */
+.typing-indicator {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-  background-color: transparent;
-}
-.loading-message {
-  color: #f08cae;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  background-color: transparent;
-}
-.dot {
-  width: 8px;
-  height: 8px;
-  background-color: #fff;
-  border-radius: 50%;
-  margin: 0 3px;
-  animation: bounce 1.4s infinite ease-in-out both;
-}
-.dot:nth-child(1) {
-  animation-delay: -0.32s;
-}
-.dot:nth-child(2) {
-  animation-delay: -0.16s;
+  align-items: flex-start;
+  background-color: #d9cff5;
+  color: #333333;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  align-self: flex-start;
+  width: 90%;
+  animation: fadeInOut 2s infinite ease-in-out;
 }
 
-@keyframes bounce {
-  0%,
-  80%,
-  100% {
-    transform: scale(0);
+.typing-indicator .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.typing-message {
+  flex: 1;
+  margin-top: 0.2rem;
+  background-color: transparent;
+  font-style: italic;
+  color: #5a6472;
+  font-weight: 500;
+}
+
+/* Animação de fade in/out */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.3;
   }
-  40% {
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* Animação alternativa mais suave */
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
     transform: scale(1);
   }
 }
+
+/* Se preferir a animação breathe, substitua a linha da animação por: */
+/* animation: breathe 2.5s infinite ease-in-out; */
 </style>

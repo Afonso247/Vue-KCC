@@ -94,8 +94,8 @@ export default {
   width: 22%;
   min-width: 230px;
   padding: 20px;
-  background-color: #333;
-  border: 1px solid #444;
+  background-color: #d9cff5;
+  border: 2px solid #d3c8f1;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -109,7 +109,7 @@ export default {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  background-color: #333;
+  background-color: transparent;
 }
 
 .chat-sidebar li {
@@ -121,16 +121,16 @@ export default {
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 10px;
-  background-color: #485696;
+  background-color: #b8e1ff;
   transition: background-color 0.2s;
 }
 
 .chat-sidebar li.active {
-  background-color: #cce5ff;
+  background-color: #c6b6f0;
 }
 
 .chat-sidebar li:hover {
-  background-color: #f08cae;
+  background-color: #7ea8d1;
 }
 
 .chat-sidebar p {

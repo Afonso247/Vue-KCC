@@ -24,6 +24,7 @@
       v-if="activeChat"
       ref="chatWindow"
       :messages="activeChat.messages"
+      :isLoading="isLoading"
       @send-message="sendMessage"
       :class="{ 'full-width': !isSidebarOpen }"
     />
@@ -79,6 +80,7 @@ export default {
       chats: [],
       activeChatId: null,
       isSidebarOpen: true,
+      isLoading: false,
       errorMsg: '',
       errorMsgTimeout: null,
       renameModalId: '',
@@ -146,6 +148,16 @@ export default {
         await this.updateChats()
         // Seleciona o novo chat criado
         this.selectChat(response.data.chat._id)
+        
+        // Primeira resposta do chatbot
+        setTimeout(async () => {
+          if (this.$refs.chatWindow) {
+            this.$refs.chatWindow.disableInput()
+            await this.botReply('', response.data.chat)
+          } else {
+            console.error('Chat não encontrado')
+          }
+        }, 100)
         this.errorMsg = ''
       } catch (error) {
         if (error.response.status === 400) {
@@ -186,7 +198,11 @@ export default {
 
       // Inicia a animação do data streaming da KokomAI
       try {
-        this.$refs.chatWindow.startLoading()
+        this.isLoading = true
+        this.$refs.chatWindow.scrollToBottom()
+
+        await this.$nextTick()
+
         const response = await fetch(`http://localhost:3000/ai/send-message/${currentChat._id}`, {
           method: 'POST',
           headers: {
@@ -199,6 +215,8 @@ export default {
         const reader = response.body.getReader()
         const decoder = new TextDecoder()
         let accumulatedResponse = ''
+
+        this.isLoading = false
 
         // eslint-disable-next-line no-constant-condition
         while (true) {
@@ -216,8 +234,20 @@ export default {
 
               try {
                 const parsedData = JSON.parse(jsonData)
-                accumulatedResponse += parsedData
-                await this.updatePartialResponse(currentChat._id, accumulatedResponse)
+
+                // Verifica se o dado recebido é uma identificação de tema
+                if (parsedData.tipo === 'tema_identificado') {
+                  // Atualiza o chat com o tema identificado
+                  await this.renameChat(currentChat._id, parsedData.tema);
+                  continue;
+                }
+
+                // Se for uma mensagem normal
+                if (parsedData.tipo === 'mensagem' || !parsedData.tipo) {
+                  const conteudo = parsedData.tipo === 'mensagem' ? parsedData.conteudo : parsedData;
+                  accumulatedResponse += conteudo;
+                  await this.updatePartialResponse(currentChat._id, accumulatedResponse);
+                }
               } catch (e) {
                 console.error('Erro ao analisar JSON:', e)
               }
@@ -226,28 +256,34 @@ export default {
         }
 
         await this.updateChats()
-        this.$refs.chatWindow.stopLoading()
-        this.$refs.chatWindow.scrollToBottom()
-        this.$refs.chatWindow.enableInput()
 
       } catch (error) {
-        this.$refs.chatWindow.stopLoading()
+        if (this.$refs.chatWindow) {
+          this.isLoading = false
+        }
         this.errorMsg = 'Erro ao enviar mensagem'
         console.error(error)
+      } finally {
+        if (this.$refs.chatWindow) {
+          this.$refs.chatWindow.scrollToBottom()
+          this.$refs.chatWindow.enableInput()
+        }
       }
     },
-    // Atualiza de forma parcial a resposta da KokomAI
+    // Atualiza de forma parcial a resposta do Chatbot
     async updatePartialResponse(chatId, partialResponse) {
       const chat = this.chats.find((c) => c._id === chatId)
       if (chat) {
-        if (chat.messages[chat.messages.length - 1].role === 'assistant') {
+        if (chat.messages && chat.messages.length > 0 && chat.messages[chat.messages.length - 1].role === 'assistant') {
           chat.messages[chat.messages.length - 1].content = partialResponse
         } else {
           chat.messages.push({ role: 'assistant', content: partialResponse })
         }
 
         await this.updateChats()
-        this.$refs.chatWindow.scrollToBottom()
+        if (this.$refs.chatWindow) {
+          this.$refs.chatWindow.scrollToBottom()
+        }
       }
     },
     toggleSidebar() {
@@ -335,7 +371,7 @@ export default {
   margin: 0 auto;
   justify-content: flex-start;
   height: calc(100vh - 100px);
-  border: 3px solid #333333;
+  border: 3px solid #d3c8f1;
   border-radius: 10px;
   padding: 10px;
   position: relative;
@@ -361,12 +397,12 @@ export default {
   font-size: 18px;
 }
 .no-chat-message a {
-  color: #5eb1bf;
+  color: #4fa3d1;
   text-decoration: none;
   white-space: nowrap;
 }
 .no-chat-message a:hover {
-  color: #f08cae;
+  color: #356b9a;
   transition: color 0.2s;
 }
 .menu-button {
@@ -394,6 +430,8 @@ export default {
 
 .modal-input {
   width: 100%;
+  background-color: #fff;
+  color: #5a6472;
 }
 .modal-message {
   display: flex;

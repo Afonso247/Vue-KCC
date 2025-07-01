@@ -99,7 +99,7 @@ export default {
   text-align: center;
 }
 .register-form {
-  border: 3px solid #333333;
+  border: 3px solid #d3c8f1;
   border-radius: 10px;
   width: 500px;
   margin: 0 auto;
@@ -108,6 +108,10 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.register-form input {
+  background-color: #fff;
+  color: #5a6472;
 }
 .login-req,
 .login-link {

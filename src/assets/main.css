@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding: 2rem; */
 
-  background-color: #111;
+  background-color: #b8e1ff;
   font-family: 'Poppins', sans-serif;
   padding: 0;
   margin: 0;
@@ -19,15 +19,15 @@ h1 {
   text-align: center;
   font-size: 42px;
   margin-bottom: 30px;
-  color: #f08cae;
+  color: #ff99cc;
 }
 
 /* footer */
 .footer {
   height: 200px;
-  background-color: #222;
-  border-top: 4px solid #111;
-  color: #485696;
+  background-color: #d9cff5;
+  border-top: 4px solid #d3c8f1;
+  color: #444;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,16 +37,16 @@ h1 {
 .footer p,
 .footer span {
   margin: 5px auto;
-  background-color: #222;
+  background-color: transparent;
 }
 .footer a {
-  background-color: #222;
-  color: #5eb1bf;
+  background-color: transparent;
+  color: #356b9a;
   text-decoration: none;
   transition: 0.2s;
 }
 .footer a:hover {
-  color: #fff;
+  color: #4fa3d1;
 }
 
 .fade-enter-active,
@@ -83,7 +83,7 @@ label {
   margin-bottom: 15px;
   color: #485696;
   padding: 5px 10px;
-  border-left: 4px solid #f08cae;
+  border-left: 4px solid #d3c8f1;
 }
 input,
 select {
@@ -104,9 +104,9 @@ select {
   color: red; /* Define a cor desejada quando a mensagem é exibida */
 }
 .confirm-btn {
-  background-color: #485696;
+  background-color: #d9cff5;
   font-weight: bold;
-  color: #f08cae;
+  color: #5a6472;
   padding: 10px;
   font-size: 16px;
   margin: 0 auto;
@@ -114,8 +114,7 @@ select {
   transition: 0.2s;
 }
 .confirm-btn:hover {
-  background-color: #f08cae;
-  color: #485696;
+  background-color: #c6b6f0;
 }
 .cancel-btn {
   background-color: #e74c3c;
@@ -128,8 +127,7 @@ select {
   transition: 0.2s;
 }
 .cancel-btn:hover {
-  background-color: #fff;
-  color: #e74c3c;
+  background-color: #b83c2f;
 }
 
 @media screen and (max-width: 768px) {

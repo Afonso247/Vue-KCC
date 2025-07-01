@@ -13,8 +13,4 @@
   padding: 20px;
   text-align: center;
 }
-
-a {
-  color: #f08cae;
-}
 </style>

@@ -404,6 +404,8 @@ input {
   width: 100%;
   padding: 8px;
   font-size: 16px;
+  background-color: #fff;
+  color: #5a6472;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-overflow: ellipsis;
@@ -424,12 +426,12 @@ input {
 }
 
 .config-zone {
-  border-top: 2px solid #f08cae;
+  border-top: 3px solid #d9cff5;
   padding-top: 20px;
 }
 
 .danger-zone {
-  border-top: 2px solid #ff4d4d;
+  border-top: 3px solid #ff4d4d;
   padding-top: 20px;
 }
 .danger-zone .delete-btns {
