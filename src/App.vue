@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      logo_src: '/img/kokomi.png',
+      logo_src: '/img/ana-cuty.png',
       app_name: "Kokomi's Mindspace"
     }
   }

@@ -29,7 +29,7 @@ export default {
   computed: {
     bannerLayout() {
       return this.typeLayout === 'Desktop'
-        ? `url('/img/sangoDesktop.jpg')`
+        ? `url('/img/temp-back2.png')`
         : `url('/img/sangoMobile.jpg')`
     }
   }

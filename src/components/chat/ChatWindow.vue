@@ -6,9 +6,9 @@
           :src="
             message.role === 'user'
               ? '/img/chatimg/user-placeholder.png'
-              : '/img/chatimg/user-kokomi.png'
+              : '/img/chatimg/user-ana.png'
           "
-          :alt="message.role === 'user' ? 'User Avatar' : 'Kokomai Avatar'"
+          :alt="message.role === 'user' ? 'User Avatar' : 'Ana Avatar'"
           class="avatar"
         />
         <div class="message-content" v-html="formatMessage(message.content)"></div>
@@ -18,7 +18,7 @@
       <!-- Indicador de digitação com fade -->
       <div v-if="isLoading" class="typing-indicator">
         <img
-          src="/img/chatimg/user-kokomi.png"
+          src="/img/chatimg/user-ana.png"
           alt="Ana Avatar"
           class="avatar"
         />
