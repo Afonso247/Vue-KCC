@@ -1,11 +1,8 @@
 <template>
   <div :class="['main-banner', typeLayout]" :style="{ backgroundImage: bannerLayout }">
     <h1>Estou aqui para ajudar!</h1>
-    <!-- <span>Encontre apoio e suporte com a Kokomi, a IA dedicada a guiar você em cada passo da sua jornada para o bem-estar.</span> -->
-    <!-- <div>Conheça a Kokomi</div> -->
   </div>
 </template>
-
 <script>
 export default {
   name: 'BannerComponent',
@@ -29,23 +26,37 @@ export default {
   computed: {
     bannerLayout() {
       return this.typeLayout === 'Desktop'
-        ? `url('/img/temp-back2.png')`
-        : `url('/img/sangoMobile.jpg')`
+        ? `url('/img/ana-bg.png')`
+        : `url('/img/ana-bg-mobile.png')`
     }
   }
 }
 </script>
-
 <style scoped>
 .main-banner {
-  background-position: 0;
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
+  width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Estilos específicos para Desktop */
+.main-banner.Desktop {
+  background-attachment: fixed;
+}
+
+/* Estilos específicos para Mobile */
+.main-banner.Mobile {
+  background-attachment: scroll;
+  background-position: center top;
+}
+
 .main-banner h1 {
   color: #fff;
   text-align: center;
@@ -54,5 +65,43 @@ export default {
   font-size: 60px;
   background-color: transparent;
   padding: 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsividade para o texto */
+@media (max-width: 900px) {
+  .main-banner h1 {
+    font-size: 40px;
+    padding: 15px 20px;
+    -webkit-text-stroke-width: 1px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-banner h1 {
+    font-size: 28px;
+    padding: 10px 15px;
+  }
+}
+
+/* Garantir que o banner seja responsivo em todas as larguras */
+@media (min-width: 1200px) {
+  .main-banner {
+    background-size: cover;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 769px) {
+  .main-banner {
+    background-size: cover;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-banner {
+    background-size: cover;
+    background-position: center center;
+  }
 }
 </style>
