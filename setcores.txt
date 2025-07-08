@@ -3,8 +3,8 @@
 #333 - Pretitinho
 #485696 - Blue (Texto)
 #5eb1bf - Blue (Link)
-#f08cae - Kokomi Color (Gay)
-#e07b99 - Kokomi Text
+#f08cae - Ana Color (Gay)
+#e07b99 - Ana Text
 
 ----- Message color -----
 

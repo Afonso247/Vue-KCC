@@ -5,7 +5,7 @@
     <Chat ref="chat" />
   </div>
   <div v-else>
-    <h1>Seja bem-vindo(a) a Kokomi's Mindspace</h1>
+    <h1>Seja bem-vindo(a) a Ana's Mindspace</h1>
 
     <div class="container">
       <h2>

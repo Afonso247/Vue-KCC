@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       logo_src: '/img/cute_ana-removebg.png',
-      app_name: "Kokomi's Mindspace"
+      app_name: "Ana's Mindspace"
     }
   }
 }
