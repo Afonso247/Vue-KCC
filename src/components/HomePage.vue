@@ -1,11 +1,10 @@
 <template>
   <div v-if="isAuthenticated" @click="checkClose($event)">
     <div class="welcome-header">
-      <!-- <div class="mascot-container">
-        <img src="/img/ana-wink.png" alt="Ana Avatar" class="mascot" />
-      </div> -->
-      <h1>Olá, {{ getUsername }}! 👋</h1>
-      <!-- <p class="welcome-message">Que bom ter você de volta! Estou aqui para apoiar sua jornada de autoconhecimento.</p> -->
+      <div class="welcome-content">
+        <img :src="randomAnaImage" alt="Ana Avatar" class="mascot" />
+        <h1>{{ randomWelcomeMessage }}</h1>
+      </div>
     </div>
     <Chat ref="chat" />
   </div>
@@ -177,10 +176,37 @@ export default {
   components: {
     Chat
   },
+  data() {
+    return {
+      welcomeImages: [
+        '/img/ana-wink.png',
+        '/img/ana-smiley.png',
+        '/img/ana-happy.png'
+      ],
+    } 
+  },
   computed: {
     ...mapGetters('auth', ['isAuthenticated', 'user']),
     getUsername() {
       return this.isAuthenticated ? this.user.username : ''
+    },
+    randomAnaImage() {
+      const index = Math.floor(Math.random() * this.welcomeImages.length);
+      return this.welcomeImages[index];
+    },
+    randomWelcomeMessage() {
+      const messages = [
+        `Olá, ${this.getUsername}! 👋 Que bom ter você aqui!`,
+        `Bem-vindo, ${this.getUsername}! 😊`,
+        `Oi, ${this.getUsername}! Como você está se sentindo hoje? 🌟`,
+        `É um prazer em te ver, ${this.getUsername}! ❤️`,
+        `${this.getUsername}, estou aqui para te apoiar! 🤗`,
+        `Olá, ${this.getUsername}! Vamos explorar juntos? 🌱`,
+        `Que alegria ter você aqui, ${this.getUsername}! ✨`,
+        `Oi, ${this.getUsername}! Pronto para nossa conversa? 💭`
+      ]
+      
+      return messages[Math.floor(Math.random() * messages.length)]
     }
   },
   methods: {
@@ -531,17 +557,49 @@ export default {
   line-height: 1.5;
 }
 
-/* Welcome Header (for authenticated users) */
+/* Welcome Header (for authenticated users) - MODIFICAÇÕES AQUI */
 .welcome-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
-  padding: 1rem;
+  padding: 2rem;
   text-align: center;
 }
 
-.welcome-header h1 {
+.welcome-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.welcome-content .mascot-container {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.welcome-content .mascot {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: none;
+}
+
+.welcome-content h1 {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
-  border-radius: 32px;
+  margin: 0;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  flex: 1;
+  text-align: left;
 }
 
 .welcome-message {
@@ -584,6 +642,17 @@ export default {
     width: 100%;
     max-width: 300px;
   }
+  
+  /* Welcome Header Responsive */
+  .welcome-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .welcome-content h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -611,6 +680,15 @@ export default {
   .mascot.large {
     width: 150px;
     height: 150px;
+  }
+  
+  .welcome-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .welcome-content .mascot {
+    width: 100px;
+    height: 100px;
   }
 }
 </style>
