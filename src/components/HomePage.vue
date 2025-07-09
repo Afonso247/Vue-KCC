@@ -78,16 +78,8 @@
     <section class="about-ana">
       <div class="container">
         <div class="about-content">
-          <div class="ana-avatar">
-            <div class="mascot large">
-              <div class="mascot-face">
-                <div class="eyes">
-                  <div class="eye left"></div>
-                  <div class="eye right"></div>
-                </div>
-                <div class="smile"></div>
-              </div>
-            </div>
+          <div class="mascot-container">
+            <img src="/img/ana-smiley.png" alt="Ana Avatar" class="mascot" />
           </div>
           
           <div class="about-text">
@@ -149,15 +141,7 @@
       <div class="container">
         <div class="cta-content">
           <div class="mascot-container">
-            <div class="mascot">
-              <div class="mascot-face">
-                <div class="eyes">
-                  <div class="eye left"></div>
-                  <div class="eye right"></div>
-                </div>
-                <div class="smile"></div>
-              </div>
-            </div>
+            <img src="/img/ana-happy.png" alt="Ana Avatar" class="mascot" />
             <div class="speech-bubble">
               <p>Vamos explorar juntos? 🌟</p>
             </div>
@@ -537,7 +521,6 @@ export default {
 
 .cta-content p {
   font-size: 1.2rem;
-  margin-bottom: 2rem;
   opacity: 0.9;
 }
 
