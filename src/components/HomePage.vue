@@ -1,19 +1,11 @@
 <template>
   <div v-if="isAuthenticated" @click="checkClose($event)">
     <div class="welcome-header">
-      <div class="mascot-container">
-        <div class="mascot">
-          <div class="mascot-face">
-            <div class="eyes">
-              <div class="eye left"></div>
-              <div class="eye right"></div>
-            </div>
-            <div class="smile"></div>
-          </div>
-        </div>
-      </div>
+      <!-- <div class="mascot-container">
+        <img src="/img/ana-wink.png" alt="Ana Avatar" class="mascot" />
+      </div> -->
       <h1>Olá, {{ getUsername }}! 👋</h1>
-      <p class="welcome-message">Que bom ter você de volta! Estou aqui para apoiar sua jornada de autoconhecimento.</p>
+      <!-- <p class="welcome-message">Que bom ter você de volta! Estou aqui para apoiar sua jornada de autoconhecimento.</p> -->
     </div>
     <Chat ref="chat" />
   </div>
@@ -278,6 +270,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
+  background: transparent;
 }
 
 .mascot {
@@ -557,16 +550,15 @@ export default {
 
 /* Welcome Header (for authenticated users) */
 .welcome-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
-  margin-bottom: 2rem;
 }
 
 .welcome-header h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  border-radius: 32px;
 }
 
 .welcome-message {
