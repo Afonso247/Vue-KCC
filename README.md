@@ -1,6 +1,6 @@
 # Vue-KCC
 
-Esta aplicação front-end faz parte de um projeto chamado "Kokomi's Mindspace", em que a KokomAI, a inteligência artificial principal do projeto, atende usuários e fornece assistência terapeutica para quem precisa.
+Esta aplicação front-end faz parte de um projeto chamado "Ana's Mindspace", em que a Ana, a inteligência artificial principal do projeto, atende usuários e fornece assistência terapeutica para quem precisa.
 
 ## Notas de Atualização
 
@@ -112,7 +112,7 @@ A aplicação oferece as seguintes funcionalidades principais:
 - **Navegação**: Sistema de rotas que permite a transição fluida entre diferentes páginas.
 - **Autenticação de Usuário**: Sistema de login e autenticação seguro para usuários, incluindo uma feature de recuperação de senha.
 - **Configuração de Usuário**: Opção de personalizar configurações pessoais.
-- **Chat entre Usuário e a IA**: Funcionalidade de chat interativo, permitindo a comunicação entre o usuário e a KokomAI.
+- **Chat entre Usuário e a IA**: Funcionalidade de chat interativo, permitindo a comunicação entre o usuário e a Ana.
 
 ## Contato
 
