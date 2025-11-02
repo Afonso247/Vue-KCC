@@ -2,7 +2,7 @@
 
 Esta aplicação front-end faz parte de um projeto chamado "Ana's Mindspace", em que a Ana, a inteligência artificial principal do projeto, atende usuários e fornece assistência terapeutica para quem precisa.
 
-Aproveite e dê uma olhada no backend da aplicação [Clicando aqui](https://github.com/Afonso247/KCC-api)
+### Aproveite e dê uma olhada no backend da aplicação [clicando aqui](https://github.com/Afonso247/KCC-api)
 
 ## Notas de Atualização
 
